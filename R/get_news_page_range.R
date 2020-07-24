@@ -19,7 +19,7 @@ get_news_page_range <- function(country = NULL, query = NULL){
                                     stringr::str_replace_all(query, " ", "%20"),
                                     "&f=countryiso(",
                                     country, ")", "&num=100"),
-                       add_headers(Authorization = janes_key))
+                       httr::add_headers(Authorization = janes_key))
   response <- httr::content(request, as = "text", encoding = "UTF-8")
   range_temp <- ceiling(jsonlite::fromJSON(response)[["metadata"]][["recordCount"]] / 100)
   seq(1:range_temp)
