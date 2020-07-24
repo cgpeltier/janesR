@@ -12,7 +12,6 @@
 #' @importFrom xml2 xml_children
 #' @importFrom xml2 xml_find_all
 #' @importFrom xml2 xml_text
-#' @export
 
 
 

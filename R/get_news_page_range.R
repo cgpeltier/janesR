@@ -14,8 +14,7 @@
 #' @export jsonlite fromJSON
 #' @importFrom stringr str_replace_all
 #' @export stringr str_replace_all
-#' @export
-
+#' @export get_news_page_range
 
 
 get_news_page_range <- function(country = NULL, query = NULL){
