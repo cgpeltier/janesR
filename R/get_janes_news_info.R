@@ -17,7 +17,7 @@
 #' @export
 
 get_janes_news_info <- function(country = NULL, query = NULL, x){
-  httr::request <- GET(url = paste0("https://developer.janes.com/api/v1/news?q=",
+  request <- httr::GET(url = paste0("https://developer.janes.com/api/v1/news?q=",
                                     stringr::str_replace_all(query, " ", "%20"),
                                     "&f=countryiso(",
                                     country, ")", "&num=100",
@@ -26,6 +26,4 @@ get_janes_news_info <- function(country = NULL, query = NULL, x){
   response <- httr::content(request, as = "text", encoding = "UTF-8")
   jsonlite::fromJSON(response)[["results"]]
 }
-
-
 #' @export
