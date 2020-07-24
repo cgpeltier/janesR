@@ -1,4 +1,15 @@
 # janesR
 
-janesR is a wrapper for the Janes API. Documentation for the API can be found at the [Janes Developer site](https://developer.janes.com/). 
+janesR is a wrapper for the Janes API that allows Janes users to easily pull data from the API into tibbles in R. Documentation for the API can be found at the [Janes Developer site](https://developer.janes.com/). 
 
+The package currently supports the following API endpoints:
+
+* Airports
+* Bases
+* Defence Programs
+* Equipment
+* Inventory
+* Orbats
+* News
+
+Functions for the other API endpoints will be added shortly. Additional options for more customized API calls will also be added to existing janesR functions.
