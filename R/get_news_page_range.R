@@ -5,11 +5,10 @@
 #' @param query Keyword search for news
 #'
 #' @return Helper function to return Janes news article page range related to search.
-#' @importFrom dplyr "%>%"
-#' @importFrom httr GET
-#' @importFrom httr content
-#' @importFrom jsonlite fromJSON
-#' @importFrom stringr str_replace_all
+#' @import httr
+#' @import jsonlite
+#' @import xml2
+#' @import stringr
 #' @export get_news_page_range
 
 
