@@ -9,7 +9,7 @@
 #' @importFrom httr GET
 #' @export GET
 #' @importFrom httr content
-#' @export httr content
+#' @export content
 #' @importFrom jsonlite fromJSON
 #' @export fromJSON
 #' @importFrom stringr str_replace_all

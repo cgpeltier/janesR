@@ -2,12 +2,10 @@
 
 export("%>%")
 export(GET)
+export(content)
 export(fromJSON)
 export(get_news_page_range)
-export(httr)
-export(jsonlite)
 export(str_replace_all)
-export(stringr)
 importFrom(dplyr,"%>%")
 importFrom(httr,GET)
 importFrom(httr,content)
