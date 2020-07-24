@@ -2,12 +2,8 @@
 
 export("%>%")
 export(get_news_page_range)
-importFrom(dplyr,"%>%")
 importFrom(httr,GET)
 importFrom(httr,content)
 importFrom(jsonlite,fromJSON)
 importFrom(magrittr,"%>%")
 importFrom(stringr,str_replace_all)
-importFrom(xml2,xml_children)
-importFrom(xml2,xml_find_all)
-importFrom(xml2,xml_text)

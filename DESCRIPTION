@@ -17,4 +17,5 @@ Imports:
     jsonlite,
     dplyr,
     xml2,
-    purrr
+    purrr,
+    magrittr

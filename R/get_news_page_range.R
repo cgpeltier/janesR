@@ -9,6 +9,7 @@
 #' @importFrom httr content
 #' @importFrom jsonlite fromJSON
 #' @importFrom stringr str_replace_all
+#' @importFrom magrittr "%>%"
 #' @export
 
 
