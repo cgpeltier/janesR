@@ -5,15 +5,12 @@
 #' @param query Keyword search for news
 #'
 #' @return Helper function to return Janes news article page range related to search.
-#' @import httr
-#' @import jsonlite
-#' @import xml2
-#' @import stringr
-#' @export get_news_page_range
-#' @export GET
-#' @export str_replace_all
-#' @export content
-#' @export fromJSON
+#' @importFrom httr GET
+#' @importFrom httr content
+#' @importFrom jsonlite fromJSON
+#' @importFrom stringr str_replace_all
+#' @export
+
 
 
 get_news_page_range <- function(country = NULL, query = NULL){
@@ -26,3 +23,6 @@ get_news_page_range <- function(country = NULL, query = NULL){
   range_temp <- ceiling(jsonlite::fromJSON(response)[["metadata"]][["recordCount"]] / 100)
   seq(1:range_temp)
 }
+
+
+#' @export
