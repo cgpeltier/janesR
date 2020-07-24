@@ -10,6 +10,10 @@
 #' @import xml2
 #' @import stringr
 #' @export get_news_page_range
+#' @export GET
+#' @export str_replace_all
+#' @export content
+#' @export fromJSON
 
 
 get_news_page_range <- function(country = NULL, query = NULL){
