@@ -16,13 +16,14 @@
 #' @importFrom stringr str_remove
 #' @importFrom purrr map
 #' @importFrom purrr flatten
+#' @importFrom dplyr bind_rows
 #' @export
 
 get_janes_news <- function(country = NULL, query = NULL){
   page_range <- get_news_page_range(country = country, query = query)
   news <- purrr::map(page_range, ~ get_janes_news_info(.x, country = country,
                                                 query = query)) %>%
-    bind_rows()
+    dplyr::bind_rows()
 
   news %>%
     dplyr::mutate(news_text = purrr::map(url, get_janes_news_text)) %>%
