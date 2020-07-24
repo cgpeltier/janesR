@@ -13,6 +13,7 @@
 #' @export
 
 
+
 get_news_page_range <- function(country = NULL, query = NULL){
   request <- httr::GET(url = paste0("https://developer.janes.com/api/v1/news?q=",
                                     stringr::str_replace_all(query, " ", "%20"),

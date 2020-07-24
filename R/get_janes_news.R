@@ -5,7 +5,6 @@
 #' @param query Keyword search for news
 #'
 #' @return Returns Janes news articles in dataframe related to search.
-#' @export
 #' @importFrom dplyr "%>%"
 #' @importFrom httr GET
 #' @importFrom httr content
@@ -13,9 +12,7 @@
 #' @importFrom xml2 xml_children
 #' @importFrom xml2 xml_find_all
 #' @importFrom xml2 xml_text
-#'
-#'
-#'
+#' @export
 
 
 
