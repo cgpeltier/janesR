@@ -7,12 +7,12 @@
 #' @return Returns Janes news articles in dataframe related to search.
 #' @export
 #' @importFrom dplyr "%>%"
-#' @importFrom httr "GET"
-#' @importFrom httr "content"
-#' @importFrom jsonlite "fromJSON"
-#' @importFrom xml2 "xml_children"
-#' @importFrom xml2 "xml_find_all"
-#' @importFrom xml2 "xml_text"
+#' @importFrom httr GET
+#' @importFrom httr content
+#' @importFrom jsonlite fromJSON
+#' @importFrom xml2 xml_children
+#' @importFrom xml2 xml_find_all
+#' @importFrom xml2 xml_text
 #'
 #'
 #'
