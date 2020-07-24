@@ -13,3 +13,10 @@ The package currently supports the following API endpoints:
 * News
 
 Functions for the other API endpoints will be added shortly. Additional options for more customized API calls will also be added to existing janesR functions.
+
+You can install janesR from github: 
+```{r}
+devtools::install_github("cgpeltier/janesR")
+```
+
+
