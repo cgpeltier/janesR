@@ -7,13 +7,13 @@
 #' @return Helper function to return Janes news article page range related to search.
 #' @importFrom dplyr "%>%"
 #' @importFrom httr GET
-#' @export httr GET
+#' @export GET
 #' @importFrom httr content
-#' @export httr GET
+#' @export httr content
 #' @importFrom jsonlite fromJSON
-#' @export jsonlite fromJSON
+#' @export fromJSON
 #' @importFrom stringr str_replace_all
-#' @export stringr str_replace_all
+#' @export str_replace_all
 #' @export get_news_page_range
 
 
