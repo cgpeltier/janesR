@@ -18,6 +18,5 @@ Imports:
     tidyr,
     purrr,
     stringr,
-    lubridate
-    
-    
+    lubridate,
+    magrittr
