@@ -14,6 +14,8 @@
 #' @importFrom xml2 xml_find_all
 #' @importFrom xml2 xml_text
 #' @importFrom stringr str_remove
+#' @importFrom purrr map
+#' @importFrom purrr flatten
 #' @export
 
 get_janes_news <- function(country = NULL, query = NULL){
@@ -24,7 +26,7 @@ get_janes_news <- function(country = NULL, query = NULL){
 
   news %>%
     mutate(news_text = purrr::map(url, get_janes_news_text)) %>%
-    flatten(news_text) %>%
+    purrr::flatten(news_text) %>%
     mutate(postDate = lubridate::ymd(stringr::str_remove(postDate, "T.+")),
            news_text = stringr::str_replace_all(news_text, "\\s{2,}", " "))
 }
