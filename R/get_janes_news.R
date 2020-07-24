@@ -15,7 +15,7 @@
 #' @importFrom xml2 xml_text
 #' @importFrom stringr str_remove
 #' @importFrom purrr map
-#' @importFrom purrr flatten
+#' @importFrom jsonlite flatten
 #' @importFrom dplyr bind_rows
 #' @export
 
@@ -27,7 +27,7 @@ get_janes_news <- function(country = NULL, query = NULL){
 
   news %>%
     dplyr::mutate(news_text = purrr::map(url, get_janes_news_text)) %>%
-    purrr::flatten(news_text) %>%
+    jsonlite::flatten(news_text) %>%
     dplyr::mutate(postDate = lubridate::ymd(stringr::str_remove(postDate, "T.+")),
            news_text = stringr::str_replace_all(news_text, "\\s{2,}", " "))
 }
