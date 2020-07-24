@@ -16,14 +16,13 @@
 #' @importFrom stringr str_remove
 #' @export
 
-
 get_janes_news_info <- function(country = NULL, query = NULL, x){
   httr::request <- GET(url = paste0("https://developer.janes.com/api/v1/news?q=",
-                              stringr::str_replace_all(query, " ", "%20"),
-                              "&f=countryiso(",
-                              country, ")", "&num=100",
-                              "&pg=", x),
-                 httr::add_headers(Authorization = janes_key))
+                                    stringr::str_replace_all(query, " ", "%20"),
+                                    "&f=countryiso(",
+                                    country, ")", "&num=100",
+                                    "&pg=", x),
+                       httr::add_headers(Authorization = janes_key))
   response <- httr::content(request, as = "text", encoding = "UTF-8")
   jsonlite::fromJSON(response)[["results"]]
 }
@@ -41,6 +40,7 @@ get_janes_news_text <- function(x){
     xml2::xml_text() %>%
     paste(collapse = " ")
 }
+
 
 
 get_janes_news <- function(country = NULL, query = NULL){
