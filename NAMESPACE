@@ -2,9 +2,6 @@
 
 export("%>%")
 export(get_janes_news)
-export(get_janes_news_info)
-export(get_janes_news_text)
-export(get_news_page_range)
 importFrom(dplyr,bind_rows)
 importFrom(httr,GET)
 importFrom(httr,content)

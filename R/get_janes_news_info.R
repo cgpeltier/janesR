@@ -14,7 +14,6 @@
 #' @importFrom xml2 xml_find_all
 #' @importFrom xml2 xml_text
 #' @importFrom stringr str_remove
-#' @export
 
 get_janes_news_info <- function(country = NULL, query = NULL, x){
   request <- httr::GET(url = paste0("https://developer.janes.com/api/v1/news?q=",

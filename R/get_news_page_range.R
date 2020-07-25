@@ -10,8 +10,6 @@
 #' @importFrom jsonlite fromJSON
 #' @importFrom stringr str_replace_all
 #' @importFrom magrittr "%>%"
-#' @export
-
 
 
 get_news_page_range <- function(country = NULL, query = NULL){

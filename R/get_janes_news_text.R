@@ -14,7 +14,6 @@
 #' @importFrom xml2 xml_find_all
 #' @importFrom xml2 xml_text
 #' @importFrom stringr str_remove
-#' @export
 
 
 get_janes_news_text <- function(x){
