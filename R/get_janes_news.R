@@ -17,6 +17,7 @@
 #' @importFrom purrr map
 #' @importFrom jsonlite flatten
 #' @importFrom dplyr bind_rows
+#' @export
 
 get_janes_news <- function(country = NULL, query = NULL){
   page_range <- get_news_page_range(country = country, query = query)

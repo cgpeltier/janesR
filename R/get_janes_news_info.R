@@ -25,4 +25,5 @@ get_janes_news_info <- function(country = NULL, query = NULL, x){
   response <- httr::content(request, as = "text", encoding = "UTF-8")
   jsonlite::fromJSON(response)[["results"]]
 }
+
 #' @export
