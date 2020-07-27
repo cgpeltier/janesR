@@ -7,9 +7,7 @@
 get_janes_news_text(x)
 }
 \arguments{
-\item{country}{Country filter for news}
-
-\item{query}{Keyword search for news}
+\item{x}{urls to pull from}
 }
 \value{
 Helper function to return Janes news article page range related to search.

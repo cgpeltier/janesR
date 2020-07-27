@@ -1,8 +1,7 @@
 #' @title get_janes_news_text
 #' @description Pulls Janes news articles page range for a given search. Helper function.
 #'
-#' @param country Country filter for news
-#' @param query Keyword search for news
+#' @param x urls to pull from
 #'
 #' @return Helper function to return Janes news article page range related to search.
 #' @importFrom httr GET

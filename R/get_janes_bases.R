@@ -1,0 +1,64 @@
+#' @title get_janes_bases
+#' @description Pulls Janes bases data.
+#'
+#' @param country Country in which base is located
+#' @param type Type of base
+#'
+#' @return Janes equipment data.
+#' @importFrom httr GET
+#' @importFrom httr content
+#' @importFrom jsonlite fromJSON
+#' @importFrom stringr str_replace_all
+#' @importFrom magrittr "%>%"
+#' @importFrom stringr str_remove
+#' @importFrom purrr map
+#' @importFrom jsonlite flatten
+#' @importFrom dplyr bind_rows
+#' @importFrom dplyr rename
+#' @importFrom tibble tibble
+#' @importFrom tidyr unnest_wider
+#' @importFrom tidyr unnest_auto
+#' @importFrom dplyr select
+#' @importFrom dplyr rename_with
+#' @importFrom janitor clean_names
+#' @importFrom janitor remove_empty
+#' @importFrom dplyr starts_with
+#' @importFrom dplyr any_of
+#' @importFrom tidyr unite
+#' @export
+
+
+
+get_janes_bases <- function(country = NULL, type = NULL){
+  page_range <- get_page_range(country = country, endpoint = "bases",
+                               type = type)
+  bases <- map(page_range, ~ get_janes_info(.x, country = country,
+                                             endpoint = "bases",
+                                             type = type)) %>%
+      bind_rows()
+  bases_data <- map(bases$url, get_janes_data)
+  names_sep_vector <- paste0("_", seq(1:20))
+
+  bases_data %>%
+      tibble() %>%
+      rename(base = ".") %>%
+      unnest_wider(base) %>%
+      rename(base = ".") %>%
+      unnest_wider(base) %>%
+      select(-any_of("...1")) %>%
+      unnest_wider(installation) %>%
+      select(-any_of("...1")) %>%
+      unnest_wider(operators) %>%
+      select(-installationId) %>%
+      select(-any_of("...1")) %>%
+      unnest_wider(operator) %>%
+      select(-any_of("...1")) %>%
+      unnest_wider(operatorCountry, names_repair = "unique", names_sep = names_sep_vector) %>%
+      unnest_wider(location) %>%
+      select(-any_of("...1")) %>%
+      janitor::clean_names() %>%
+      janitor::remove_empty()
+}
+
+
+#' @export
