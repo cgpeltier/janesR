@@ -1,5 +1,5 @@
 # janesR
-
+![janesR](images/hex-janesR.png)
 janesR is a wrapper for the Janes API that allows Janes users to easily pull data from the API into tibbles in R. Documentation for the API can be found at the [Janes Developer site](https://developer.janes.com/). 
 
 The package currently supports the following API endpoints:
