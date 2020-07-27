@@ -27,9 +27,9 @@
 
 
 
-get_janes_inventories <- function(country = NULL){
-  page_range <- get_page_range(country = country, endpoint = "inventories")
-  equipment <- map(page_range, ~ get_janes_info(.x, country = country,
+get_janes_equipment <- function(country = NULL){
+  page_range <- get_page_range(country = country, endpoint = "equipment")
+  equipment <- map(page_range, ~ get_janes_info(x = .x, country = country,
                                                   endpoint = "equipment")) %>%
       bind_rows()
   equipment_data <- map(equipment$url, get_janes_data)

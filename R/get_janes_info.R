@@ -25,7 +25,7 @@ get_janes_info <- function(x, country = NULL, branch = NULL, type = NULL,
                                 str_replace_all(branch, " ", "%20"),
                                 ")%3cand%3etype(",
                                 type, ")",
-                                "&num=100", x),
+                                "&num=100", "&pg=", x),
                    add_headers(Authorization = janes_key))
     response <- content(request, as = "text", encoding = "UTF-8")
     fromJSON(response)[["results"]]

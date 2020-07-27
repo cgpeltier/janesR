@@ -4,10 +4,10 @@
 \alias{get_janes_programs}
 \title{get_janes_programs}
 \usage{
-get_janes_programs(country = NULL)
+get_janes_programs(operator_country = NULL)
 }
 \arguments{
-\item{country}{Country in which airport is located}
+\item{operator_country}{Country to pull programs from}
 }
 \value{
 Janes defense programs data.

@@ -1,7 +1,7 @@
 #' @title get_janes_programs
 #' @description Pulls Janes defense programs data
 #'
-#' @param country Country in which airport is located
+#' @param operator_country Country to pull programs from
 #'
 #' @return Janes defense programs data.
 #' @importFrom httr GET
@@ -33,10 +33,9 @@
 
 
 
-get_janes_programs <- function(country = NULL){
-  page_range <- get_page_range(country = country, endpoint = "defenceprogrammes")
-  programs <- map(page_range, ~ get_janes_info(x = .x, country = country,
-                                               endpoint = "defenceprogrammes")) %>%
+get_janes_programs <- function(operator_country = NULL){
+  page_range <- get_page_range_programs(operator_country = operator_country)
+  programs <- map(page_range, ~ get_janes_info_programs(x = .x, operator_country = operator_country)) %>%
       bind_rows()
   programs_data <- map(programs$url, get_janes_data)
 
