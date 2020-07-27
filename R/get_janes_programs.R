@@ -39,10 +39,10 @@ get_janes_programs <- function(operator_country = NULL){
       bind_rows()
   programs_data <- map(programs$url, get_janes_data)
 
-  program_data %>%
+  programs_data %>%
       unlist() %>%
       enframe() %>%
-      unnest() %>%
+      unnest(cols = c("name", "value")) %>%
       mutate(id = if_else(name == "..programme.id", value, NA_character_)) %>%
       fill(id) %>%
       pivot_wider(names_from = name, values_from = value, id_cols = id) %>%

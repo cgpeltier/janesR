@@ -28,43 +28,43 @@
 
 
 get_janes_equipment <- function(country = NULL){
-  page_range <- get_page_range(country = country, endpoint = "equipment")
-  equipment <- map(page_range, ~ get_janes_info(x = .x, country = country,
-                                                  endpoint = "equipment")) %>%
-      bind_rows()
-  equipment_data <- map(equipment$url, get_janes_data)
+    page_range <- get_page_range(country = country, endpoint = "equipment")
+    equipment <- map(page_range, ~ get_janes_info(x = .x, country = country,
+                                                    endpoint = "equipment")) %>%
+        bind_rows()
+    equipment_data <- map(equipment$url, get_janes_data)
 
-  equipment_data %>%
-      tibble() %>%
-      rename(equipment = ".") %>%
-      unnest_auto(equipment) %>%
-      rename(equipment = ".") %>%
-      unnest_auto(equipment) %>%
-      unnest_auto(equipment) %>%
-      unnest_wider(types) %>%
-      unnest_wider(operatorCountries) %>%
-      select(-any_of("...1")) %>%
-      unnest_wider(operatorCountry) %>%
-      select(-any_of("...1")) %>%
-      unnest_wider(operatorCountryName) %>%
-      rename_with(.fn = ~ gsub("...", "operator_country", .x, fixed = TRUE),
-                  .cols = starts_with("...")) %>%
-      unnest_wider(type) %>%
-      rename_with(.fn = ~ gsub("...", "type", .x, fixed = TRUE),
-                  .cols = starts_with("...")) %>%
-      unnest_wider(roles) %>%
-      select(-any_of("...1")) %>%
-      unnest_wider(role) %>%
-      rename_with(.fn = ~ gsub("...", "role", .x, fixed = TRUE),
-                  .cols = starts_with("...")) %>%
-      unnest_wider(manufacturers) %>%
-      select(-any_of("...1")) %>%
-      unnest_wider(manufacturer) %>%
-      rename_with(.fn = ~ gsub("...", "manufacturer", .x, fixed = TRUE),
-                  .cols = starts_with("...")) %>%
-      unnest_wider(manufacturerName) %>%
-      rename_with(.fn = ~ gsub("...", "manufacturer_name", .x, fixed = TRUE),
-                  .cols = starts_with("..."))
+    equipment_data %>%
+        tibble() %>%
+        rename(equipment = ".") %>%
+        unnest_auto(equipment) %>%
+        rename(equipment = ".") %>%
+        unnest_auto(equipment) %>%
+        unnest_auto(equipment) %>%
+        unnest_wider(types) %>%
+        unnest_wider(operatorCountries) %>%
+        select(-any_of("...1")) %>%
+        unnest_wider(operatorCountry) %>%
+        select(-any_of("...1")) %>%
+        unnest_wider(operatorCountryName) %>%
+        rename_with(.fn = ~ gsub("...", "operator_country", .x, fixed = TRUE),
+                    .cols = starts_with("...")) %>%
+        unnest_wider(type) %>%
+        rename_with(.fn = ~ gsub("...", "type", .x, fixed = TRUE),
+                    .cols = starts_with("...")) %>%
+        unnest_wider(roles) %>%
+        select(-any_of("...1")) %>%
+        unnest_wider(role) %>%
+        rename_with(.fn = ~ gsub("...", "role", .x, fixed = TRUE),
+                    .cols = starts_with("...")) %>%
+        unnest_wider(manufacturers) %>%
+        select(-any_of("...1")) %>%
+        unnest_wider(manufacturer) %>%
+        rename_with(.fn = ~ gsub("...", "manufacturer", .x, fixed = TRUE),
+                    .cols = starts_with("...")) %>%
+        unnest_wider(manufacturerName) %>%
+        rename_with(.fn = ~ gsub("...", "manufacturer_name", .x, fixed = TRUE),
+                    .cols = starts_with("..."))
 }
 
 

@@ -12,7 +12,7 @@
 #' @importFrom magrittr "%>%"
 
 
-get_page_range <- function(country = NULL){
+get_page_range_programs <- function(operator_country = NULL){
   request <- httr::GET(url = paste0("https://developer.janes.com/api/v1/data/defenceprogrammes?f=operatorCountry(",
                                     operator_country = stringr::str_replace_all(operator_country, " ", "%20"),
                                     ")&num=100"),

@@ -2,7 +2,6 @@
 #' @description Pulls Janes page ranges for all data endpoints. Helper function
 #'
 #' @param country Country filter for news
-#' @param query Keyword search for news
 #' @param branch Military branch
 #' @param type Of base
 #' @param endpoint One of 6 options currently
@@ -17,11 +16,10 @@
 
 
 get_page_range <- function(country = NULL, branch = NULL, type = NULL,
-                                endpoint = c("inventories", "equipment", "orbats",
-                                             "bases", "airports", "defenceprogrammes")){
+                           endpoint = c("inventories", "equipment", "orbats",
+                                             "bases", "airports")){
   request <- httr::GET(url = paste0("https://developer.janes.com/api/v1/data/",
                                     endpoint, "?f=",
-                                    stringr::str_replace_all(query, " ", "%20"),
                                     "&f=countryiso(",
                                     country, ")%3cand%3Ebranch(",
                                     stringr::str_replace_all(branch, " ", "%20"),
