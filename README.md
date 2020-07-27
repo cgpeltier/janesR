@@ -1,5 +1,5 @@
 # janesR
-<img src=images/hex-janesR.png align="right" alt="" width="120" />
+<img src=images/hex-janesR2.png align="right" alt="" width="120" />
 
 janesR is a wrapper for the Janes API that allows Janes users to easily pull data from the API into tibbles in R. Documentation for the API can be found at the [Janes Developer site](https://developer.janes.com/). 
 
