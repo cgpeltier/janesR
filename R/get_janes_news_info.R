@@ -3,6 +3,7 @@
 #'
 #' @param country Country filter for news
 #' @param query Keyword search for news
+#' @param x Page number; used for iteration in other functions.
 #'
 #' @return Helper function to return Janes news article page range related to search.
 #' @importFrom httr GET

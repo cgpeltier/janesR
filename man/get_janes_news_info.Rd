@@ -10,6 +10,8 @@ get_janes_news_info(country = NULL, query = NULL, x)
 \item{country}{Country filter for news}
 
 \item{query}{Keyword search for news}
+
+\item{x}{Page number; used for iteration in other functions.}
 }
 \value{
 Helper function to return Janes news article page range related to search.
