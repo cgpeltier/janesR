@@ -32,7 +32,7 @@
 get_janes_orbats <- function(country = NULL, branch = NULL){
   page_range <- get_page_range(country = country, endpoint = "orbats",
                                branch = str_replace_all(branch, " ", "%20"))
-  orbats <- map(page_range, ~ get_janes_info(.x, country = country,
+  orbats <- map(page_range, ~ get_janes_info(x = .x, country = country,
                                                 endpoint = "orbats",
                                                 branch = str_replace_all(branch, " ", "%20"))) %>%
       bind_rows()

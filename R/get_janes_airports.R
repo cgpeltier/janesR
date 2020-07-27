@@ -30,7 +30,7 @@
 
 get_janes_airports <- function(country = NULL){
   page_range <- get_page_range(country = country, endpoint = "airports")
-  airports <- map(page_range, ~ get_janes_info(.x, country = country,
+  airports <- map(page_range, ~ get_janes_info(x = .x, country = country,
                                             endpoint = "airports")) %>%
       bind_rows()
   airports_data <- map(airports$url, get_janes_data)

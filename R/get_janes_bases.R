@@ -30,34 +30,34 @@
 
 
 get_janes_bases <- function(country = NULL, type = NULL){
-  page_range <- get_page_range(country = country, endpoint = "bases",
+    page_range <- get_page_range(country = country, endpoint = "bases",
                                type = type)
-  bases <- map(page_range, ~ get_janes_info(.x, country = country,
+    bases <- map(page_range, ~ get_janes_info(x = .x, country = country,
                                              endpoint = "bases",
                                              type = type)) %>%
-      bind_rows()
-  bases_data <- map(bases$url, get_janes_data)
-  names_sep_vector <- paste0("_", seq(1:20))
+        bind_rows()
+    bases_data <- map(bases$url, get_janes_data)
+    names_sep_vector <- paste0("_", seq(1:20))
 
-  bases_data %>%
-      tibble() %>%
-      rename(base = ".") %>%
-      unnest_wider(base) %>%
-      rename(base = ".") %>%
-      unnest_wider(base) %>%
-      select(-any_of("...1")) %>%
-      unnest_wider(installation) %>%
-      select(-any_of("...1")) %>%
-      unnest_wider(operators) %>%
-      select(-installationId) %>%
-      select(-any_of("...1")) %>%
-      unnest_wider(operator) %>%
-      select(-any_of("...1")) %>%
-      unnest_wider(operatorCountry, names_repair = "unique", names_sep = names_sep_vector) %>%
-      unnest_wider(location) %>%
-      select(-any_of("...1")) %>%
-      janitor::clean_names() %>%
-      janitor::remove_empty()
+    bases_data %>%
+        tibble() %>%
+        rename(base = ".") %>%
+        unnest_wider(base) %>%
+        rename(base = ".") %>%
+        unnest_wider(base) %>%
+        select(-any_of("...1")) %>%
+        unnest_wider(installation) %>%
+        select(-any_of("...1")) %>%
+        unnest_wider(operators) %>%
+        select(-installationId) %>%
+        select(-any_of("...1")) %>%
+        unnest_wider(operator) %>%
+        select(-any_of("...1")) %>%
+        unnest_wider(operatorCountry, names_repair = "unique", names_sep = names_sep_vector) %>%
+        unnest_wider(location) %>%
+        select(-any_of("...1")) %>%
+        janitor::clean_names() %>%
+        janitor::remove_empty()
 }
 
 

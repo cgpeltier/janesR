@@ -5,15 +5,17 @@
 \title{get_janes_info}
 \usage{
 get_janes_info(
+  x,
   country = NULL,
   branch = NULL,
   type = NULL,
   endpoint = c("inventories", "equipment", "orbats", "bases", "airports",
-    "defenceprogrammes"),
-  x
+    "defenceprogrammes")
 )
 }
 \arguments{
+\item{x}{For iteration on URLs}
+
 \item{country}{Country filter for news}
 
 \item{branch}{Military branch}
@@ -21,8 +23,6 @@ get_janes_info(
 \item{type}{Of base}
 
 \item{endpoint}{One of 6 options currently}
-
-\item{x}{For iteration on URLs}
 }
 \value{
 Helper function to return Janes news article page range related to search.

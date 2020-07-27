@@ -35,7 +35,7 @@
 
 get_janes_programs <- function(country = NULL){
   page_range <- get_page_range(country = country, endpoint = "defenceprogrammes")
-  programs <- map(page_range, ~ get_janes_info(.x, country = country,
+  programs <- map(page_range, ~ get_janes_info(x = .x, country = country,
                                                endpoint = "defenceprogrammes")) %>%
       bind_rows()
   programs_data <- map(programs$url, get_janes_data)

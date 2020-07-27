@@ -16,9 +16,9 @@
 #' @importFrom magrittr "%>%"
 
 
-get_janes_info <- function(country = NULL, branch = NULL, type = NULL,
+get_janes_info <- function(x, country = NULL, branch = NULL, type = NULL,
                                 endpoint = c("inventories", "equipment", "orbats",
-                                             "bases", "airports", "defenceprogrammes"), x){
+                                             "bases", "airports", "defenceprogrammes")){
     request <- GET(url = paste0("https://developer.janes.com/api/v1/data/",
                                 endpoint, "?&f=countryiso(",
                                 country, ")%3cand%3Ebranch(",
