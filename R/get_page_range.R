@@ -16,13 +16,16 @@
 
 
 get_page_range <- function(country = NULL, branch = NULL, type = NULL,
+                           operator_force = NULL,
                            endpoint = c("inventories", "equipment", "orbats",
-                                             "bases", "airports")){
+                                             "bases", "airports", "countryrisks")){
   request <- httr::GET(url = paste0("https://developer.janes.com/api/v1/data/",
-                                    endpoint, "?f=",
-                                    "&f=countryiso(",
+                                    endpoint,
+                                    "?f=countryiso(",
                                     country, ")%3cand%3Ebranch(",
                                     stringr::str_replace_all(branch, " ", "%20"),
+                                    ")%3Cand%3EoperatorForce(",
+                                    stringr::str_replace_all(operator_force, " ", "%20"),
                                     ")%3cand%3etype(",
                                     type, ")",
                                     "&num=100"),

@@ -9,8 +9,9 @@ get_janes_info(
   country = NULL,
   branch = NULL,
   type = NULL,
+  operator_force = NULL,
   endpoint = c("inventories", "equipment", "orbats", "bases", "airports",
-    "defenceprogrammes")
+    "countryrisks")
 )
 }
 \arguments{

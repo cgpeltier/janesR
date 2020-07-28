@@ -4,7 +4,7 @@
 \alias{get_janes_inventories}
 \title{get_janes_inventories}
 \usage{
-get_janes_inventories(country = NULL)
+get_janes_inventories(country = NULL, operator_force = NULL)
 }
 \arguments{
 \item{country}{Country filter for news}

@@ -24,9 +24,11 @@
 
 
 
-get_janes_inventories <- function(country = NULL){
-  page_range <- get_page_range(country = country, endpoint = "inventories")
+get_janes_inventories <- function(country = NULL, operator_force = NULL){
+  page_range <- get_page_range(country = country, operator_force = operator_force,
+                               endpoint = "inventories")
   inventories <- map(page_range, ~ get_janes_info(x = .x, country = country,
+                                                  operator_force = operator_force,
                                                   endpoint = "inventories")) %>%
     bind_rows()
   inventories_data <- map(inventories$url, get_janes_data)

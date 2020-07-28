@@ -17,12 +17,15 @@
 
 
 get_janes_info <- function(x, country = NULL, branch = NULL, type = NULL,
+                           operator_force = NULL,
                                 endpoint = c("inventories", "equipment", "orbats",
-                                             "bases", "airports", "defenceprogrammes")){
+                                             "bases", "airports", "countryrisks")){
     request <- GET(url = paste0("https://developer.janes.com/api/v1/data/",
                                 endpoint, "?&f=countryiso(",
                                 country, ")%3cand%3Ebranch(",
                                 str_replace_all(branch, " ", "%20"),
+                                ")%3Cand%3EoperatorForce(",
+                                stringr::str_replace_all(operator_force, " ", "%20"),
                                 ")%3cand%3etype(",
                                 type, ")",
                                 "&num=100", "&pg=", x),

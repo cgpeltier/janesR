@@ -8,7 +8,9 @@ get_page_range(
   country = NULL,
   branch = NULL,
   type = NULL,
-  endpoint = c("inventories", "equipment", "orbats", "bases", "airports")
+  operator_force = NULL,
+  endpoint = c("inventories", "equipment", "orbats", "bases", "airports",
+    "countryrisks")
 )
 }
 \arguments{
