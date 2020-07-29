@@ -17,11 +17,14 @@
 
 
 get_janes_info <- function(x, country = NULL, branch = NULL, type = NULL,
-                           operator_force = NULL,
+                           operator_force = NULL, query = NULL,
                                 endpoint = c("inventories", "equipment", "orbats",
-                                             "bases", "airports", "countryrisks")){
+                                             "bases", "airports", "countryrisks",
+                                             "companies")){
     request <- GET(url = paste0("https://developer.janes.com/api/v1/data/",
-                                endpoint, "?&f=countryiso(",
+                                endpoint, "?q=",
+                                str_replace_all(query, " ", "%20"),
+                                "&f=countryiso(",
                                 country, ")%3cand%3Ebranch(",
                                 str_replace_all(branch, " ", "%20"),
                                 ")%3Cand%3EoperatorForce(",
