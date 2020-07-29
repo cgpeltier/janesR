@@ -5,15 +5,18 @@ janesR is a wrapper for the Janes API that allows Janes users to easily pull dat
 
 The package currently supports the following API endpoints:
 
-* Airports
-* Bases
-* Defence Programs
-* Equipment
-* Inventory
-* Orbats
-* News
+* Airports: get_janes_airports
+* Bases: get_janes_bases
+* Defence Programs: get_janes_programs
+* Equipment: get_janes_equipment
+* Inventory: get_janes_inventories
+* Orbats: get_janes_orbats
+* News: get_janes_news
+* Country Risk: get_janes_country_risks 
 
 Functions for the other API endpoints will be added shortly. Additional options for more customized API calls will also be added to existing janesR functions.
+
+All functions currently require the user to save their Janes API key to their environment as a variable called "janes_key". This will be updated shortly. 
 
 You can install janesR from github: 
 ```{r}
