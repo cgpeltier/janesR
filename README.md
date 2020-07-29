@@ -13,6 +13,7 @@ The package currently supports the following API endpoints:
 * Orbats: get_janes_orbats
 * News: get_janes_news
 * Country Risk: get_janes_country_risks 
+* Companies: get_janes_companies
 
 Functions for the other API endpoints will be added shortly. Additional options for more customized API calls will also be added to existing janesR functions.
 
