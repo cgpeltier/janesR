@@ -12,7 +12,7 @@ get_janes_info(
   operator_force = NULL,
   query = NULL,
   endpoint = c("inventories", "equipment", "orbats", "bases", "airports",
-    "countryrisks", "companies")
+    "countryrisks", "companies", "events")
 )
 }
 \arguments{

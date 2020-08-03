@@ -37,9 +37,10 @@ get_janes_companies <- function(country = NULL, query = NULL){
                                                endpoint = "companies",
                                                query = str_replace_all(query, " ", "%20"))) %>%
         bind_rows()
+
     companies_data <- map(companies$url, get_janes_data)
 
-    test_companies %>%
+    companies_data %>%
         tibble() %>%
         rename(companies = ".") %>%
         unnest_wider(companies) %>%

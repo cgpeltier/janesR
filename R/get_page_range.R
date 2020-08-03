@@ -19,7 +19,7 @@ get_page_range <- function(country = NULL, branch = NULL, type = NULL,
                            operator_force = NULL, query = NULL,
                            endpoint = c("inventories", "equipment", "orbats",
                                         "bases", "airports", "countryrisks",
-                                        "companies")){
+                                        "companies", "events")){
   request <- httr::GET(url = paste0("https://developer.janes.com/api/v1/data/",
                                     endpoint,"?q=",
                                     str_replace_all(query, " ", "%20"),
