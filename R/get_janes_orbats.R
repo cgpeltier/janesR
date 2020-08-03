@@ -58,7 +58,8 @@ get_janes_orbats <- function(country = NULL, branch = NULL){
       unite(col = "all_equipment_names",
             starts_with("equipment_name"),
             sep = ", ",
-            remove = FALSE) %>%
+            remove = FALSE,
+            na.rm = TRUE) %>%
       mutate(all_equipment_names = str_remove_all(all_equipment_names, "(?<=\\,)\\sNA,"),
              all_equipment_names = str_remove_all(all_equipment_names, ", NA")) %>%
       janitor::clean_names() %>%
