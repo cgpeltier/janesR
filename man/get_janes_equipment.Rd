@@ -4,7 +4,7 @@
 \alias{get_janes_equipment}
 \title{get_janes_equipment}
 \usage{
-get_janes_equipment(country = NULL)
+get_janes_equipment(country = NULL, query = NULL)
 }
 \arguments{
 \item{country}{Country filter for news}

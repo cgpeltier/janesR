@@ -27,10 +27,12 @@
 
 
 
-get_janes_equipment <- function(country = NULL){
-    page_range <- get_page_range(country = country, endpoint = "equipment")
+get_janes_equipment <- function(country = NULL, query = NULL){
+    page_range <- get_page_range(country = country, endpoint = "equipment",
+                                 query = str_replace_all(query, " ", "%20"))
     equipment <- map(page_range, ~ get_janes_info(x = .x, country = country,
-                                                    endpoint = "equipment")) %>%
+                                                  endpoint = "equipment",
+                                                  query = str_replace_all(query, " ", "%20"))) %>%
         bind_rows()
     equipment_data <- map(equipment$url, get_janes_data)
 
