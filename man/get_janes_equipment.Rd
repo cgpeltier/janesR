@@ -7,7 +7,9 @@
 get_janes_equipment(country = NULL, query = NULL)
 }
 \arguments{
-\item{country}{Country filter for news}
+\item{country}{Country filter for equipment}
+
+\item{query}{Query filter for equipment}
 }
 \value{
 Janes equipment data.

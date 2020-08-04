@@ -12,7 +12,7 @@ get_janes_info(
   operator_force = NULL,
   query = NULL,
   endpoint = c("inventories", "equipment", "orbats", "bases", "airports",
-    "countryrisks", "companies", "events")
+    "countryrisks", "companies", "events", "equipmentrelationships")
 )
 }
 \arguments{
@@ -23,6 +23,8 @@ get_janes_info(
 \item{branch}{Military branch}
 
 \item{type}{Of base}
+
+\item{query}{Search term}
 
 \item{endpoint}{One of 6 options currently}
 }

@@ -1,7 +1,8 @@
 #' @title get_janes_equipment
 #' @description Pulls Janes equipment.
 #'
-#' @param country Country filter for news
+#' @param country Country filter for equipment
+#' @param query Query filter for equipment
 #'
 #' @return Janes equipment data.
 #' @importFrom httr GET
@@ -28,7 +29,7 @@
 
 
 get_janes_equipment <- function(country = NULL, query = NULL){
-    page_range <- get_page_range(country = country, endpoint = "equipment",
+    page_range <- get_page_range(country = country, endpoint = "equipmentrelationships",
                                  query = str_replace_all(query, " ", "%20"))
     equipment <- map(page_range, ~ get_janes_info(x = .x, country = country,
                                                   endpoint = "equipment",
@@ -66,7 +67,18 @@ get_janes_equipment <- function(country = NULL, query = NULL){
                     .cols = starts_with("...")) %>%
         unnest_wider(manufacturerName) %>%
         rename_with(.fn = ~ gsub("...", "manufacturer_name", .x, fixed = TRUE),
-                    .cols = starts_with("..."))
+                    .cols = starts_with("...")) %>%
+        unnest_wider(overallFamily) %>%
+        select(-any_of("...1")) %>%
+        unnest_wider(family) %>%
+        unnest_wider(primayParent) %>%
+        select(-any_of("...1")) %>%
+        unnest_wider(manufacturerCountries) %>%
+        select(-any_of("...1")) %>%
+        unnest_wider(documents) %>%
+        select(-any_of("...1")) %>%
+        unnest_wider(document) %>%
+        clean_names()
 }
 
 

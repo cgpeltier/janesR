@@ -5,6 +5,7 @@
 #' @param branch Military branch
 #' @param type Of base
 #' @param endpoint One of 6 options currently
+#' @param query Search term
 #'
 #' @return Janes page ranges for a given search.
 #' @importFrom httr GET
@@ -19,7 +20,7 @@ get_page_range <- function(country = NULL, branch = NULL, type = NULL,
                            operator_force = NULL, query = NULL,
                            endpoint = c("inventories", "equipment", "orbats",
                                         "bases", "airports", "countryrisks",
-                                        "companies", "events")){
+                                        "companies", "events", "equipmentrelationships")){
   request <- httr::GET(url = paste0("https://developer.janes.com/api/v1/data/",
                                     endpoint,"?q=",
                                     str_replace_all(query, " ", "%20"),
