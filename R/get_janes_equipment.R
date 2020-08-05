@@ -78,8 +78,44 @@ get_janes_equipment <- function(country = NULL, query = NULL){
         unnest_wider(documents) %>%
         select(-any_of("...1")) %>%
         unnest_wider(document) %>%
+        select(-any_of("...1")) %>%
+        unnest_wider(manufacturerId) %>%
+        rename_with(.fn = ~ gsub("...", "manufactureId", .x, fixed = TRUE),
+                    .cols = starts_with("...")) %>%
+        unnest_wider(documentId) %>%
+        rename_with(.fn = ~ gsub("...", "document_id", .x, fixed = TRUE),
+                                                      .cols = starts_with("...")) %>%
+        unnest_wider(documentTitle) %>%
+        rename_with(.fn = ~ gsub("...", "document_title", .x, fixed = TRUE),
+                    .cols = starts_with("...")) %>%
+        unnest_wider(manufacturerCountry) %>%
+        unnest_wider(manufacturerCountryIso) %>%
+        rename_with(.fn = ~ gsub("...", "manufacturer_country_iso", .x, fixed = TRUE),
+                    .cols = starts_with("...")) %>%
+        unnest_wider(manufacturerCountryName) %>%
+        rename_with(.fn = ~ gsub("...", "manufacturer_country_name", .x, fixed = TRUE),
+                    .cols = starts_with("...")) %>%
+        unnest_wider(operatorCountryIso) %>%
+        rename_with(.fn = ~ gsub("...", "operator_country_iso", .x, fixed = TRUE),
+                    .cols = starts_with("...")) %>%
+        unnest_wider(synonyms) %>%
+        select(-any_of("...1")) %>%
+        unnest_wider(synonym) %>%
+        rename_with(.fn = ~ gsub("...", "synonym", .x, fixed = TRUE),
+                    .cols = starts_with("...")) %>%
+        unnest_wider(users) %>%
+        rename_with(.fn = ~ gsub("...", "user", .x, fixed = TRUE),
+                    .cols = starts_with("...")) %>%
+        unnest_wider(environments) %>%
+        unnest_wider(environment) %>%
+        rename_with(.fn = ~ gsub("...", "environment", .x, fixed = TRUE),
+                    .cols = starts_with("...")) %>%
         clean_names()
+
 }
 
+# synonyms
+# users
+# environments
 
 #' @export

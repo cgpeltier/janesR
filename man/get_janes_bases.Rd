@@ -4,12 +4,10 @@
 \alias{get_janes_bases}
 \title{get_janes_bases}
 \usage{
-get_janes_bases(country = NULL, type = NULL)
+get_janes_bases(country = NULL)
 }
 \arguments{
 \item{country}{Country in which base is located}
-
-\item{type}{Type of base}
 }
 \value{
 Janes equipment data.

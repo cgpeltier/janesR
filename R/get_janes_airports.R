@@ -29,27 +29,67 @@
 
 
 get_janes_airports <- function(country = NULL){
-  page_range <- get_page_range(country = country, endpoint = "airports")
-  airports <- map(page_range, ~ get_janes_info(x = .x, country = country,
-                                            endpoint = "airports")) %>%
-      bind_rows()
-  airports_data <- map(airports$url, get_janes_data)
-  names_sep_vector <- paste0("_", seq(1:20))
+    page_range <- get_page_range(country = country, endpoint = "airports")
+    airports <- map(page_range, ~ get_janes_info(x = .x, country = country,
+                                              endpoint = "airports")) %>%
+        bind_rows()
+    airports_data <- map(airports$url, get_janes_data)
+    names_sep_vector <- paste0("_", seq(1:20))
 
-  airports_data %>%
-      tibble() %>%
-      rename(airport = ".") %>%
-      unnest_wider(airport) %>%
-      rename(airport = ".") %>%
-      unnest_wider(airport) %>%
-      unnest_wider(installation) %>%
-      unnest_wider(location) %>%
-      unnest_wider(synonyms) %>%
-      unnest_wider(synonym, names_repair = "unique", names_sep = names_sep_vector) %>%
-      unnest_wider(operators) %>%
-      unnest_wider(operator, names_repair = "unique", names_sep = "_") %>%
-      janitor::clean_names() %>%
-      janitor::remove_empty()
+    airports_data %>%
+        tibble() %>%
+        rename(airport = ".") %>%
+        unnest_wider(airport) %>%
+        rename(airport = ".") %>%
+        unnest_wider(airport) %>%
+        unnest_wider(installation) %>%
+        unnest_wider(location) %>%
+        unnest_wider(synonyms) %>%
+        unnest_wider(synonym, names_repair = "unique", names_sep = names_sep_vector) %>%
+        unnest_wider(operators) %>%
+        unnest_wider(operator, names_repair = "unique", names_sep = "_") %>%
+        unnest_wider(runways) %>%
+        select(-any_of("...1")) %>%
+        unnest_wider(runway) %>%
+        select(-any_of("...1")) %>%
+        unnest_wider(runwayLengthMetres) %>%
+        rename_with(.fn = ~ gsub("...", "runway_length_m", .x, fixed = TRUE),
+                    .cols = starts_with("...")) %>%
+        unnest_wider(runwayOrientationOpposing) %>%
+        rename_with(.fn = ~ gsub("...", "runway_length_opposing", .x, fixed = TRUE),
+                    .cols = starts_with("...")) %>%
+        unnest_wider(runwayOrientation) %>%
+        rename_with(.fn = ~ gsub("...", "runway_orientation", .x, fixed = TRUE),
+                    .cols = starts_with("...")) %>%
+        unnest_wider(runwaySurface) %>%
+        rename_with(.fn = ~ gsub("...", "runway_surface", .x, fixed = TRUE),
+                    .cols = starts_with("...")) %>%
+        unnest_wider(runwayName) %>%
+        rename_with(.fn = ~ gsub("...", "runway_name", .x, fixed = TRUE),
+                    .cols = starts_with("...")) %>%
+        unnest_wider(runwayDirection1Name) %>%
+        rename_with(.fn = ~ gsub("...", "runway_direction1_name", .x, fixed = TRUE),
+                    .cols = starts_with("...")) %>%
+        unnest_wider(runwayDirection2Name) %>%
+        rename_with(.fn = ~ gsub("...", "runway_direction2_name", .x, fixed = TRUE),
+                    .cols = starts_with("...")) %>%
+        unnest_wider(runwayStaus) %>%
+        rename_with(.fn = ~ gsub("...", "runway_status", .x, fixed = TRUE),
+                    .cols = starts_with("...")) %>%
+        unnest_wider(runwayLengthFeet) %>%
+        rename_with(.fn = ~ gsub("...", "runway_length_ft", .x, fixed = TRUE),
+                    .cols = starts_with("...")) %>%
+        unnest_wider(runwayWidthMetres) %>%
+        rename_with(.fn = ~ gsub("...", "runway_width_m", .x, fixed = TRUE),
+                    .cols = starts_with("...")) %>%
+        unnest_wider(runwayWidthFeet) %>%
+        rename_with(.fn = ~ gsub("...", "runway_width_ft", .x, fixed = TRUE),
+                    .cols = starts_with("...")) %>%
+        unnest_wider(runwayCenterline) %>%
+        rename_with(.fn = ~ gsub("...", "runway_centerline", .x, fixed = TRUE),
+                    .cols = starts_with("...")) %>%
+        janitor::clean_names() %>%
+        janitor::remove_empty()
 }
 
 
