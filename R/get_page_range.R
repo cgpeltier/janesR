@@ -3,9 +3,10 @@
 #'
 #' @param country Country filter for news
 #' @param branch Military branch
-#' @param type Of base
+#' @param type Depends on endpoint
 #' @param endpoint One of 6 options currently
 #' @param query Search term
+#' @param environment Of search, i.e. "Air"
 #'
 #' @return Janes page ranges for a given search.
 #' @importFrom httr GET
@@ -17,7 +18,7 @@
 
 
 get_page_range <- function(country = NULL, branch = NULL, type = NULL,
-                           operator_force = NULL, query = NULL,
+                           operator_force = NULL, query = NULL, environment = NULL,
                            endpoint = c("inventories", "equipment", "orbats",
                                         "bases", "airports", "countryrisks",
                                         "companies", "events", "equipmentrelationships")){
@@ -29,9 +30,11 @@ get_page_range <- function(country = NULL, branch = NULL, type = NULL,
                                     stringr::str_replace_all(branch, " ", "%20"),
                                     ")%3Cand%3EoperatorForce(",
                                     stringr::str_replace_all(operator_force, " ", "%20"),
-                                    ")%3cand%3etype(",
-                                    type, ")",
-                                    "&num=100"),
+                                    ")%3cand%3Etype(",
+                                    type,
+                                    ")%3Cand%3Eenvironment(",
+                                    environment,
+                                    ")&num=100"),
                        httr::add_headers(Authorization = janes_key))
   response <- httr::content(request, as = "text", encoding = "UTF-8")
   range_temp <- ceiling(jsonlite::fromJSON(response)[["metadata"]][["recordCount"]] / 100)

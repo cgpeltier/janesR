@@ -11,6 +11,7 @@ get_janes_info(
   type = NULL,
   operator_force = NULL,
   query = NULL,
+  environment = NULL,
   endpoint = c("inventories", "equipment", "orbats", "bases", "airports",
     "countryrisks", "companies", "events", "equipmentrelationships")
 )
@@ -22,9 +23,11 @@ get_janes_info(
 
 \item{branch}{Military branch}
 
-\item{type}{Of base}
+\item{type}{Filter for type - depends on endpoint (i.e. "Platforms" or "Air")}
 
 \item{query}{Search term}
+
+\item{environment}{Filter for environment of equipment (i.e. "Air")}
 
 \item{endpoint}{One of 6 options currently}
 }

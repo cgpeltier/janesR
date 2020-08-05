@@ -3,10 +3,11 @@
 #'
 #' @param country Country filter for news
 #' @param branch Military branch
-#' @param type Of base
 #' @param endpoint One of 6 options currently
 #' @param query Search term
 #' @param x For iteration on URLs
+#' @param type Filter for type - depends on endpoint (i.e. "Platforms" or "Air")
+#' @param environment Filter for environment of equipment (i.e. "Air")
 #'
 #' @return Helper function to return Janes news article page range related to search.
 #' @importFrom httr GET
@@ -15,10 +16,11 @@
 #' @importFrom jsonlite fromJSON
 #' @importFrom stringr str_replace_all
 #' @importFrom magrittr "%>%"
+#'
 
 
 get_janes_info <- function(x, country = NULL, branch = NULL, type = NULL,
-                           operator_force = NULL, query = NULL,
+                           operator_force = NULL, query = NULL, environment = NULL,
                                 endpoint = c("inventories", "equipment", "orbats",
                                              "bases", "airports", "countryrisks",
                                              "companies", "events", "equipmentrelationships")){
@@ -31,8 +33,10 @@ get_janes_info <- function(x, country = NULL, branch = NULL, type = NULL,
                                 ")%3Cand%3EoperatorForce(",
                                 stringr::str_replace_all(operator_force, " ", "%20"),
                                 ")%3cand%3etype(",
-                                type, ")",
-                                "&num=100", "&pg=", x),
+                                type,
+                                ")%3Cand%3Eenvironment(",
+                                environment,
+                                ")&num=100", "&pg=", x),
                    add_headers(Authorization = janes_key))
     response <- content(request, as = "text", encoding = "UTF-8")
     fromJSON(response)[["results"]]

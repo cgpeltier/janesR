@@ -10,6 +10,7 @@ get_page_range(
   type = NULL,
   operator_force = NULL,
   query = NULL,
+  environment = NULL,
   endpoint = c("inventories", "equipment", "orbats", "bases", "airports",
     "countryrisks", "companies", "events", "equipmentrelationships")
 )
@@ -19,9 +20,11 @@ get_page_range(
 
 \item{branch}{Military branch}
 
-\item{type}{Of base}
+\item{type}{Depends on endpoint}
 
 \item{query}{Search term}
+
+\item{environment}{Of search, i.e. "Air"}
 
 \item{endpoint}{One of 6 options currently}
 }

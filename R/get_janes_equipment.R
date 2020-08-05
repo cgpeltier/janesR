@@ -3,6 +3,8 @@
 #'
 #' @param country Country filter for equipment
 #' @param query Query filter for equipment
+#' @param type Filter for type of equipment (i.e. "Platforms")
+#' @param environment Filter for environment of equipment (i.e. "Air")
 #'
 #' @return Janes equipment data.
 #' @importFrom httr GET
@@ -28,12 +30,17 @@
 
 
 
-get_janes_equipment <- function(country = NULL, query = NULL){
+get_janes_equipment <- function(country = NULL, query = NULL,
+                                environment = NULL, type = NULL){
     page_range <- get_page_range(country = country, endpoint = "equipmentrelationships",
-                                 query = str_replace_all(query, " ", "%20"))
+                                 query = str_replace_all(query, " ", "%20"),
+                                 environment = environment,
+                                 type = type)
     equipment <- map(page_range, ~ get_janes_info(x = .x, country = country,
                                                   endpoint = "equipment",
-                                                  query = str_replace_all(query, " ", "%20"))) %>%
+                                                  query = str_replace_all(query, " ", "%20"),
+                                                  environment = environment,
+                                                  type = type)) %>%
         bind_rows()
     equipment_data <- map(equipment$url, get_janes_data)
 

@@ -16,7 +16,8 @@ get_news_page_range <- function(country = NULL, query = NULL){
   request <- httr::GET(url = paste0("https://developer.janes.com/api/v1/news?q=",
                                     stringr::str_replace_all(query, " ", "%20"),
                                     "&f=countryiso(",
-                                    country, ")", "&num=100"),
+                                    country,
+                                    ")&num=100"),
                        httr::add_headers(Authorization = janes_key))
   response <- httr::content(request, as = "text", encoding = "UTF-8")
   range_temp <- ceiling(jsonlite::fromJSON(response)[["metadata"]][["recordCount"]] / 100)
