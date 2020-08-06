@@ -16,7 +16,7 @@
 
 
 get_janes_news_text <- function(x){
-  request <- httr::GET(url = x, httr::add_headers(Authorization = janes_key))
+  request <- httr::GET(url = x, httr::add_headers(Authorization = Sys.getenv("JANES_KEY")))
   response <- httr::content(request)
 
   response %>%

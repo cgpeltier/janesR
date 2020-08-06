@@ -14,7 +14,7 @@
 
 
 get_janes_data <- function(x){
-  request <- GET(url = x, add_headers(Authorization = janes_key))
+  request <- GET(url = x, add_headers(Authorization = Sys.getenv("JANES_KEY")))
   response <- content(request, as = "text")
   response %>%
     fromJSON() %>%

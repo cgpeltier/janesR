@@ -16,7 +16,7 @@ get_page_range_programs <- function(operator_country = NULL){
   request <- httr::GET(url = paste0("https://developer.janes.com/api/v1/data/defenceprogrammes?f=operatorCountry(",
                                     operator_country = stringr::str_replace_all(operator_country, " ", "%20"),
                                     ")&num=100"),
-                       httr::add_headers(Authorization = janes_key))
+                       httr::add_headers(Authorization = Sys.getenv("JANES_KEY")))
   response <- httr::content(request, as = "text", encoding = "UTF-8")
   range_temp <- ceiling(jsonlite::fromJSON(response)[["metadata"]][["recordCount"]] / 100)
   seq(1:range_temp)

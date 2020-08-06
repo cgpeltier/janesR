@@ -44,7 +44,7 @@ get_janes_inventories <- function(country = NULL, operator_force = NULL){
     rename(inventory_id = id, inventory_title = title) %>%
     select(1:15) %>%
     unnest_wider(equipment) %>%
-    #rename(roles_type = type) %>% # note may need to uncomment for all records pull
+    #rename(any_of(roles_type = type)) %>%
     unnest_wider(family, names_repair = ~gsub('...', 'family', ., fixed = TRUE)) %>%
     unnest_wider(types, names_repair = ~gsub('...', 'types', ., fixed = TRUE)) %>%
     unnest_wider(type, names_repair = ~gsub('...', 'type', ., fixed = TRUE)) %>%

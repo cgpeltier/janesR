@@ -45,7 +45,10 @@ get_janes_equipment_relationships <- function(country = NULL, query = NULL){
     rename(equipment = ".") %>%
     unnest_wider(equipment) %>%
     unnest_wider(itemLink) %>%
-    clean_names()
+    conditional_unnest_wider("countries") %>%
+    conditional_unnest_wider("country") %>%
+    clean_names() %>%
+    remove_empty()
 }
 
 

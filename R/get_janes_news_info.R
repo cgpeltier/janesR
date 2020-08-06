@@ -22,7 +22,7 @@ get_janes_news_info <- function(country = NULL, query = NULL, x){
                                     "&f=countryiso(",
                                     country, ")", "&num=100",
                                     "&pg=", x),
-                       httr::add_headers(Authorization = janes_key))
+                       httr::add_headers(Authorization = Sys.getenv("JANES_KEY")))
   response <- httr::content(request, as = "text", encoding = "UTF-8")
   jsonlite::fromJSON(response)[["results"]]
 }

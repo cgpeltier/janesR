@@ -45,9 +45,48 @@ get_janes_events <- function(country = NULL, query = NULL){
         unnest_wider(events) %>%
         rename(events = ".") %>%
         unnest_wider(events) %>%
-        unnest_wider(eventLocation) %>%
-        unnest_wider(date) %>%
-        clean_names()
+        unnest_wider(eventLocation, names_repair = ~gsub('...', 'event_location', ., fixed = TRUE)) %>%
+        unnest_wider(date, names_repair = ~gsub('...', 'date', ., fixed = TRUE)) %>%
+        unnest_wider(eventSources, names_repair = ~gsub('...', 'event_sources', ., fixed = TRUE)) %>%
+        unnest_wider(place, names_repair = ~gsub('...', 'place', ., fixed = TRUE)) %>%
+        conditional_unnest_wider("name") %>%
+        unnest_wider(casualties, names_repair = ~gsub('...', 'casualties', ., fixed = TRUE)) %>%
+        unnest_wider(intelligence, names_repair = ~gsub('...', 'intelligence', ., fixed = TRUE)) %>%
+        unnest_wider(actors, names_repair = ~gsub('...', 'actors', ., fixed = TRUE)) %>%
+        conditional_unnest_wider("ct_statement") %>%
+        conditional_unnest_wider("nsag_attack") %>%
+        unnest_wider(offset,names_repair = ~gsub('...', 'offset', ., fixed = TRUE)) %>%
+        conditional_unnest_wider("direction") %>%
+        conditional_unnest_wider("distance") %>%
+        conditional_unnest_wider("direction") %>%
+        conditional_unnest_wider("unitOfMeasure") %>%
+        conditional_unnest_wider("locationQuality") %>%
+        conditional_unnest_wider("militants") %>%
+        conditional_unnest_wider("civilians") %>%
+        conditional_unnest_wider("securityForces") %>%
+        conditional_unnest_wider("civilianSecurityForces") %>%
+        conditional_unnest_wider("unidentified") %>%
+        conditional_unnest_wider("nonMilitantTotals") %>%
+        conditional_unnest_wider("totals") %>%
+        #conditional_unnest_wider("killed") %>%
+        #unnest_wider(number, names_repair = ~gsub('...', 'killed_number', ., fixed = TRUE)) %>%
+        #unnest_wider(precision, names_repair = ~gsub('...', 'killed_precision', ., fixed = TRUE)) %>%
+        #unnest_wider(wounded, names_repair = ~gsub('...', 'wounded', ., fixed = TRUE)) %>%
+        #unnest_wider(number, names_repair = ~gsub('...', 'wounded_number', ., fixed = TRUE)) %>%
+        #unnest_wider(precision, names_repair = ~gsub('...', 'wounded_precision', ., fixed = TRUE)) %>%
+        #conditional_unnest_wider("captured") %>%
+        conditional_unnest_wider("role") %>%
+        conditional_unnest_wider("name") %>%
+        conditional_unnest_wider("family") %>%
+        conditional_unnest_wider("nation") %>%
+        conditional_unnest_wider("scope") %>%
+        conditional_unnest_wider("region_2") %>%
+        conditional_unnest_wider("orientation") %>%
+        conditional_unnest_wider("type_2") %>%
+        conditional_unnest_wider("ct_statement") %>%
+        conditional_unnest_wider("nsag_attack") %>%
+        clean_names() %>%
+        remove_empty()
 
 }
 

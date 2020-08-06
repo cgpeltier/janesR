@@ -17,7 +17,7 @@ get_janes_info_programs <- function(x, operator_country = NULL){
   request <- GET(url = paste0("https://developer.janes.com/api/v1/data/defenceprogrammes?f=operatorCountry(",
                               operator_country = stringr::str_replace_all(operator_country, " ", "%20"),
                               ")&num=100", "&pg=", x),
-                 add_headers(Authorization = janes_key))
+                 add_headers(Authorization = Sys.getenv("JANES_KEY")))
   response <- content(request, as = "text", encoding = "UTF-8")
   fromJSON(response)[["results"]]
 }

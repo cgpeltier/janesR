@@ -7,11 +7,11 @@
 save_janes_key(key)
 }
 \arguments{
-\item{key}{API key}
+\item{key}{Janes API key}
 }
 \value{
-Janes page ranges for a given search.
+Saves Janes API key to environment.
 }
 \description{
-saves_janes_key
+Saves Janes key to environment
 }
