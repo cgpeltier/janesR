@@ -43,73 +43,32 @@ get_janes_bases <- function(country = NULL){
         rename(base = ".") %>%
         unnest_wider(base) %>%
         select(-any_of("...1")) %>%
-        unnest_wider(installation) %>%
-        select(-any_of("...1")) %>%
-        unnest_wider(operators) %>%
+        unnest_wider(installation, names_repair = ~gsub('...', 'installation', ., fixed = TRUE)) %>%
+        unnest_wider(operators, names_repair = ~gsub('...', 'operators', ., fixed = TRUE)) %>%
         select(-installationId) %>%
-        select(-any_of("...1")) %>%
-        unnest_wider(operator) %>%
-        select(-any_of("...1")) %>%
-        unnest_wider(operatorCountry, names_repair = "unique", names_sep = names_sep_vector) %>%
-        unnest_wider(location) %>%
-        select(-any_of("...1")) %>%
-        unnest_wider(runways) %>%
-        select(-any_of("...1")) %>%
-        unnest_wider(runway) %>%
-        select(-any_of("...1")) %>%
-        unnest_wider(runwayLengthMetres) %>%
-        rename_with(.fn = ~ gsub("...", "runway_length_m", .x, fixed = TRUE),
-                    .cols = starts_with("...")) %>%
-        unnest_wider(runwayOrientationOpposing) %>%
-        rename_with(.fn = ~ gsub("...", "runway_length_opposing", .x, fixed = TRUE),
-                    .cols = starts_with("...")) %>%
-        unnest_wider(runwayOrientation) %>%
-        rename_with(.fn = ~ gsub("...", "runway_orientation", .x, fixed = TRUE),
-                    .cols = starts_with("...")) %>%
-        unnest_wider(runwaySurface) %>%
-        rename_with(.fn = ~ gsub("...", "runway_surface", .x, fixed = TRUE),
-                    .cols = starts_with("...")) %>%
-        unnest_wider(runwayName) %>%
-        rename_with(.fn = ~ gsub("...", "runway_name", .x, fixed = TRUE),
-                    .cols = starts_with("...")) %>%
-        unnest_wider(runwayDirection1Name) %>%
-        rename_with(.fn = ~ gsub("...", "runway_direction1_name", .x, fixed = TRUE),
-                    .cols = starts_with("...")) %>%
-        unnest_wider(runwayDirection2Name) %>%
-        rename_with(.fn = ~ gsub("...", "runway_direction2_name", .x, fixed = TRUE),
-                    .cols = starts_with("...")) %>%
-        unnest_wider(runwayStaus) %>%
-        rename_with(.fn = ~ gsub("...", "runway_status", .x, fixed = TRUE),
-                    .cols = starts_with("...")) %>%
-        unnest_wider(runwayLengthFeet) %>%
-        rename_with(.fn = ~ gsub("...", "runway_length_ft", .x, fixed = TRUE),
-                    .cols = starts_with("...")) %>%
-        unnest_wider(runwayWidthMetres) %>%
-        rename_with(.fn = ~ gsub("...", "runway_width_m", .x, fixed = TRUE),
-                    .cols = starts_with("...")) %>%
-        unnest_wider(runwayWidthFeet) %>%
-        rename_with(.fn = ~ gsub("...", "runway_width_ft", .x, fixed = TRUE),
-                    .cols = starts_with("...")) %>%
-        unnest_wider(runwayCenterline) %>%
-        rename_with(.fn = ~ gsub("...", "runway_centerline", .x, fixed = TRUE),
-                    .cols = starts_with("...")) %>%
-        unnest_wider(synonyms) %>%
-        select(-any_of("...1")) %>%
-        unnest_wider(operatorId) %>%
-        rename_with(.fn = ~ gsub("...", "operator_id", .x, fixed = TRUE),
-                    .cols = starts_with("...")) %>%
-        unnest_wider(installationId) %>%
-        rename_with(.fn = ~ gsub("...", "installation_id", .x, fixed = TRUE),
-                    .cols = starts_with("...")) %>%
-        unnest_wider(operatorServiceType) %>%
-        rename_with(.fn = ~ gsub("...", "operator_service_type", .x, fixed = TRUE),
-                    .cols = starts_with("...")) %>%
-        unnest_wider(operatorRegion) %>%
-        rename_with(.fn = ~ gsub("...", "operator_region", .x, fixed = TRUE),
-                    .cols = starts_with("...")) %>%
-        unnest_wider(operatorCountryISO) %>%
-        rename_with(.fn = ~ gsub("...", "operator_country_iso", .x, fixed = TRUE),
-                    .cols = starts_with("...")) %>%
+        unnest_wider(operator, names_repair = ~gsub('...', 'operator', ., fixed = TRUE)) %>%
+        unnest_wider(operatorCountry, names_repair = ~gsub('...', 'operator_country', ., fixed = TRUE)) %>%
+        unnest_wider(location, names_repair = ~gsub('...', 'location', ., fixed = TRUE)) %>%
+        unnest_wider(runways, names_repair = ~gsub('...', 'runways', ., fixed = TRUE)) %>%
+        unnest_wider(runway, names_repair = ~gsub('...', 'runway', ., fixed = TRUE)) %>%
+        unnest_wider(runwayLengthMetres, names_repair = ~gsub('...', 'runway_length_m', ., fixed = TRUE)) %>%
+        unnest_wider(runwayOrientationOpposing, names_repair = ~gsub('...', 'runway_orientation_opp', ., fixed = TRUE)) %>%
+        unnest_wider(runwayOrientation, names_repair = ~gsub('...', 'runway_orientation', ., fixed = TRUE)) %>%
+        unnest_wider(runwaySurface, names_repair = ~gsub('...', 'runway_surface', ., fixed = TRUE)) %>%
+        unnest_wider(runwayName, names_repair = ~gsub('...', 'runway_name', ., fixed = TRUE)) %>%
+        unnest_wider(runwayDirection1Name, names_repair = ~gsub('...', 'runway_direction1_name', ., fixed = TRUE)) %>%
+        unnest_wider(runwayDirection2Name, names_repair = ~gsub('...', 'runway_direction1_name', ., fixed = TRUE)) %>%
+        unnest_wider(runwayStaus, names_repair = ~gsub('...', 'runway_status', ., fixed = TRUE)) %>%
+        unnest_wider(runwayLengthFeet, names_repair = ~gsub('...', 'runway_length_ft', ., fixed = TRUE)) %>%
+        unnest_wider(runwayWidthMetres, names_repair = ~gsub('...', 'runway_length_m', ., fixed = TRUE)) %>%
+        unnest_wider(runwayWidthFeet, names_repair = ~gsub('...', 'runway_width_ft', ., fixed = TRUE)) %>%
+        unnest_wider(runwayCenterline, names_repair = ~gsub('...', 'runway_centerline', ., fixed = TRUE)) %>%
+        unnest_wider(synonyms, names_repair = ~gsub('...', 'synonyms', ., fixed = TRUE)) %>%
+        unnest_wider(operatorId, names_repair = ~gsub('...', 'operator_id', ., fixed = TRUE)) %>%
+        unnest_wider(installationId, names_repair = ~gsub('...', 'installation_id', ., fixed = TRUE)) %>%
+        unnest_wider(operatorServiceType, names_repair = ~gsub('...', 'operator_service_type', ., fixed = TRUE)) %>%
+        unnest_wider(operatorRegion, names_repair = ~gsub('...', 'operator_region', ., fixed = TRUE)) %>%
+        unnest_wider(operatorCountryISO, names_repair = ~gsub('...', 'operator_country_iso', ., fixed = TRUE)) %>%
         janitor::clean_names() %>%
         janitor::remove_empty()
 
