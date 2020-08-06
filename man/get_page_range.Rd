@@ -22,6 +22,8 @@ get_page_range(
 
 \item{type}{Depends on endpoint}
 
+\item{operator_force}{Operator force}
+
 \item{query}{Search term}
 
 \item{environment}{Of search, i.e. "Air"}

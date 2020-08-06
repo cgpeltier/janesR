@@ -8,6 +8,7 @@
 #' @param x For iteration on URLs
 #' @param type Filter for type - depends on endpoint (i.e. "Platforms" or "Air")
 #' @param environment Filter for environment of equipment (i.e. "Air")
+#' @param operator_force = Operator force
 #'
 #' @return Helper function to return Janes news article page range related to search.
 #' @importFrom httr GET

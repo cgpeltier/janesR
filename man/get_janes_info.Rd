@@ -25,6 +25,8 @@ get_janes_info(
 
 \item{type}{Filter for type - depends on endpoint (i.e. "Platforms" or "Air")}
 
+\item{operator_force}{= Operator force}
+
 \item{query}{Search term}
 
 \item{environment}{Filter for environment of equipment (i.e. "Air")}

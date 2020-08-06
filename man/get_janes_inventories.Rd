@@ -7,7 +7,9 @@
 get_janes_inventories(country = NULL, operator_force = NULL)
 }
 \arguments{
-\item{country}{Country filter for news}
+\item{country}{Country filter}
+
+\item{operator_force}{Operator force}
 }
 \value{
 Janes equipment inventories.

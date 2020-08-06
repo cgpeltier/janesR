@@ -32,35 +32,39 @@
 
 get_janes_equipment <- function(country = NULL, query = NULL,
                                 environment = NULL, type = NULL){
-    page_range <- get_page_range(country = country, endpoint = "equipmentrelationships",
+    page_range <- get_page_range(country = country, endpoint = "equipment",
                                  query = str_replace_all(query, " ", "%20"),
                                  environment = environment,
                                  type = type)
+
     equipment <- map(page_range, ~ get_janes_info(x = .x, country = country,
                                                   endpoint = "equipment",
                                                   query = str_replace_all(query, " ", "%20"),
                                                   environment = environment,
                                                   type = type)) %>%
         bind_rows()
+
     equipment_data <- map(equipment$url, get_janes_data)
 
     equipment_data %>%
         tibble() %>%
         rename(equipment = ".") %>%
-        unnest_auto(equipment) %>%
+        unnest_wider(equipment) %>%
         rename(equipment = ".") %>%
-        unnest_auto(equipment) %>%
-        unnest_auto(equipment) %>%
+        unnest_wider(equipment) %>%
+        unnest_wider(equipment) %>%
+        select(1:20) %>%
         unnest_wider(types) %>%
+        select(-any_of("...1")) %>%
+        unnest_wider(type) %>%
+        rename_with(.fn = ~ gsub("...", "type", .x, fixed = TRUE),
+                    .cols = starts_with("...")) %>%
         unnest_wider(operatorCountries) %>%
         select(-any_of("...1")) %>%
         unnest_wider(operatorCountry) %>%
         select(-any_of("...1")) %>%
         unnest_wider(operatorCountryName) %>%
         rename_with(.fn = ~ gsub("...", "operator_country", .x, fixed = TRUE),
-                    .cols = starts_with("...")) %>%
-        unnest_wider(type) %>%
-        rename_with(.fn = ~ gsub("...", "type", .x, fixed = TRUE),
                     .cols = starts_with("...")) %>%
         unnest_wider(roles) %>%
         select(-any_of("...1")) %>%
@@ -78,6 +82,7 @@ get_janes_equipment <- function(country = NULL, query = NULL,
         unnest_wider(overallFamily) %>%
         select(-any_of("...1")) %>%
         unnest_wider(family) %>%
+        select(-any_of("...1")) %>%
         unnest_wider(primayParent) %>%
         select(-any_of("...1")) %>%
         unnest_wider(manufacturerCountries) %>%
@@ -91,11 +96,12 @@ get_janes_equipment <- function(country = NULL, query = NULL,
                     .cols = starts_with("...")) %>%
         unnest_wider(documentId) %>%
         rename_with(.fn = ~ gsub("...", "document_id", .x, fixed = TRUE),
-                                                      .cols = starts_with("...")) %>%
+                    .cols = starts_with("...")) %>%
         unnest_wider(documentTitle) %>%
         rename_with(.fn = ~ gsub("...", "document_title", .x, fixed = TRUE),
                     .cols = starts_with("...")) %>%
         unnest_wider(manufacturerCountry) %>%
+        select(-any_of("...1")) %>%
         unnest_wider(manufacturerCountryIso) %>%
         rename_with(.fn = ~ gsub("...", "manufacturer_country_iso", .x, fixed = TRUE),
                     .cols = starts_with("...")) %>%
@@ -111,18 +117,23 @@ get_janes_equipment <- function(country = NULL, query = NULL,
         rename_with(.fn = ~ gsub("...", "synonym", .x, fixed = TRUE),
                     .cols = starts_with("...")) %>%
         unnest_wider(users) %>%
+        select(-any_of("...1")) %>%
+        unnest_wider(user) %>%
         rename_with(.fn = ~ gsub("...", "user", .x, fixed = TRUE),
                     .cols = starts_with("...")) %>%
         unnest_wider(environments) %>%
+        select(-any_of("...1")) %>%
         unnest_wider(environment) %>%
         rename_with(.fn = ~ gsub("...", "environment", .x, fixed = TRUE),
                     .cols = starts_with("...")) %>%
+        unnest_wider(mobilities) %>%
+        select(-any_of("...1")) %>%
+        unnest_wider(operations) %>%
+        select(-any_of("...1")) %>%
+        unnest_wider(operation) %>%
         clean_names()
 
 }
 
-# synonyms
-# users
-# environments
 
 #' @export

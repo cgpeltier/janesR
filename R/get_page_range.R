@@ -7,6 +7,7 @@
 #' @param endpoint One of 6 options currently
 #' @param query Search term
 #' @param environment Of search, i.e. "Air"
+#' @param operator_force Operator force
 #'
 #' @return Janes page ranges for a given search.
 #' @importFrom httr GET

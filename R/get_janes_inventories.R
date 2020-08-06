@@ -1,7 +1,8 @@
 #' @title get_janes_inventories
 #' @description Pulls Janes equipment inventories.
 #'
-#' @param country Country filter for news
+#' @param country Country filter
+#' @param operator_force Operator force
 #'
 #' @return Janes equipment inventories.
 #' @importFrom httr GET
