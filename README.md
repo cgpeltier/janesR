@@ -7,20 +7,22 @@ You can install janesR from github:
 ```{r}
 devtools::install_github("cgpeltier/janesR")
 ```
-
+## Using janesR 
 The package currently supports the following API endpoints:
 
-* Airports: get_janes_airports
-* Bases: get_janes_bases
-* Defence Programs: get_janes_programs
-* Equipment: get_janes_equipment
-* Equipment Relationships: get_janes_equipment_relationships
-* Intelligence Events: get_janes_events
-* Inventory: get_janes_inventories
-* Orbats: get_janes_orbats
-* News: get_janes_news
-* Country Risk: get_janes_country_risks 
-* Companies: get_janes_companies
+* Airports: `get_janes_airports`
+* Bases: `get_janes_bases`
+* Companies: `get_janes_companies`
+* Country Risk: `get_janes_country_risks` 
+* Defence Programs: `get_janes_programs`
+* Equipment: `get_janes_equipment`
+* Equipment Relationships: `get_janes_equipment_relationships`
+* Intelligence Events: `get_janes_events`
+* Inventories: `get_janes_inventories`
+* News: `get_janes_news`
+* ORBATs: `get_janes_orbats`
+
+Additionally, the `get_janes_json` function will return data from the airports, bases, country risk, equipment, equipment relationships, inventories, and ORBATs endpoints in a JSON format instead of as a flat tibble. 
 
 Functions for the other API endpoints will be added shortly. Additional options for more customized API calls will also be added to existing janesR functions.
 
