@@ -24,7 +24,7 @@ The package currently supports the following API endpoints:
 
 Functions for the other API endpoints will be added shortly. Additional options for more customized API calls will also be added to existing janesR functions.
 
-To get started, and to use any of the above functions, first use the `r save_janes_key` function to save your Janes API key to your R environment:
+To get started, and to use any of the above functions, first use the ` save_janes_key` function to save your Janes API key to your R environment:
 ```{r}
 save_janes_key("JANES_API_KEY_GOES_HERE")
 ```
