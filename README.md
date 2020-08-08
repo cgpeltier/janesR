@@ -22,9 +22,9 @@ The package currently supports the following API endpoints:
 * News: `get_janes_news`
 * ORBATs: `get_janes_orbats`
 
-Additionally, the `get_janes_json` function will return data from the airports, bases, country risk, equipment, equipment relationships, inventories, and ORBATs endpoints in a JSON format instead of as a flat tibble. 
+If you'd like to save your output as a JSON file, I recommend using the `jsonlite::toJSON` function on the returned data frame. 
 
-Functions for the other API endpoints will be added shortly. Additional options for more customized API calls will also be added to existing janesR functions.
+Functions for the other API endpoints will be added shortly. 
 
 To get started, and to use any of the above functions, first use the ` save_janes_key` function to save your Janes API key to your R environment:
 ```{r}
