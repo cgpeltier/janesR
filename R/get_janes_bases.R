@@ -34,7 +34,6 @@ get_janes_bases <- function(country = NULL){
                                              endpoint = "bases")) %>%
         bind_rows()
     bases_data <- map(bases$url, get_janes_data)
-    names_sep_vector <- paste0("_", seq(1:20))
 
     bases_data %>%
         tibble() %>%

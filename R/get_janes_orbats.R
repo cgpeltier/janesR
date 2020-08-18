@@ -62,6 +62,11 @@ get_janes_orbats <- function(country = NULL, branch = NULL){
             na.rm = TRUE) %>%
       mutate(all_equipment_names = str_remove_all(all_equipment_names, "(?<=\\,)\\sNA,"),
              all_equipment_names = str_remove_all(all_equipment_names, ", NA")) %>%
+      conditional_unnest_wider("equipmentId") %>%
+      conditional_unnest_wider("familyRootId") %>%
+      conditional_unnest_wider("equipmentType") %>%
+      conditional_unnest_wider("comments") %>%
+      conditional_unnest_wider("numberOfItems") %>%
       janitor::clean_names() %>%
       janitor::remove_empty()
 }

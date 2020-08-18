@@ -56,36 +56,37 @@ get_janes_equipment <- function(country = NULL, query = NULL,
         select(1:18) %>%
         unnest_wider(types, names_repair = ~gsub('...', 'types', ., fixed = TRUE)) %>%
         unnest_wider(type, names_repair = ~gsub('...', 'type', ., fixed = TRUE)) %>%
-        unnest_wider(operatorCountries, names_repair = ~gsub('...', 'operator_countries', ., fixed = TRUE)) %>%
-        unnest_wider(operatorCountry, names_repair = ~gsub('...', 'operator_country', ., fixed = TRUE)) %>%
-        unnest_wider(operatorCountryName, names_repair = ~gsub('...', 'operator_country_name', ., fixed = TRUE)) %>%
-        unnest_wider(roles, names_repair = ~gsub('...', 'roles', ., fixed = TRUE)) %>%
-        unnest_wider(role, names_repair = ~gsub('...', 'role', ., fixed = TRUE)) %>%
-        unnest_wider(manufacturers, names_repair = ~gsub('...', 'manufacturers', ., fixed = TRUE)) %>%
-        unnest_wider(manufacturer, names_repair = ~gsub('...', 'manufacturer', ., fixed = TRUE)) %>%
-        unnest_wider(manufacturerName, names_repair = ~gsub('...', 'manufacturer_name', ., fixed = TRUE)) %>%
-        unnest_wider(overallFamily, names_repair = ~gsub('...', 'overall_family', ., fixed = TRUE)) %>%
-        unnest_wider(family, names_repair = ~gsub('...', 'family', ., fixed = TRUE)) %>%
-        unnest_wider(primayParent, names_repair = ~gsub('...', 'primary_parent', ., fixed = TRUE)) %>%
-        unnest_wider(manufacturerCountries, names_repair = ~gsub('...', 'manufacturer_countries', ., fixed = TRUE)) %>%
-        unnest_wider(documents, names_repair = ~gsub('...', 'documents', ., fixed = TRUE)) %>%
-        unnest_wider(document, names_repair = ~gsub('...', 'document', ., fixed = TRUE)) %>%
-        unnest_wider(manufacturerId, names_repair = ~gsub('...', 'manufacturer_id', ., fixed = TRUE)) %>%
-        unnest_wider(documentId, names_repair = ~gsub('...', 'document_id', ., fixed = TRUE)) %>%
-        unnest_wider(documentTitle, names_repair = ~gsub('...', 'document_title', ., fixed = TRUE)) %>%
-        unnest_wider(manufacturerCountry, names_repair = ~gsub('...', 'manufacturer_country', ., fixed = TRUE)) %>%
-        unnest_wider(manufacturerCountryIso, names_repair = ~gsub('...', 'manufacturer_country_iso', ., fixed = TRUE)) %>%
-        unnest_wider(manufacturerCountryName, names_repair = ~gsub('...', 'manufacturer_country_name', ., fixed = TRUE)) %>%
-        unnest_wider(operatorCountryIso, names_repair = ~gsub('...', 'operator_country_iso', ., fixed = TRUE)) %>%
-        unnest_wider(synonyms, names_repair = ~gsub('...', 'synonyms', ., fixed = TRUE)) %>%
-        unnest_wider(synonym, names_repair = ~gsub('...', 'synonym', ., fixed = TRUE)) %>%
-        unnest_wider(users, names_repair = ~gsub('...', 'users', ., fixed = TRUE)) %>%
-        unnest_wider(user, names_repair = ~gsub('...', 'user', ., fixed = TRUE)) %>%
-        unnest_wider(environments, names_repair = ~gsub('...', 'environments', ., fixed = TRUE)) %>%
-        unnest_wider(environment, names_repair = ~gsub('...', 'environment', ., fixed = TRUE)) %>%
+        conditional_unnest_wider("operatorCountries") %>%
+        conditional_unnest_wider("operatorCountry") %>%
+        conditional_unnest_wider("operatorCountryName") %>%
+        conditional_unnest_wider("operatorCountryIso") %>%
+        conditional_unnest_wider("roles") %>%
+        conditional_unnest_wider("role") %>%
+        conditional_unnest_wider("manufacturers") %>%
+        conditional_unnest_wider("manufacturer") %>%
+        conditional_unnest_wider("manufacturerName") %>%
+        conditional_unnest_wider("overallFamily") %>%
+        conditional_unnest_wider("family") %>%
+        conditional_unnest_wider("primayParent") %>%
+        conditional_unnest_wider("manufacturerCountries") %>%
+        conditional_unnest_wider("documents") %>%
+        conditional_unnest_wider("document") %>%
+        conditional_unnest_wider("manufacturerId") %>%
+        conditional_unnest_wider("manufacturerTitle") %>%
+        conditional_unnest_wider("manufacturerCountry") %>%
+        conditional_unnest_wider("manufacturerCountryIso") %>%
+        conditional_unnest_wider("manufacturerCountryName") %>%
+        conditional_unnest_wider("synonyms") %>%
+        conditional_unnest_wider("synonym") %>%
+        conditional_unnest_wider("users") %>%
+        conditional_unnest_wider("user") %>%
+        conditional_unnest_wider("environments") %>%
+        conditional_unnest_wider("environment") %>%
         conditional_unnest_wider("mobility") %>%
         conditional_unnest_wider("operations") %>%
         conditional_unnest_wider("operation") %>%
+        conditional_unnest_wider("mobilities") %>%
+        conditional_unnest_wider("mobility") %>%
         #unnest_wider(mobilities, names_repair = ~gsub('...', 'mobilities', ., fixed = TRUE)) %>%
         #unnest_wider(operations, names_repair = ~gsub('...', 'operations', ., fixed = TRUE)) %>%
         #unnest_wider(operation, names_repair = ~gsub('...', 'operation', ., fixed = TRUE)) %>%
