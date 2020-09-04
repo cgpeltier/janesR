@@ -22,8 +22,6 @@ The package currently supports the following API endpoints:
 * News: `get_janes_news`
 * ORBATs: `get_janes_orbats`
 
-If you'd like to save your output as a JSON file, I recommend using the `jsonlite::toJSON` function on the returned data frame. 
-
 Functions for the other API endpoints will be added shortly. 
 
 To get started, and to use any of the above functions, first use the ` save_janes_key` function to save your Janes API key to your R environment:
