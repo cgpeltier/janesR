@@ -20,16 +20,16 @@
 #' @export
 
 get_janes_news <- function(country = NULL, query = NULL){
-  page_range <- get_news_page_range(country = country, query = query)
-  news <- purrr::map(page_range, ~ get_janes_news_info(.x, country = country,
-                                                query = query)) %>%
-    dplyr::bind_rows()
+    page_range <- get_news_page_range(country = country, query = query)
+    news <- purrr::map(page_range, ~ get_janes_news_info(.x, country = country,
+                                                  query = query)) %>%
+      dplyr::bind_rows()
 
-  news %>%
-    dplyr::mutate(news_text = purrr::map(url, get_janes_news_text)) %>%
-    jsonlite::flatten(news_text) %>%
-    dplyr::mutate(postDate = lubridate::ymd(stringr::str_remove(postDate, "T.+")),
-           news_text = stringr::str_replace_all(news_text, "\\s{2,}", " "))
+    news %>%
+      dplyr::mutate(news_text = purrr::map(url, get_janes_news_text)) %>%
+      jsonlite::flatten(news_text) %>%
+      dplyr::mutate(postDate = lubridate::ymd(stringr::str_remove(postDate, "T.+")),
+             news_text = stringr::str_replace_all(news_text, "\\s{2,}", " "))
 }
 
 #' @export

@@ -22,12 +22,19 @@ get_page_range <- function(country = NULL, branch = NULL, type = NULL,
                            operator_force = NULL, query = NULL, environment = NULL,
                            endpoint = c("inventories", "equipment", "orbats",
                                         "bases", "airports", "countryrisks",
-                                        "companies", "events", "equipmentrelationships")){
-  request <- httr::GET(url = paste0("https://developer.janes.com/api/v1/data/",
-                                    endpoint,"?q=",
+                                        "companies", "events", "equipmentrelationships",
+                                        "references")){
+
+    if (endpoint == "references") {endpoint2 <- endpoint } else
+        {endpoint2 <- paste0("data/", endpoint)}
+
+    countries <- paste0(country, collapse = ")%3Cor%3Ecountryiso(")
+
+    response <- httr::GET(url = paste0("https://developer.janes.com/api/v1/",
+                                    endpoint2,"?q=",
                                     str_replace_all(query, " ", "%20"),
                                     "&f=countryiso(",
-                                    country, ")%3cand%3Ebranch(",
+                                    countries, ")%3cand%3Ebranch(",
                                     stringr::str_replace_all(branch, " ", "%20"),
                                     ")%3Cand%3EoperatorForce(",
                                     stringr::str_replace_all(operator_force, " ", "%20"),
@@ -36,10 +43,13 @@ get_page_range <- function(country = NULL, branch = NULL, type = NULL,
                                     ")%3Cand%3Eenvironment(",
                                     environment,
                                     ")&num=100"),
-                       httr::add_headers(Authorization = Sys.getenv("JANES_KEY")))
-  response <- httr::content(request, as = "text", encoding = "UTF-8")
-  range_temp <- ceiling(jsonlite::fromJSON(response)[["metadata"]][["recordCount"]] / 100)
-  seq(1:range_temp)
+                       httr::add_headers(Authorization = Sys.getenv("JANES_KEY"))) %>%
+            httr::content()
+
+    range_temp <- ceiling(response[["metadata"]][["recordCount"]] / 100)
+
+    seq(1:range_temp)
+
 }
 
 

@@ -90,9 +90,7 @@ get_janes_equipment <- function(country = NULL, query = NULL,
         #unnest_wider(mobilities, names_repair = ~gsub('...', 'mobilities', ., fixed = TRUE)) %>%
         #unnest_wider(operations, names_repair = ~gsub('...', 'operations', ., fixed = TRUE)) %>%
         #unnest_wider(operation, names_repair = ~gsub('...', 'operation', ., fixed = TRUE)) %>%
-        clean_names() %>%
-        remove_empty()
-
+        clean_names()
 }
 
 
