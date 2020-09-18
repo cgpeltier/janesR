@@ -12,7 +12,7 @@ get_page_range(
   query = NULL,
   environment = NULL,
   endpoint = c("inventories", "equipment", "orbats", "bases", "airports",
-    "countryrisks", "companies", "events", "equipmentrelationships")
+    "countryrisks", "companies", "events", "equipmentrelationships", "references")
 )
 }
 \arguments{

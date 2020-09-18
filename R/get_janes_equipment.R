@@ -71,6 +71,8 @@ get_janes_equipment <- function(country = NULL, query = NULL,
         conditional_unnest_wider("manufacturerCountries") %>%
         conditional_unnest_wider("documents") %>%
         conditional_unnest_wider("document") %>%
+        conditional_unnest_wider("documentId") %>%
+        conditional_unnest_wider("documentTitle") %>%
         conditional_unnest_wider("manufacturerId") %>%
         conditional_unnest_wider("manufacturerTitle") %>%
         conditional_unnest_wider("manufacturerCountry") %>%
@@ -87,9 +89,6 @@ get_janes_equipment <- function(country = NULL, query = NULL,
         conditional_unnest_wider("operation") %>%
         conditional_unnest_wider("mobilities") %>%
         conditional_unnest_wider("mobility") %>%
-        #unnest_wider(mobilities, names_repair = ~gsub('...', 'mobilities', ., fixed = TRUE)) %>%
-        #unnest_wider(operations, names_repair = ~gsub('...', 'operations', ., fixed = TRUE)) %>%
-        #unnest_wider(operation, names_repair = ~gsub('...', 'operation', ., fixed = TRUE)) %>%
         clean_names()
 }
 
