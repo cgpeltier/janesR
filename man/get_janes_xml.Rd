@@ -14,7 +14,8 @@ get_janes_xml(
   endpoint = "references",
   jdet_only = FALSE,
   docs = TRUE,
-  pics = FALSE
+  pics = FALSE,
+  sat = FALSE
 )
 }
 \arguments{

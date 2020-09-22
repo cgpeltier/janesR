@@ -12,7 +12,8 @@ get_janes_json(
   query = NULL,
   environment = NULL,
   endpoint = c("inventories", "equipment", "orbats", "bases", "airports",
-    "countryrisks", "companies", "events", "equipmentrelationships", "references")
+    "countryrisks", "companies", "events", "equipmentrelationships", "references",
+    "samsites", "ewsites")
 )
 }
 \arguments{

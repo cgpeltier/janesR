@@ -46,29 +46,25 @@ get_janes_orbats <- function(country = NULL, branch = NULL){
       rename(orbat = ".") %>%
       unnest_wider(orbat) %>%
       unnest_wider(orbat) %>%
-      unnest_wider(associatedEquipments) %>%
-      select(-any_of("...1")) %>%
-      unnest_wider(associatedEquipment) %>%
-      select(-any_of("...1")) %>%
-      select(-"id") %>%
-      unnest_wider(equipmentName) %>%
-      rename_with(.fn = ~ gsub("...", "equipment_name", .x, fixed = TRUE),
-                  .cols = starts_with("...")) %>%
-      unnest_wider(installation) %>%
-      unite(col = "all_equipment_names",
-            starts_with("equipment_name"),
-            sep = ", ",
-            remove = FALSE,
-            na.rm = TRUE) %>%
-      mutate(all_equipment_names = str_remove_all(all_equipment_names, "(?<=\\,)\\sNA,"),
-             all_equipment_names = str_remove_all(all_equipment_names, ", NA")) %>%
+      conditional_unnest_wider("associatedEquipments") %>%
+      conditional_unnest_wider("associatedEquipment") %>%
+      conditional_unnest_wider("equipmentName") %>%
+      rename(orbat_id = id) %>%
+      conditional_unnest_wider("installation") %>%
+      rename(installaton_id = id) %>%
+      # unite(col = "all_equipment_names",
+      #       starts_with("equipment_name"),
+      #       sep = ", ",
+      #       remove = FALSE,
+      #       na.rm = TRUE) %>%
+      # mutate(all_equipment_names = str_remove_all(all_equipment_names, "(?<=\\,)\\sNA,"),
+      #        all_equipment_names = str_remove_all(all_equipment_names, ", NA")) %>%
       conditional_unnest_wider("equipmentId") %>%
       conditional_unnest_wider("familyRootId") %>%
       conditional_unnest_wider("equipmentType") %>%
       conditional_unnest_wider("comments") %>%
       conditional_unnest_wider("numberOfItems") %>%
-      janitor::clean_names() %>%
-      janitor::remove_empty()
+      janitor::clean_names()
 }
 
 

@@ -49,15 +49,16 @@
 get_janes_xml <- function(country = NULL, branch = NULL, type = NULL,
                           operator_force = NULL, query = NULL, environment = NULL,
                           endpoint = "references", jdet_only = FALSE, docs = TRUE,
-                          pics = FALSE){
+                          pics = FALSE, sat = FALSE){
 
     page_range <- get_page_range(country = country, endpoint = endpoint, branch = branch,
                                  type = type, operator_force = operator_force,
-                                 environment = environment)
+                                 environment = environment, query = query)
 
     temp <- map(page_range, ~ get_janes_info(x = .x, country = country, branch = branch,
                                              type = type, operator_force = operator_force,
-                                             environment = environment, endpoint = endpoint)) %>%
+                                             environment = environment, endpoint = endpoint,
+                                             query = query)) %>%
         bind_rows()
 
     if(jdet_only == TRUE){
@@ -70,6 +71,11 @@ get_janes_xml <- function(country = NULL, branch = NULL, type = NULL,
 
         temp <- temp %>%
             dplyr::filter(stringr::str_detect(id, paste(pubs, collapse = "|")))
+    }
+
+    if(sat == TRUE){
+        temp <- temp %>%
+            dplyr::filter(stringr::str_detect(id, "jsia|JSIA"))
     }
 
     if(docs == TRUE){
@@ -90,8 +96,7 @@ get_janes_xml <- function(country = NULL, branch = NULL, type = NULL,
                                              add_headers(Authorization = Sys.getenv("JANES_KEY"))) %>%
                                          content() %>%
                                          magick::image_read() %>%
-                                         magick::image_write(path = paste0("C:/Users/chad.peltier/OneDrive - IHS Markit/Data and Integration/Data for Lisa/data_for_delivery2/",
-                                                                          str_extract(.x, "(?<=\\/)[^\\/]+$"), ".png"))))
+                                         magick::image_write(path = paste0(getwd(), "/reference_", str_extract(.x, "(?<=\\/)[^\\/]+$")))))
 
 
 

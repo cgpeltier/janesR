@@ -11,8 +11,10 @@ get_page_range(
   operator_force = NULL,
   query = NULL,
   environment = NULL,
+  post_date = NULL,
   endpoint = c("inventories", "equipment", "orbats", "bases", "airports",
-    "countryrisks", "companies", "events", "equipmentrelationships", "references")
+    "countryrisks", "companies", "events", "equipmentrelationships", "references",
+    "samsites", "ewsites", "satelliteImages")
 )
 }
 \arguments{

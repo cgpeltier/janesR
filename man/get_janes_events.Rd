@@ -4,12 +4,14 @@
 \alias{get_janes_events}
 \title{get_janes_events}
 \usage{
-get_janes_events(country = NULL, query = NULL)
+get_janes_events(country = NULL, query = NULL, post_date = NULL)
 }
 \arguments{
 \item{country}{Event country}
 
 \item{query}{Search term for events}
+
+\item{post_date}{}
 }
 \value{
 Janes events data

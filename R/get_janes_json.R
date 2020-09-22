@@ -34,28 +34,25 @@
 #' @importFrom jsonlite write_json
 
 
-## EDIT SO THAT EITHER THE FUNCTION CAN TAKE MULTIPLE COUNTRIES
-## OR LOOPS OVER MULTIPLE COUNTRIES
-
 get_janes_json <- function(country = NULL, branch = NULL, type = NULL,
                            operator_force = NULL, query = NULL, environment = NULL,
                            endpoint = c("inventories", "equipment", "orbats",
                                         "bases", "airports", "countryrisks",
                                         "companies", "events", "equipmentrelationships",
-                                        "references")){
+                                        "references", "samsites", "ewsites")){
 
     page_range <- get_page_range(country = country, endpoint = endpoint, branch = branch,
                                  type = type, operator_force = operator_force,
-                                 environment = environment)
+                                 environment = environment, query = query)
 
     temp <- map(page_range, ~ get_janes_info(x = .x, country = country, branch = branch,
                                              type = type, operator_force = operator_force,
-                                             environment = environment, endpoint = endpoint)) %>%
+                                             environment = environment, endpoint = endpoint,
+                                             query = query)) %>%
         bind_rows()
 
     map(temp$url, ~ get_janes_data_json(.x) %>%
-          write_json(., path = paste0("C:/Users/chad.peltier/OneDrive - IHS Markit/Data and Integration/data_for_delivery/",
-                       str_extract(.x, "(?<=\\/)[^\\/]+$"), ".json")))
+          write_json(., path = paste0(getwd(), "/", endpoint, "_", str_extract(.x, "(?<=\\/)[^\\/]+$"), ".json")))
 
 }
 

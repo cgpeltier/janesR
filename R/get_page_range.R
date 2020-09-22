@@ -20,10 +20,12 @@
 
 get_page_range <- function(country = NULL, branch = NULL, type = NULL,
                            operator_force = NULL, query = NULL, environment = NULL,
+                           post_date = NULL,
                            endpoint = c("inventories", "equipment", "orbats",
                                         "bases", "airports", "countryrisks",
                                         "companies", "events", "equipmentrelationships",
-                                        "references")){
+                                        "references", "samsites", "ewsites",
+                                        "satelliteImages")){
 
     if (endpoint == "references") {endpoint2 <- endpoint } else
         {endpoint2 <- paste0("data/", endpoint)}
@@ -34,7 +36,10 @@ get_page_range <- function(country = NULL, branch = NULL, type = NULL,
                                     endpoint2,"?q=",
                                     str_replace_all(query, " ", "%20"),
                                     "&f=countryiso(",
-                                    countries, ")%3cand%3Ebranch(",
+                                    countries,
+                                    ")%3Cand%3EpostDate(",
+                                    str_replace_all(post_date, "::", "%3A%3A"),
+                                    ")%3cand%3Ebranch(",
                                     stringr::str_replace_all(branch, " ", "%20"),
                                     ")%3Cand%3EoperatorForce(",
                                     stringr::str_replace_all(operator_force, " ", "%20"),
