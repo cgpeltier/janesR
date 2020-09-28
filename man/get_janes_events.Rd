@@ -4,14 +4,21 @@
 \alias{get_janes_events}
 \title{get_janes_events}
 \usage{
-get_janes_events(country = NULL, query = NULL, post_date = NULL)
+get_janes_events(
+  country = NULL,
+  query = NULL,
+  post_date = NULL,
+  event_type = c("Terrorism and Insurgency", "Intelligence Events")
+)
 }
 \arguments{
 \item{country}{Event country}
 
 \item{query}{Search term for events}
 
-\item{post_date}{}
+\item{post_date}{Event start date}
+
+\item{event_type}{Either "Terorism and Insurgency" or "Intelligence Events"}
 }
 \value{
 Janes events data
