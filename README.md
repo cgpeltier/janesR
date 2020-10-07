@@ -17,6 +17,7 @@ The package currently supports the following API endpoints:
 * Defence Programs: `get_janes_programs`
 * Equipment: `get_janes_equipment`
 * Equipment Relationships: `get_janes_equipment_relationships`
+* Events: `get_janes_events`
 * Intelligence Events: `get_janes_events`
 * Inventories: `get_janes_inventories`
 * News: `get_janes_news`
