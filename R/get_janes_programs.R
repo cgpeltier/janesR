@@ -40,14 +40,38 @@ get_janes_programs <- function(operator_country = NULL){
   programs_data <- map(programs$url, get_janes_data)
 
   programs_data %>%
-      unlist() %>%
-      enframe() %>%
-      unnest(cols = c("name", "value")) %>%
-      mutate(id = if_else(name == "..programme.id", value, NA_character_)) %>%
-      fill(id) %>%
-      pivot_wider(names_from = name, values_from = value, id_cols = id) %>%
-      janitor::clean_names() %>%
-      janitor::remove_empty()
+      tibble() %>%
+      conditional_unnest_wider(".") %>%
+      conditional_unnest_wider(".") %>%
+      conditional_unnest_wider2("programme") %>%
+      #rename(program_id = id, program_country = operatingCountry) %>%
+      conditional_unnest_wider2("platform") %>%
+      #rename(platform_name = name, program_updated_date = updatedDate) %>%
+      conditional_unnest_wider2("operator") %>%
+      #select(-id, -updatedDate, -operatingCountry) %>%
+      conditional_unnest_wider2("programmeAnalysis") %>%
+      conditional_unnest_wider2("platformVersions") %>%
+      unnest_longer(revisionHistories) %>%
+      conditional_unnest_wider2("platformVersions_platformVersion") %>%
+      conditional_unnest_wider2("platformVersions_inventory") %>%
+      conditional_unnest_wider2("platformVersions_platformVersionManufacturer") %>%
+      conditional_unnest_wider2("subsystems") %>%
+      conditional_unnest_wider2("configurations") %>%
+      conditional_unnest_wider2("subsystems_system") %>%
+      conditional_unnest_wider2("subsystems_subsystem") %>%
+      conditional_unnest_wider2("subsystems_programmeDescription") %>%
+      conditional_unnest_wider2("subsystems_programmeStatus") %>%
+      conditional_unnest_wider2("subsystems_upgrader") %>%
+      conditional_unnest_wider2("subsystems_manufacturer") %>%
+      conditional_unnest_wider2("configurations_programmeName") %>%
+      conditional_unnest_wider2("configurations_configuration") %>%
+      conditional_unnest_wider2("configurations_vehicleName") %>%
+      conditional_unnest_wider2("configurations_platformType") %>%
+      conditional_unnest_wider2("configurations_platformRole") %>%
+      conditional_unnest_wider2("configurations_platformId") %>%
+      conditional_unnest_wider2("configurations_updatedDate") %>%
+      janitor::clean_names()
+
 }
 
 

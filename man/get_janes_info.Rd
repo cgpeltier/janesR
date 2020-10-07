@@ -13,6 +13,7 @@ get_janes_info(
   query = NULL,
   environment = NULL,
   post_date = NULL,
+  start_date = NULL,
   event_type = NULL,
   endpoint = c("inventories", "equipment", "orbats", "bases", "airports",
     "countryrisks", "companies", "events", "equipmentrelationships", "references",

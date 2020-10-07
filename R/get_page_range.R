@@ -20,7 +20,7 @@
 
 get_page_range <- function(country = NULL, branch = NULL, type = NULL,
                            operator_force = NULL, query = NULL, environment = NULL,
-                           post_date = NULL, event_type = NULL,
+                           post_date = NULL, start_date = NULL, event_type = NULL,
                            endpoint = c("inventories", "equipment", "orbats",
                                         "bases", "airports", "countryrisks",
                                         "companies", "events", "equipmentrelationships",
@@ -28,30 +28,32 @@ get_page_range <- function(country = NULL, branch = NULL, type = NULL,
                                         "satelliteImages")){
 
     if (endpoint == "references") {endpoint2 <- endpoint } else
-        {endpoint2 <- paste0("data/", endpoint)}
+    {endpoint2 <- paste0("data/", endpoint)}
 
     countries <- paste0(country, collapse = ")%3Cor%3Ecountryiso(")
 
     response <- httr::GET(url = paste0("https://developer.janes.com/api/v1/",
-                                    endpoint2,"?q=",
-                                    str_replace_all(query, " ", "%20"),
-                                    "&f=countryiso(",
-                                    countries,
-                                    ")%3Cand%3ESOURCE_TYPE(",
-                                    str_replace_all(event_type, " ", "%20"),
-                                    ")%3Cand%3EpostDate(",
-                                    str_replace_all(post_date, "::", "%3A%3A"),
-                                    ")%3cand%3Ebranch(",
-                                    stringr::str_replace_all(branch, " ", "%20"),
-                                    ")%3Cand%3EoperatorForce(",
-                                    stringr::str_replace_all(operator_force, " ", "%20"),
-                                    ")%3cand%3Etype(",
-                                    type,
-                                    ")%3Cand%3Eenvironment(",
-                                    environment,
-                                    ")&num=100"),
-                       httr::add_headers(Authorization = Sys.getenv("JANES_KEY"))) %>%
-            httr::content()
+                                       endpoint2,"?q=",
+                                       str_replace_all(query, " ", "%20"),
+                                       "&f=countryiso(",
+                                       countries,
+                                       ")%3Cand%3ESOURCE_TYPE(",
+                                       str_replace_all(event_type, " ", "%20"),
+                                       ")%3Cand%3EpostDate(",
+                                       str_replace_all(post_date, "::", "%3A%3A"),
+                                       ")%3Cand%3Estart_Date(",
+                                       str_replace_all(start_date, "::", "%3A%3A"),
+                                       ")%3cand%3Ebranch(",
+                                       stringr::str_replace_all(branch, " ", "%20"),
+                                       ")%3Cand%3EoperatorForce(",
+                                       stringr::str_replace_all(operator_force, " ", "%20"),
+                                       ")%3cand%3Etype(",
+                                       type,
+                                       ")%3Cand%3Eenvironment(",
+                                       environment,
+                                       ")&num=100"),
+                          httr::add_headers(Authorization = Sys.getenv("JANES_KEY"))) %>%
+        httr::content()
 
     range_temp <- ceiling(response[["metadata"]][["recordCount"]] / 100)
 

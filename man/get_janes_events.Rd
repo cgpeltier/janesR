@@ -8,6 +8,7 @@ get_janes_events(
   country = NULL,
   query = NULL,
   post_date = NULL,
+  start_date = NULL,
   event_type = c("Terrorism and Insurgency", "Intelligence Events")
 )
 }
@@ -16,9 +17,11 @@ get_janes_events(
 
 \item{query}{Search term for events}
 
-\item{post_date}{Event start date}
+\item{post_date}{Event post date}
 
-\item{event_type}{Either "Terorism and Insurgency" or "Intelligence Events"}
+\item{start_date}{Event start date}
+
+\item{event_type}{Either "Terrorism and Insurgency" or "Intelligence Events"}
 }
 \value{
 Janes events data
