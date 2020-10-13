@@ -1,11 +1,10 @@
 Package: janesR
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Pull data more easily from the Janes API
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Author: Chad Peltier
+Maintainer: Chad Peltier <Chad.peltier@janes.com>
+Description: Wrapper for the Janes API, allowing a user to more easily pull data from various Janes API endpoints.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -21,4 +20,7 @@ Imports:
     magrittr,
     janitor,
     tibble,
-    tidyr
+    tidyr,
+    magick,
+    naniar
+    

@@ -56,19 +56,6 @@ get_janes_events <- function(country = NULL, query = NULL, post_date = NULL, sta
 
     events_data <- map(events$url, get_janes_data)
 
-    # if(event_type == "Terrorism and Insurgency"){
-    #     events_data %>%
-    #         tibble() %>%
-    #
-    #
-    # }
-    #
-    # if(event_type == "Intelligence Events"){
-    #     events_data %>%
-    #         tibble() %>%
-    #
-    #
-    # }
 
 
     if(event_type == "Terrorism and Insurgency"){

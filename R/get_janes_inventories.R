@@ -58,29 +58,5 @@ get_janes_inventories <- function(country = NULL, operator_force = NULL){
 
 }
 
-## old code
-# inventories_data %>%
-#     tibble() %>%
-#     rename(inventory = ".") %>%
-#     unnest_wider(inventory) %>%
-#     rename(inventory = ".") %>%
-#     unnest_wider(inventory) %>%
-#     unnest_wider(inventory) %>%
-#     select(-"id", -"title") %>%
-#     unnest_wider(equipment) %>%
-#     unnest_wider(family, names_repair = ~gsub('...', 'family', ., fixed = TRUE)) %>%
-#     unnest_wider(types, names_repair = ~gsub('...', 'types', ., fixed = TRUE)) %>%
-#     unnest_wider(type, names_repair = ~gsub('...', 'type', ., fixed = TRUE)) %>%
-#     unnest_wider(roles, names_repair = ~gsub('...', 'roles', ., fixed = TRUE)) %>%
-#     unnest_wider(role, names_repair = ~gsub('...', 'role', ., fixed = TRUE)) %>%
-#     unnest_wider(operator, names_repair = ~gsub('...', 'operator', ., fixed = TRUE)) %>%
-#     unnest_wider(documents, names_repair = ~gsub('...', 'documents', ., fixed = TRUE)) %>%
-#     unnest_wider(document,  names_repair = ~gsub('...', 'document', ., fixed = TRUE)) %>%
-#     unnest_wider(documentId, names_repair = ~gsub('...', 'document_id', ., fixed = TRUE)) %>%
-#     unnest_wider(documentTitle, names_repair = ~gsub('...', 'document_title', ., fixed = TRUE)) %>%
-#     clean_names() %>%
-#     remove_empty()
-
-
 
 #' @export

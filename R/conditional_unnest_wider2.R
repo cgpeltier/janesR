@@ -11,12 +11,18 @@
 
 
 conditional_unnest_wider2 <- function(data, variable){
-  if(variable %in% names(data)){
-    return(unnest_wider(data, variable, names_sep = "_"))
-  } else {
-    return(data)
+
+    if(variable %in% names(data)){
+
+        return(unnest_wider(data, variable, names_sep = "_"))
+
+    } else {
+
+        return(data)
+
+    }
+
   }
-}
 
 
 #' @export
