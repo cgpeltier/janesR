@@ -23,14 +23,17 @@
 get_janes_info <- function(x, country = NULL, branch = NULL, type = NULL,
                            operator_force = NULL, query = NULL, environment = NULL,
                            post_date = NULL, start_date = NULL, event_type = NULL,
-                           endpoint = c("inventories", "equipment", "orbats",
+                           endpoint = c("inventories", "equipment", "orbats", "news",
                                         "bases", "airports", "countryrisks",
                                         "companies", "events", "equipmentrelationships",
                                         "references", "samsites", "ewsites",
                                         "satelliteImages")){
 
-    if (endpoint == "references") {endpoint2 <- endpoint } else
-    {endpoint2 <- paste0("data/", endpoint)}
+    if(endpoint %in% c("references", "news")){
+            endpoint2 <- endpoint
+    }else{
+                endpoint2 <- paste0("data/", endpoint)
+                }
 
     countries <- paste0(country, collapse = ")%3Cor%3Ecountryiso(")
 

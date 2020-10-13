@@ -11,7 +11,7 @@ get_janes_xml(
   operator_force = NULL,
   query = NULL,
   environment = NULL,
-  endpoint = "references",
+  endpoint = NULL,
   jdet_only = FALSE,
   docs = TRUE,
   pics = FALSE,
@@ -31,7 +31,7 @@ get_janes_xml(
 
 \item{environment}{Of search, i.e. "Air"}
 
-\item{endpoint}{One of 6 options currently}
+\item{endpoint}{One of either "news" or "references"}
 }
 \value{
 Janes data in xml format.

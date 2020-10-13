@@ -14,7 +14,7 @@ get_page_range(
   post_date = NULL,
   start_date = NULL,
   event_type = NULL,
-  endpoint = c("inventories", "equipment", "orbats", "bases", "airports",
+  endpoint = c("inventories", "equipment", "orbats", "news", "bases", "airports",
     "countryrisks", "companies", "events", "equipmentrelationships", "references",
     "samsites", "ewsites", "satelliteImages")
 )

@@ -4,7 +4,7 @@
 #' @param country Country filter for news
 #' @param branch Military branch
 #' @param type Depends on endpoint
-#' @param endpoint One of 6 options currently
+#' @param endpoint One of either "news" or "references"
 #' @param query Search term
 #' @param environment Of search, i.e. "Air"
 #' @param operator_force Operator force
@@ -18,6 +18,7 @@
 #' @importFrom jsonlite toJSON
 #' @importFrom stringr str_replace_all
 #' @importFrom stringr str_detect
+#' @importFrom stringr str_extract
 #' @importFrom magrittr "%>%"
 #' @importFrom stringr str_remove
 #' @importFrom purrr map
@@ -48,7 +49,7 @@
 
 get_janes_xml <- function(country = NULL, branch = NULL, type = NULL,
                           operator_force = NULL, query = NULL, environment = NULL,
-                          endpoint = "references", jdet_only = FALSE, docs = TRUE,
+                          endpoint = NULL, jdet_only = FALSE, docs = TRUE,
                           pics = FALSE, sat = FALSE){
 
     page_range <- get_page_range(country = country, endpoint = endpoint, branch = branch,
@@ -60,6 +61,7 @@ get_janes_xml <- function(country = NULL, branch = NULL, type = NULL,
                                              environment = environment, endpoint = endpoint,
                                              query = query)) %>%
         bind_rows()
+
 
     if(jdet_only == TRUE){
         pubs <- c("JAE_", "JAWA", "jau_", "juav", "JC4IA", "JC4IJ", "JC4IL", "JC4IM", "JECE",
@@ -82,8 +84,9 @@ get_janes_xml <- function(country = NULL, branch = NULL, type = NULL,
 
         map(temp$url, purrr::safely(~ get_janes_data_xml(.x) %>%
             xml2::as_xml_document() %>%
-            xml2::write_xml(., file = paste0("C:/Users/chad.peltier/OneDrive - IHS Markit/Data and Integration/data_for_delivery/",
-                                             str_extract(.x, "(?<=\\/)[^\\/]+$"), ".xml"), encoding = "UTF-8")))
+            xml2::write_xml(., file = paste0(getwd(), "/", stringr::str_extract(.x, "(?<=\\/)[^\\/]+$"), ".xml"))))
+
+
     }
 
     if(pics == TRUE){
@@ -96,12 +99,15 @@ get_janes_xml <- function(country = NULL, branch = NULL, type = NULL,
                                              add_headers(Authorization = Sys.getenv("JANES_KEY"))) %>%
                                          content() %>%
                                          magick::image_read() %>%
-                                         magick::image_write(path = paste0(getwd(), "/reference_", str_extract(.x, "(?<=\\/)[^\\/]+$")))))
+                                         magick::image_write(path = paste0(getwd(), "/reference_", stringr::str_extract(.x, "(?<=\\/)[^\\/]+$")))))
 
 
 
     }
 }
+
+
+
 
 
 #' @export

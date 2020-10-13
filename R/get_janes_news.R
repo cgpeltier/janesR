@@ -20,9 +20,10 @@
 #' @export
 
 get_janes_news <- function(country = NULL, query = NULL){
-    page_range <- get_news_page_range(country = country, query = query)
-    news <- purrr::map(page_range, ~ get_janes_news_info(.x, country = country,
-                                                  query = query)) %>%
+    page_range <- get_page_range(country = country, query = query, endpoint = "news")
+
+    news <- purrr::map(page_range, ~ get_janes_info(.x, country = country,
+                                                  query = query, endpoint = "news")) %>%
       dplyr::bind_rows()
 
     news %>%
