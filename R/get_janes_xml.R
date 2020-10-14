@@ -8,6 +8,10 @@
 #' @param query Search term
 #' @param environment Of search, i.e. "Air"
 #' @param operator_force Operator force
+#' @param docs True/False - Include XML documents or not
+#' @param pics True/False - Include images or not
+#' @param sat True/False - Filter by satellite imagery analysis articles
+#' @param jdet_only True/False - Filter by only Janes Defence Equipment and Technology docs
 #'
 #' @return Janes data in xml format.
 #'
@@ -50,14 +54,15 @@
 get_janes_xml <- function(country = NULL, branch = NULL, type = NULL,
                           operator_force = NULL, query = NULL, environment = NULL,
                           endpoint = NULL, jdet_only = FALSE, docs = TRUE,
-                          pics = FALSE, sat = FALSE){
+                          pics = FALSE, sat = FALSE, post_date = NULL){
 
     page_range <- get_page_range(country = country, endpoint = endpoint, branch = branch,
-                                 type = type, operator_force = operator_force,
+                                 type = type, operator_force = operator_force, post_date = post_date,
                                  environment = environment, query = query)
 
     temp <- map(page_range, ~ get_janes_info(x = .x, country = country, branch = branch,
                                              type = type, operator_force = operator_force,
+                                             post_date = post_date,
                                              environment = environment, endpoint = endpoint,
                                              query = query)) %>%
         bind_rows()

@@ -42,44 +42,43 @@ get_janes_companies <- function(country = NULL, query = NULL){
 
     companies_data %>%
         tibble() %>%
-        rename(companies = ".") %>%
-        unnest_wider(companies) %>%
-        rename(companies = ".") %>%
-        unnest_wider(companies) %>%
-        unnest_wider(organisation, names_repair = ~gsub('...', 'organization', ., fixed = TRUE)) %>%
-        unnest_wider(equipmentFamilies, names_repair = ~gsub('...', 'equipment_families', ., fixed = TRUE)) %>%
-        unnest_wider(equipmentFamily, names_repair = ~gsub('...', 'equipment_family', ., fixed = TRUE)) %>%
+        unnest_wider(".") %>%
+        unnest_wider(".")  %>%
+        conditional_unnest_wider("organisation") %>%
+        conditional_unnest_wider("equipmentFamilies") %>%
+        conditional_unnest_wider("equipmentFamily") %>%
         unite(col = "all_equipment_families",
-              starts_with("equipment_family"),
-              sep = ", ", na.rm = TRUE) %>%
-        unnest_wider(contactDetails, names_repair = ~gsub('...', 'contact_details', ., fixed = TRUE)) %>%
-        select(-any_of("country")) %>%
-        unnest_wider(address, names_repair = ~gsub('...', 'address', ., fixed = TRUE)) %>%
-        unnest_wider(synonyms, names_repair = ~gsub('...', 'synonyms', ., fixed = TRUE)) %>%
-        unnest_wider(synonym, names_repair = ~gsub('...', 'synonym', ., fixed = TRUE)) %>%
-        unnest_wider(telephones, names_repair = ~gsub('...', 'telephones', ., fixed = TRUE)) %>%
-        unnest_wider(telephone, names_repair = ~gsub('...', 'telephone', ., fixed = TRUE)) %>%
-        #rename(telephone_number = number) %>%
-        unnest_wider(number, names_repair = ~gsub('...', 'telephone_number', ., fixed = TRUE)) %>%
-        select(-any_of("qualifier")) %>%
-        unnest_wider(faxes, names_repair = ~gsub('...', 'faxes', ., fixed = TRUE)) %>%
-        unnest_wider(fax, names_repair = ~gsub('...', 'fax', ., fixed = TRUE)) %>%
-        #rename(fax_number = number) %>%
-        select(-any_of("qualifier")) %>%
-        unnest_wider(number, names_repair = ~gsub('...', 'fax_number', ., fixed = TRUE)) %>%
-        select(-any_of("qualifier")) %>%
-        unnest_wider(documents, names_repair = ~gsub('...', 'documents', ., fixed = TRUE)) %>%
-        unnest_wider(document, names_repair = ~gsub('...', 'document', ., fixed = TRUE)) %>%
-        unnest_wider(emails, names_repair = ~gsub('...', 'emails', ., fixed = TRUE)) %>%
-        unnest_wider(email,names_repair = ~gsub('...', 'email', ., fixed = TRUE)) %>%
-        select(-any_of("qualifier")) %>%
-        select(-any_of("socialMedias")) %>%
-        unnest_wider(jointVentureOwners, names_repair = ~gsub('...', 'joint_venture_owners', ., fixed = TRUE)) %>%
-        unnest_wider(owner, names_repair = ~gsub('...', 'owner', ., fixed = TRUE)) %>%
-        unnest_wider(name, names_repair = ~gsub('...', 'owner_name', ., fixed = TRUE)) %>%
-        unnest_wider(ownershipPercentage, names_repair = ~gsub('...', 'ownership_perc', ., fixed = TRUE)) %>%
-        clean_names() %>%
-        remove_empty()
+              starts_with("equipmentFamily"),
+              sep = ", ", na.rm = TRUE)  %>%
+        rename(company_country = country) %>%
+        conditional_unnest_wider("contactDetails") %>%
+        conditional_unnest_wider("address") %>%
+        conditional_unnest_wider("synonyms") %>%
+        conditional_unnest_wider("synonym") %>%
+        conditional_unnest_wider("telephones") %>%
+        conditional_unnest_wider2("telephone") %>%
+        conditional_unnest_wider("telephone_number") %>%
+        select(-any_of("telephone_qualifier")) %>%
+        conditional_unnest_wider("faxes") %>%
+        conditional_unnest_wider2("fax") %>%
+        select(-any_of("fax_qualifier")) %>%
+        conditional_unnest_wider("fax_number") %>%
+        conditional_unnest_wider("documents") %>%
+        conditional_unnest_wider("document") %>%
+        conditional_unnest_wider("emails") %>%
+        conditional_unnest_wider("email") %>%
+        select(-any_of("email_qualifier")) %>%
+        conditional_unnest_wider("socialMedias") %>%
+        conditional_unnest_wider2("socialMedia") %>%
+        conditional_unnest_wider("socialMedia_media") %>%
+        conditional_unnest_wider("socialMedia_type") %>%
+        conditional_unnest_wider("jointVentureOwners") %>%
+        conditional_unnest_wider("owner") %>%
+        conditional_unnest_wider("name") %>%
+        conditional_unnest_wider("ownershipPercentage") %>%
+        conditional_unnest_wider("documentId") %>%
+        conditional_unnest_wider("documentTitle") %>%
+        clean_names()
 
 }
 

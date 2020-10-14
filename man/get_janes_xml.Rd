@@ -15,7 +15,8 @@ get_janes_xml(
   jdet_only = FALSE,
   docs = TRUE,
   pics = FALSE,
-  sat = FALSE
+  sat = FALSE,
+  post_date = NULL
 )
 }
 \arguments{
@@ -32,6 +33,14 @@ get_janes_xml(
 \item{environment}{Of search, i.e. "Air"}
 
 \item{endpoint}{One of either "news" or "references"}
+
+\item{jdet_only}{True/False - Filter by only Janes Defence Equipment and Technology docs}
+
+\item{docs}{True/False - Include XML documents or not}
+
+\item{pics}{True/False - Include images or not}
+
+\item{sat}{True/False - Filter by satellite imagery analysis articles}
 }
 \value{
 Janes data in xml format.

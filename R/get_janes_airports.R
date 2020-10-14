@@ -39,32 +39,39 @@ get_janes_airports <- function(country = NULL){
 
     airports_data %>%
         tibble() %>%
-        rename(airport = ".") %>%
-        unnest_wider(airport) %>%
-        rename(airport = ".") %>%
-        unnest_wider(airport) %>%
+        unnest_wider(".") %>%
+        unnest_wider(".") %>%
         unnest_wider(installation) %>%
-        unnest_wider(location, names_repair = ~gsub('...', 'location', ., fixed = TRUE)) %>%
-        unnest_wider(synonyms, names_repair = ~gsub('...', 'synonyms', ., fixed = TRUE)) %>%
-        unnest_wider(synonym, names_repair = ~gsub('...', 'synonym', ., fixed = TRUE)) %>%
-        unnest_wider(operators) %>%
-        unnest_wider(operator, names_repair = ~gsub('...', 'operator', ., fixed = TRUE)) %>%
-        unnest_wider(runways, names_repair = ~gsub('...', 'runways', ., fixed = TRUE)) %>%
-        unnest_wider(runway, names_repair = ~gsub('...', 'runway', ., fixed = TRUE)) %>%
-        unnest_wider(runwayLengthMetres, names_repair = ~gsub('...', 'runway_length_m', ., fixed = TRUE)) %>%
-        unnest_wider(runwayOrientationOpposing, names_repair = ~gsub('...', 'runway_orientation_opp', ., fixed = TRUE)) %>%
-        unnest_wider(runwayOrientation, names_repair = ~gsub('...', 'runway_orientation', ., fixed = TRUE)) %>%
-        unnest_wider(runwaySurface, names_repair = ~gsub('...', 'runway_surface', ., fixed = TRUE)) %>%
-        unnest_wider(runwayName, names_repair = ~gsub('...', 'runway_name', ., fixed = TRUE)) %>%
-        unnest_wider(runwayDirection1Name, names_repair = ~gsub('...', 'runway_direction1_name', ., fixed = TRUE)) %>%
-        unnest_wider(runwayDirection2Name, names_repair = ~gsub('...', 'runway_direction1_name', ., fixed = TRUE)) %>%
-        unnest_wider(runwayStaus, names_repair = ~gsub('...', 'runway_status', ., fixed = TRUE)) %>%
-        unnest_wider(runwayLengthFeet, names_repair = ~gsub('...', 'runway_length_ft', ., fixed = TRUE)) %>%
-        unnest_wider(runwayWidthMetres, names_repair = ~gsub('...', 'runway_length_m', ., fixed = TRUE)) %>%
-        unnest_wider(runwayWidthFeet, names_repair = ~gsub('...', 'runway_width_ft', ., fixed = TRUE)) %>%
-        unnest_wider(runwayCenterline, names_repair = ~gsub('...', 'runway_centerline', ., fixed = TRUE)) %>%
-        janitor::clean_names() %>%
-        janitor::remove_empty()
+        conditional_unnest_wider("location") %>%
+        conditional_unnest_wider("synonyms") %>%
+        conditional_unnest_wider("synonym") %>%
+        conditional_unnest_wider("operators") %>%
+        conditional_unnest_wider2("operator") %>%
+        conditional_unnest_wider("runways") %>%
+        conditional_unnest_wider("runway") %>%
+        conditional_unnest_wider("runwayLengthMetres") %>%
+        conditional_unnest_wider("runwayOrientationOpposing") %>%
+        conditional_unnest_wider("runwayOrientation") %>%
+        conditional_unnest_wider("runwaySurface") %>%
+        conditional_unnest_wider("runwayName") %>%
+        conditional_unnest_wider("runwayDirection1Name") %>%
+        conditional_unnest_wider("runwayDirection2Name") %>%
+        conditional_unnest_wider("runwayStaus") %>%
+        conditional_unnest_wider("runwayLengthFeet") %>%
+        conditional_unnest_wider("runwayWidthMetres") %>%
+        conditional_unnest_wider("runwayWidthFeet") %>%
+        conditional_unnest_wider("runwayCenterline") %>%
+        conditional_unnest_wider("operator_operatorCountryISO") %>%
+        conditional_unnest_wider("operator_operatorId") %>%
+        conditional_unnest_wider("operator_installationId") %>%
+        conditional_unnest_wider("operator_operatorServiceType") %>%
+        conditional_unnest_wider("operator_operatorCountry") %>%
+        conditional_unnest_wider("operator_operatorRegion") %>%
+        conditional_unnest_wider("runwayLightingIntensity") %>%
+        conditional_unnest_wider("runwayPCN") %>%
+        select(-(starts_with("operator_installationId"))) %>%
+        rename_with(.cols = starts_with("operator_"), ~ str_remove(., "operator_")) %>%
+        janitor::clean_names()
 }
 
 
