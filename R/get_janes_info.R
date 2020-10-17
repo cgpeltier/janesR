@@ -29,22 +29,26 @@ get_janes_info <- function(x, country = NULL, branch = NULL, type = NULL,
                                         "references", "samsites", "ewsites",
                                         "satelliteImages")){
 
+    if(event_type == "Terrorism and Insurgency"){replacement <- "%20"}
+    if(event_type == "Intelligence Events"){replacement <- "%2B"}
+
     if(endpoint %in% c("references", "news")){
             endpoint2 <- endpoint
     }else{
-                endpoint2 <- paste0("data/", endpoint)
-                }
+      endpoint2 <- paste0("data/", endpoint)}
+
+
 
     countries <- paste0(country, collapse = ")%3Cor%3Ecountryiso(")
 
     request <- GET(url = paste0("https://developer.janes.com/api/v1/",
                                 endpoint2, "?q=",
-                                str_replace_all(query, " ", "%20"),
+                                str_replace_all(query, " ", replacement),
                                 "&f=countryiso(",
                                 countries,
                                 ")%3Cand%3ESOURCE_TYPE(",
                                 str_replace_all(event_type, " ", "%20"),
-                                ")%3Cand%3EpostDate(",
+                                ")%3Cand%3EPOST_DATE(",
                                 str_replace_all(post_date, "::", "%3A%3A"),
                                 ")%3Cand%3Estart_Date(",
                                 str_replace_all(start_date, "::", "%3A%3A"),
