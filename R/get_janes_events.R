@@ -1,11 +1,10 @@
-#' @title get_janes_events
+#' @title get_janes_events_jtic
 #' @description Pulls Janes events data
 #'
 #' @param country Event country
 #' @param query Search term for events
 #' @param post_date Event post date
 #' @param start_date Event start date
-#' @param event_type Either "Terrorism and Insurgency" or "Intelligence Events"
 #'
 #' @return Janes events data
 #' @importFrom httr GET
@@ -33,32 +32,31 @@
 #' @export
 
 
+get_janes_events_jtic <- function(country = NULL, query = NULL, post_date = NULL, start_date = NULL){
 
-get_janes_events <- function(country = NULL, query = NULL, post_date = NULL, start_date = NULL,
-                             event_type = c("Terrorism and Insurgency", "Intelligence Events")){
 
-    if(event_type == "Terrorism and Insurgency"){replacement <- "%20"}
-    if(event_type == "Intelligence Events"){replacement <- "%2B"}
 
     page_range <- get_page_range(country = country, endpoint = "events",
-                                 query = str_replace_all(query, " ", replacement),
+                                 query = query,
                                  post_date = post_date,
                                  start_date = start_date,
-                                 event_type = event_type)
+                                 event_type = "Terrorism and Insurgency")
+
+    page_range
+
 
     events <- map(page_range, ~ get_janes_info(x = .x, country = country,
                                                endpoint = "events",
-                                               query = str_replace_all(query, " ", replacement),
+                                               query = query,
                                                post_date = post_date,
                                                start_date = start_date,
-                                               event_type = event_type)) %>%
+                                               event_type = "Terrorism and Insurgency")) %>%
         bind_rows()
+
 
     events_data <- map(events$url, get_janes_data)
 
 
-
-    if(event_type == "Terrorism and Insurgency"){
         events_data %>%
             tibble() %>%
             unnest_wider(".") %>%
@@ -160,24 +158,8 @@ get_janes_events <- function(country = NULL, query = NULL, post_date = NULL, sta
             conditional_unnest_wider("attackModes") %>%
             conditional_unnest_wider("attack_modes") %>%
             clean_names()
-    }
 
-    if(event_type == "Intelligence Events"){
-        events_data %>%
-            tibble() %>%
-            unnest_wider(".") %>%
-            unnest_wider(".") %>%
-            conditional_unnest_wider("date") %>%
-            conditional_unnest_wider("eventSources") %>%
-            conditional_unnest_wider("eventLocation") %>%
-            conditional_unnest_wider("casualties") %>%
-            conditional_unnest_wider("intelligence") %>%
-            conditional_unnest_wider("place") %>%
-            conditional_unnest_wider("offset") %>%
-            clean_names() %>%
-            naniar::replace_with_na_all(condition = ~.x == "")
 
-    }
 }
 
 
