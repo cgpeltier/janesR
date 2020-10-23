@@ -7,15 +7,18 @@
 get_janes_markets_forecast(
   end_user_country = NULL,
   query = NULL,
-  market = NULL
+  market = NULL,
+  subsystems = FALSE
 )
 }
 \arguments{
+\item{end_user_country}{Country in which base is located}
+
 \item{query}{Search term}
 
 \item{market}{JMF market to query}
 
-\item{country}{Country in which base is located}
+\item{subsystems}{Include subsystems data. Logical.}
 }
 \value{
 Janes equipment data.
