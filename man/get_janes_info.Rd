@@ -15,25 +15,35 @@ get_janes_info(
   post_date = NULL,
   start_date = NULL,
   event_type = NULL,
+  market = NULL,
+  end_user_country = NULL,
   endpoint = c("inventories", "equipment", "orbats", "news", "bases", "airports",
     "countryrisks", "companies", "events", "equipmentrelationships", "references",
-    "samsites", "ewsites", "satelliteImages")
+    "samsites", "ewsites", "satelliteImages", "marketforecasts")
 )
 }
 \arguments{
-\item{x}{For iteration on URLs}
-
 \item{country}{Country filter for news}
 
 \item{branch}{Military branch}
 
-\item{type}{Filter for type - depends on endpoint (i.e. "Platforms" or "Air")}
+\item{type}{Depends on endpoint}
 
-\item{operator_force}{= Operator force}
+\item{operator_force}{Operator force}
 
-\item{query}{Search term}
+\item{query}{Query}
 
-\item{environment}{Filter for environment of equipment (i.e. "Air")}
+\item{environment}{Of search, i.e. "Air"}
+
+\item{post_date}{Event post date}
+
+\item{start_date}{Event start date}
+
+\item{event_type}{Event type - JTIC or Intel Event}
+
+\item{market}{Markets Forecast market}
+
+\item{end_user_country}{JMF end user country}
 
 \item{endpoint}{One of 6 options currently}
 }

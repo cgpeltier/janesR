@@ -32,22 +32,22 @@
 #' @export
 
 
-get_janes_events_intel <- function(country = NULL, query = NULL, post_date = NULL, start_date = NULL){
+get_janes_events_intel <- function(country = NULL, query = NULL, post_date = NULL,
+                                   start_date = NULL){
 
 
 
   page_range <- get_page_range(country = country, endpoint = "events",
-                               query = query,
+                               query = str_replace_all(query, " ", "%2B"),
                                post_date = post_date,
                                start_date = start_date,
                                event_type = "Intelligence Events")
 
-  page_range
 
 
   events <- map(page_range, ~ get_janes_info(x = .x, country = country,
                                              endpoint = "events",
-                                             query = query,
+                                             query = str_replace_all(query, " ", "%2B"),
                                              post_date = post_date,
                                              start_date = start_date,
                                              event_type = "Intelligence Events")) %>%
@@ -56,12 +56,12 @@ get_janes_events_intel <- function(country = NULL, query = NULL, post_date = NUL
 
   events_data <- map(events$url, get_janes_data)
 
-
+  events_data
 
       events_data %>%
           tibble() %>%
-          unnest_wider(".") %>%
-          unnest_wider(".") %>%
+          conditional_unnest_wider(".") %>%
+          conditional_unnest_wider(".") %>%
           conditional_unnest_wider("date") %>%
           conditional_unnest_wider("eventSources") %>%
           conditional_unnest_wider("eventLocation") %>%

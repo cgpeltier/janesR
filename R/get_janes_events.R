@@ -6,6 +6,7 @@
 #' @param post_date Event post date
 #' @param start_date Event start date
 #'
+#'
 #' @return Janes events data
 #' @importFrom httr GET
 #' @importFrom httr content
@@ -32,22 +33,19 @@
 #' @export
 
 
-get_janes_events_jtic <- function(country = NULL, query = NULL, post_date = NULL, start_date = NULL){
-
-
+get_janes_events_jtic <- function(country = NULL, query = NULL, post_date = NULL,
+                                  start_date = NULL){
 
     page_range <- get_page_range(country = country, endpoint = "events",
-                                 query = query,
+                                 query = str_replace_all(query, " ", "%20"),
                                  post_date = post_date,
                                  start_date = start_date,
                                  event_type = "Terrorism and Insurgency")
 
-    page_range
-
 
     events <- map(page_range, ~ get_janes_info(x = .x, country = country,
                                                endpoint = "events",
-                                               query = query,
+                                               query = str_replace_all(query, " ", "%20"),
                                                post_date = post_date,
                                                start_date = start_date,
                                                event_type = "Terrorism and Insurgency")) %>%

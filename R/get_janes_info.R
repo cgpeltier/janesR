@@ -3,12 +3,17 @@
 #'
 #' @param country Country filter for news
 #' @param branch Military branch
+#' @param type Depends on endpoint
 #' @param endpoint One of 6 options currently
 #' @param query Search term
-#' @param x For iteration on URLs
-#' @param type Filter for type - depends on endpoint (i.e. "Platforms" or "Air")
-#' @param environment Filter for environment of equipment (i.e. "Air")
-#' @param operator_force = Operator force
+#' @param environment Of search, i.e. "Air"
+#' @param operator_force Operator force
+#' @param market Markets Forecast market
+#' @param event_type Event type - JTIC or Intel Event
+#' @param end_user_country JMF end user country
+#' @param query Query
+#' @param post_date Event post date
+#' @param start_date Event start date
 #'
 #' @return Helper function to return Janes news article page range related to search.
 #' @importFrom httr GET
@@ -23,14 +28,13 @@
 get_janes_info <- function(x, country = NULL, branch = NULL, type = NULL,
                            operator_force = NULL, query = NULL, environment = NULL,
                            post_date = NULL, start_date = NULL, event_type = NULL,
+                           market = NULL, end_user_country = NULL,
                            endpoint = c("inventories", "equipment", "orbats", "news",
                                         "bases", "airports", "countryrisks",
                                         "companies", "events", "equipmentrelationships",
                                         "references", "samsites", "ewsites",
-                                        "satelliteImages")){
+                                        "satelliteImages", "marketforecasts")){
 
-    if(event_type == "Terrorism and Insurgency"){replacement <- "%20"}
-    if(event_type == "Intelligence Events"){replacement <- "%2B"}
 
     if(endpoint %in% c("references", "news")){
             endpoint2 <- endpoint
@@ -43,9 +47,13 @@ get_janes_info <- function(x, country = NULL, branch = NULL, type = NULL,
 
     request <- GET(url = paste0("https://developer.janes.com/api/v1/",
                                 endpoint2, "?q=",
-                                str_replace_all(query, " ", replacement),
+                                query,
                                 "&f=countryiso(",
                                 countries,
+                                ")%3Cand%3Emarket(",
+                                str_replace_all(market, " ", "%20"),
+                                ")%3Cand%3EENDUSERCOUNTRY(",
+                                str_replace_all(end_user_country," ", "%20"),
                                 ")%3Cand%3ESOURCE_TYPE(",
                                 str_replace_all(event_type, " ", "%20"),
                                 ")%3Cand%3EPOST_DATE(",

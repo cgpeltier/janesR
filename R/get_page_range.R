@@ -8,6 +8,12 @@
 #' @param query Search term
 #' @param environment Of search, i.e. "Air"
 #' @param operator_force Operator force
+#' @param market Markets Forecast market
+#' @param event_type Event type - JTIC or Intel Event
+#' @param end_user_country JMF end user country
+#' @param query Query
+#' @param post_date Event post date
+#' @param start_date Event start date
 #'
 #' @return Janes page ranges for a given search.
 #' @importFrom httr GET
@@ -21,14 +27,14 @@
 get_page_range <- function(country = NULL, branch = NULL, type = NULL,
                            operator_force = NULL, query = NULL, environment = NULL,
                            post_date = NULL, start_date = NULL, event_type = NULL,
+                           market = NULL, end_user_country = NULL,
                            endpoint = c("inventories", "equipment", "orbats", "news",
                                         "bases", "airports", "countryrisks",
                                         "companies", "events", "equipmentrelationships",
                                         "references", "samsites", "ewsites",
-                                        "satelliteImages")){
+                                        "satelliteImages", "marketforecasts")){
 
-    if(event_type == "Terrorism and Insurgency"){replacement <- "%20"}
-    if(event_type == "Intelligence Events"){replacement <- "%2B"}
+
 
     if(endpoint %in% c("references", "news")){
         endpoint2 <- endpoint
@@ -41,9 +47,13 @@ get_page_range <- function(country = NULL, branch = NULL, type = NULL,
 
     response <- httr::GET(url = paste0("https://developer.janes.com/api/v1/",
                                        endpoint2,"?q=",
-                                       str_replace_all(query, " ", replacement),
+                                       query,
                                        "&f=countryiso(",
                                        countries,
+                                       ")%3Cand%3Emarket(",
+                                       str_replace_all(market, " ", "%20"),
+                                       ")%3Cand%3EENDUSERCOUNTRY(",
+                                       str_replace_all(end_user_country," ", "%20"),
                                        ")%3Cand%3ESOURCE_TYPE(",
                                         str_replace_all(event_type, " ", "%20"),
                                        ")%3Cand%3EPOST_DATE(",
