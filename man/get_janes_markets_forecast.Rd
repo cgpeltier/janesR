@@ -18,7 +18,7 @@ get_janes_markets_forecast(
 
 \item{market}{JMF market to query}
 
-\item{subsystems}{Include subsystems data. Logical.}
+\item{subsystems}{Include only subsystems data for a given search. Logical.}
 }
 \value{
 Janes equipment data.

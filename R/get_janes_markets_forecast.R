@@ -4,7 +4,7 @@
 #' @param end_user_country Country in which base is located
 #' @param query Search term
 #' @param market JMF market to query
-#' @param subsystems Include subsystems data. Logical.
+#' @param subsystems Include only subsystems data for a given search. Logical.
 #'
 #' @return Janes equipment data.
 #' @importFrom httr GET
@@ -100,6 +100,20 @@ get_janes_markets_forecast <- function(end_user_country = NULL, query = NULL, ma
         conditional_unnest_wider2("subsystemSuppliers_unitsForecast_values") %>%
         select(-where(is.list)) %>%
         janitor::clean_names()
+
+
+        jmf_data3 %>%
+            select(id1 = id, starts_with("subsystem_suppliers")) %>%
+            mutate(across(everything(), as.character),
+                   id2 = id1, id3 = id1, id4 = id1, id5 = id1, id6 = id1, id7 = id1,
+                   id8 = id1, id9 = id1, id10 = id1, id11 = id1, id12 = id1,
+                   id13 = id1, id14 = id1, id15 = id1, id16 = id1, id17 = id1,
+                   id18 = id1, id19 = id1, id20 = id1) %>%
+            pivot_longer(names_to = c(".value", "subsystem_suppliers"),
+                         names_pattern = "([A-Za-z_]+)(\\d{1,2}$)",
+                         cols = everything()) %>%
+            filter(!is.na(subsystem_suppliers_name)) %>%
+            select(-subsystem_suppliers)
 
 
   } else{ jmf_data2 %>% janitor::clean_names()}
