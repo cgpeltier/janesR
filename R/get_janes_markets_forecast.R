@@ -116,7 +116,7 @@ get_janes_markets_forecast <- function(end_user_country = NULL, query = NULL, ma
             select(-subsystem_suppliers)
 
 
-  } else{ jmf_data2 %>% janitor::clean_names()}
+  } else{ jmf_data2 %>% janitor::clean_names() %>% select(-where(is.list)) }
 
 }
 

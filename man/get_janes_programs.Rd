@@ -4,10 +4,12 @@
 \alias{get_janes_programs}
 \title{get_janes_programs}
 \usage{
-get_janes_programs(operator_country = NULL)
+get_janes_programs(operator_country = NULL, histories = FALSE)
 }
 \arguments{
 \item{operator_country}{Country to pull programs from}
+
+\item{histories}{Pull only program revision history data. Logical.}
 }
 \value{
 Janes defense programs data.
