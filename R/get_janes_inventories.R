@@ -44,11 +44,11 @@ get_janes_inventories <- function(country = NULL, operator_force = NULL){
       conditional_unnest_wider("inventory") %>%
       rename(inventory_id = id, inventory_title = title) %>%
       select(1:15) %>%
-      unnest_wider(equipment) %>%
+      conditional_unnest_wider("equipment") %>%
       conditional_unnest_wider("family")
 
   all_inventories_weird <- inventories_data2 %>%
-      filter(!is.na(type)) %>%
+      {if("type" %in% colnames(.)) filter(., !is.na(type)) else(return(.))} %>%
       #conditional_unnest_wider("types") %>%
       conditional_unnest_wider("type") %>%
      # conditional_unnest_wider("roles") %>%
@@ -63,7 +63,7 @@ get_janes_inventories <- function(country = NULL, operator_force = NULL){
 
 
   inventories_data2 %>%
-      filter(is.na(type)) %>%
+      {if("type" %in% colnames(.)) filter(., is.na(type)) else(return(.))} %>%
       janitor::remove_empty() %>%
       conditional_unnest_wider("types") %>%
       conditional_unnest_wider("type") %>%
@@ -78,6 +78,9 @@ get_janes_inventories <- function(country = NULL, operator_force = NULL){
       bind_rows(all_inventories_weird)
 
 }
+
+
+
 
 
 #' @export
