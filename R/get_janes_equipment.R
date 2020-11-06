@@ -32,6 +32,7 @@
 
 get_janes_equipment <- function(country = NULL, query = NULL,
                                 environment = NULL, type = NULL){
+
     page_range <- get_page_range(country = country, endpoint = "equipment",
                                  query = str_replace_all(query, " ", "%20"),
                                  environment = environment,
@@ -44,143 +45,127 @@ get_janes_equipment <- function(country = NULL, query = NULL,
                                                   type = type)) %>%
         bind_rows()
 
-    equipment_data <- map(equipment$url, get_janes_data)
 
-    equipment_data %>%
+
+    equipment_data <- map(equipment$url, get_janes_data2)
+
+    equipment_data2 <- equipment_data %>%
         tibble() %>%
-        rename(equipment = ".") %>%
-        unnest_wider(equipment) %>%
-        rename(equipment = ".") %>%
-        unnest_wider(equipment) %>%
-        unnest_wider(equipment) %>%
-        select(1:18) %>%
-        unnest_wider(types, names_repair = ~gsub('...', 'types', ., fixed = TRUE)) %>%
-        unnest_wider(type, names_repair = ~gsub('...', 'type', ., fixed = TRUE)) %>%
-        conditional_unnest_wider("operatorCountries") %>%
-        conditional_unnest_wider("operatorCountry") %>%
-        conditional_unnest_wider("operatorCountryName") %>%
-        conditional_unnest_wider("operatorCountryIso") %>%
-        conditional_unnest_wider("roles") %>%
-        conditional_unnest_wider("role") %>%
-        conditional_unnest_wider("manufacturers") %>%
-        conditional_unnest_wider("manufacturer") %>%
-        conditional_unnest_wider("manufacturerName") %>%
-        conditional_unnest_wider("overallFamily") %>%
-        conditional_unnest_wider("family") %>%
-        conditional_unnest_wider("primayParent") %>%
+        conditional_unnest_wider(".") %>%
+        conditional_unnest_wider(".") %>%
+        conditional_unnest_wider("equipment") %>%
         conditional_unnest_wider("manufacturerCountries") %>%
-        conditional_unnest_wider("documents") %>%
-        conditional_unnest_wider("document") %>%
-        conditional_unnest_wider("documentId") %>%
-        conditional_unnest_wider("documentTitle") %>%
-        conditional_unnest_wider("manufacturerId") %>%
-        conditional_unnest_wider("manufacturerTitle") %>%
         conditional_unnest_wider("manufacturerCountry") %>%
         conditional_unnest_wider("manufacturerCountryIso") %>%
-        conditional_unnest_wider("manufacturerCountryName") %>%
-        conditional_unnest_wider("synonyms") %>%
-        conditional_unnest_wider("synonym") %>%
-        conditional_unnest_wider("users") %>%
-        conditional_unnest_wider("user") %>%
-        conditional_unnest_wider("environments") %>%
-        conditional_unnest_wider("environment") %>%
-        conditional_unnest_wider("mobility") %>%
-        conditional_unnest_wider("operations") %>%
-        conditional_unnest_wider("operation") %>%
-        conditional_unnest_wider("mobilities") %>%
-        conditional_unnest_wider("mobility") %>%
-        clean_names()
+        conditional_unnest_wider("manufacturerCountryName")
+
+
+    if("landPlatformProtection" %in% colnames(equipment_data2)){
+
+
+        equipment_data_weird <- equipment_data2 %>%
+            filter(!is.na(landPlatformProtection), !is.na(path)) %>%
+            # select(1:18) %>%
+            conditional_unnest_wider("manufacturers") %>%
+            conditional_unnest_wider("manufacturer") %>%
+            conditional_unnest_wider("manufacturerName") %>%
+            conditional_unnest_wider("overallFamily") %>%
+            conditional_unnest_wider("documents") %>%
+            conditional_unnest_wider("document") %>%
+            conditional_unnest_wider("documentId") %>%
+            conditional_unnest_wider("documentTitle") %>%
+            conditional_unnest_wider("manufacturerId") %>%
+            conditional_unnest_wider("manufacturerTitle") %>%
+            conditional_unnest_wider("synonyms") %>%
+            conditional_unnest_wider("synonym") %>%
+            select(!where(is.list)) %>%
+            janitor::clean_names()
+
+
+        equipment_data2 %>% # delete the created obj!
+            filter(is.na(landPlatformProtection), is.na(path))  %>%
+            janitor::remove_empty() %>%
+            conditional_unnest_wider("types") %>%
+            conditional_unnest_wider("type") %>%
+            conditional_unnest_wider("operatorCountries") %>%
+            conditional_unnest_wider("operatorCountry") %>%
+            conditional_unnest_wider("operatorCountryName") %>%
+            conditional_unnest_wider("operatorCountryIso") %>%
+            conditional_unnest_wider("roles") %>%
+            conditional_unnest_wider("role") %>%
+            conditional_unnest_wider("manufacturers") %>%
+            conditional_unnest_wider("manufacturer") %>%
+            conditional_unnest_wider("manufacturerName") %>%
+            conditional_unnest_wider("overallFamily") %>%
+            conditional_unnest_wider("family") %>%
+            conditional_unnest_wider("primayParent") %>%
+            conditional_unnest_wider("documents") %>%
+            conditional_unnest_wider("document") %>%
+            conditional_unnest_wider("documentId") %>%
+            conditional_unnest_wider("documentTitle") %>%
+            conditional_unnest_wider("manufacturerId") %>%
+            conditional_unnest_wider("manufacturerTitle") %>%
+            conditional_unnest_wider("synonyms") %>%
+            conditional_unnest_wider("synonym") %>%
+            conditional_unnest_wider("users") %>%
+            conditional_unnest_wider("user") %>%
+            conditional_unnest_wider("environments") %>%
+            conditional_unnest_wider("environment") %>%
+            conditional_unnest_wider("mobility") %>%
+            conditional_unnest_wider("operations") %>%
+            conditional_unnest_wider("operation") %>%
+            conditional_unnest_wider("mobilities") %>%
+            conditional_unnest_wider("mobility") %>%
+            select(!where(is.list)) %>%
+            janitor::clean_names() %>%
+            bind_rows(equipment_data_weird)
+
+    } else {
+        equipment_data2 %>%
+            conditional_unnest_wider("types") %>%
+            conditional_unnest_wider("type") %>%
+            conditional_unnest_wider("operatorCountries") %>%
+            conditional_unnest_wider("operatorCountry") %>%
+            conditional_unnest_wider("operatorCountryName") %>%
+            conditional_unnest_wider("operatorCountryIso") %>%
+            conditional_unnest_wider("roles") %>%
+            conditional_unnest_wider("role") %>%
+            conditional_unnest_wider("manufacturers") %>%
+            conditional_unnest_wider("manufacturer") %>%
+            conditional_unnest_wider("manufacturerName") %>%
+            conditional_unnest_wider("overallFamily") %>%
+            conditional_unnest_wider("family") %>%
+            conditional_unnest_wider("primayParent") %>%
+            conditional_unnest_wider("documents") %>%
+            conditional_unnest_wider("document") %>%
+            conditional_unnest_wider("documentId") %>%
+            conditional_unnest_wider("documentTitle") %>%
+            conditional_unnest_wider("manufacturerId") %>%
+            conditional_unnest_wider("manufacturerTitle") %>%
+            conditional_unnest_wider("synonyms") %>%
+            conditional_unnest_wider("synonym") %>%
+            conditional_unnest_wider("users") %>%
+            conditional_unnest_wider("user") %>%
+            conditional_unnest_wider("environments") %>%
+            conditional_unnest_wider("environment") %>%
+            conditional_unnest_wider("mobility") %>%
+            conditional_unnest_wider("operations") %>%
+            conditional_unnest_wider("operation") %>%
+            conditional_unnest_wider("mobilities") %>%
+            conditional_unnest_wider("mobility") %>%
+            janitor::clean_names()
+
+
+
+
+    }
+
+
+
+
+
 }
 
 
-# the commented-out lines above may need to be active to fully unnest all data in big pulls
-
-## old code
-# equipment_data %>%
-#     tibble() %>%
-#     rename(equipment = ".") %>%
-#     unnest_wider(equipment) %>%
-#     rename(equipment = ".") %>%
-#     unnest_wider(equipment) %>%
-#     unnest_wider(equipment) %>%
-#     select(1:20) %>%
-#     unnest_wider(types) %>%
-#     select(-any_of("...1")) %>%
-#     unnest_wider(type) %>%
-#     rename_with(.fn = ~ gsub("...", "type", .x, fixed = TRUE),
-#                 .cols = starts_with("...")) %>%
-#     unnest_wider(operatorCountries) %>%
-#     select(-any_of("...1")) %>%
-#     unnest_wider(operatorCountry) %>%
-#     select(-any_of("...1")) %>%
-#     unnest_wider(operatorCountryName) %>%
-#     rename_with(.fn = ~ gsub("...", "operator_country", .x, fixed = TRUE),
-#                 .cols = starts_with("...")) %>%
-#     unnest_wider(roles) %>%
-#     select(-any_of("...1")) %>%
-#     unnest_wider(role) %>%
-#     rename_with(.fn = ~ gsub("...", "role", .x, fixed = TRUE),
-#                 .cols = starts_with("...")) %>%
-#     unnest_wider(manufacturers) %>%
-#     select(-any_of("...1")) %>%
-#     unnest_wider(manufacturer) %>%
-#     rename_with(.fn = ~ gsub("...", "manufacturer", .x, fixed = TRUE),
-#                 .cols = starts_with("...")) %>%
-#     unnest_wider(manufacturerName) %>%
-#     rename_with(.fn = ~ gsub("...", "manufacturer_name", .x, fixed = TRUE),
-#                 .cols = starts_with("...")) %>%
-#     unnest_wider(overallFamily) %>%
-#     select(-any_of("...1")) %>%
-#     unnest_wider(family) %>%
-#     select(-any_of("...1")) %>%
-#     unnest_wider(primayParent) %>%
-#     select(-any_of("...1")) %>%
-#     unnest_wider(manufacturerCountries) %>%
-#     select(-any_of("...1")) %>%
-#     unnest_wider(documents) %>%
-#     select(-any_of("...1")) %>%
-#     unnest_wider(document) %>%
-#     select(-any_of("...1")) %>%
-#     unnest_wider(manufacturerId) %>%
-#     rename_with(.fn = ~ gsub("...", "manufactureId", .x, fixed = TRUE),
-#                 .cols = starts_with("...")) %>%
-#     unnest_wider(documentId) %>%
-#     rename_with(.fn = ~ gsub("...", "document_id", .x, fixed = TRUE),
-#                 .cols = starts_with("...")) %>%
-#     unnest_wider(documentTitle) %>%
-#     rename_with(.fn = ~ gsub("...", "document_title", .x, fixed = TRUE),
-#                 .cols = starts_with("...")) %>%
-#     unnest_wider(manufacturerCountry) %>%
-#     select(-any_of("...1")) %>%
-#     unnest_wider(manufacturerCountryIso) %>%
-#     rename_with(.fn = ~ gsub("...", "manufacturer_country_iso", .x, fixed = TRUE),
-#                 .cols = starts_with("...")) %>%
-#     unnest_wider(manufacturerCountryName) %>%
-#     rename_with(.fn = ~ gsub("...", "manufacturer_country_name", .x, fixed = TRUE),
-#                 .cols = starts_with("...")) %>%
-#     unnest_wider(operatorCountryIso) %>%
-#     rename_with(.fn = ~ gsub("...", "operator_country_iso", .x, fixed = TRUE),
-#                 .cols = starts_with("...")) %>%
-#     unnest_wider(synonyms) %>%
-#     select(-any_of("...1")) %>%
-#     unnest_wider(synonym) %>%
-#     rename_with(.fn = ~ gsub("...", "synonym", .x, fixed = TRUE),
-#                 .cols = starts_with("...")) %>%
-#     unnest_wider(users) %>%
-#     select(-any_of("...1")) %>%
-#     unnest_wider(user) %>%
-#     rename_with(.fn = ~ gsub("...", "user", .x, fixed = TRUE),
-#                 .cols = starts_with("...")) %>%
-#     unnest_wider(environments) %>%
-#     select(-any_of("...1")) %>%
-#     unnest_wider(environment) %>%
-#     rename_with(.fn = ~ gsub("...", "environment", .x, fixed = TRUE),
-#                 .cols = starts_with("...")) %>%
-#     unnest_wider(mobilities) %>%
-#     select(-any_of("...1")) %>%
-#     unnest_wider(operations) %>%
-#     select(-any_of("...1")) %>%
-#     unnest_wider(operation) %>%
-#     clean_names()
 
 #' @export

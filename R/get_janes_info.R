@@ -68,10 +68,12 @@ get_janes_info <- function(x, country = NULL, branch = NULL, type = NULL,
                                 type,
                                 ")%3Cand%3Eenvironment(",
                                 environment,
-                                ")&num=100", "&pg=", x),
+                                ")&num=1000", "&pg=", x),
                    add_headers(Authorization = Sys.getenv("JANES_KEY")))
     response <- content(request, as = "text", encoding = "UTF-8")
     fromJSON(response)[["results"]]
+
+
 }
 
 

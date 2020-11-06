@@ -68,11 +68,11 @@ get_page_range <- function(country = NULL, branch = NULL, type = NULL,
                                        type,
                                        ")%3Cand%3Eenvironment(",
                                        environment,
-                                       ")&num=100"),
+                                       ")&num=1000"),
                           httr::add_headers(Authorization = Sys.getenv("JANES_KEY"))) %>%
         httr::content()
 
-    range_temp <- ceiling(response[["metadata"]][["recordCount"]] / 100)
+    range_temp <- ceiling(response[["metadata"]][["recordCount"]] / 1000)
 
     seq(1:range_temp)
 

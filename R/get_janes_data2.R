@@ -1,4 +1,4 @@
-#' @title get_janes_data
+#' @title get_janes_data2
 #' @description Pulls Janes data for all data endpoints. Helper function.
 #'
 #' @param x For iteration on URLs
@@ -13,12 +13,11 @@
 
 
 
-get_janes_data <- function(x){
+get_janes_data2 <- function(x){
     request <- GET(url = x, add_headers(Authorization = Sys.getenv("JANES_KEY")))
     response <- content(request, as = "text")
     response %>%
-        fromJSON(simplifyDataFrame = TRUE) %>%
-        tibble()
+        fromJSON(simplifyDataFrame = TRUE)
 
 }
 
