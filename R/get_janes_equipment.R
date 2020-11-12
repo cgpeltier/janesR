@@ -103,6 +103,8 @@ get_janes_equipment <- function(country = NULL, query = NULL,
             conditional_unnest_wider("document") %>%
             conditional_unnest_wider("documentId") %>%
             conditional_unnest_wider("documentTitle") %>%
+            conditional_unnest_wider("documentId") %>%
+            conditional_unnest_wider("documentTitle") %>%
             conditional_unnest_wider("manufacturerId") %>%
             conditional_unnest_wider("manufacturerTitle") %>%
             conditional_unnest_wider("synonyms") %>%
@@ -138,6 +140,8 @@ get_janes_equipment <- function(country = NULL, query = NULL,
             conditional_unnest_wider("primayParent") %>%
             conditional_unnest_wider("documents") %>%
             conditional_unnest_wider("document") %>%
+            conditional_unnest_wider("documentId") %>%
+            conditional_unnest_wider("documentTitle") %>%
             conditional_unnest_wider("documentId") %>%
             conditional_unnest_wider("documentTitle") %>%
             conditional_unnest_wider("manufacturerId") %>%
