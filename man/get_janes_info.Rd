@@ -17,6 +17,7 @@ get_janes_info(
   event_type = NULL,
   market = NULL,
   end_user_country = NULL,
+  overall_family = NULL,
   endpoint = c("inventories", "equipment", "orbats", "news", "bases", "airports",
     "countryrisks", "companies", "events", "equipmentrelationships", "references",
     "samsites", "ewsites", "satelliteImages", "marketforecasts")
@@ -44,6 +45,8 @@ get_janes_info(
 \item{market}{Markets Forecast market}
 
 \item{end_user_country}{JMF end user country}
+
+\item{overall_family}{Overall equipment family}
 
 \item{endpoint}{One of 6 options currently}
 }

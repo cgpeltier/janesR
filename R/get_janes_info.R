@@ -14,6 +14,7 @@
 #' @param query Query
 #' @param post_date Event post date
 #' @param start_date Event start date
+#' @param overall_family Overall equipment family
 #'
 #' @return Helper function to return Janes news article page range related to search.
 #' @importFrom httr GET
@@ -29,6 +30,7 @@ get_janes_info <- function(x, country = NULL, branch = NULL, type = NULL,
                            operator_force = NULL, query = NULL, environment = NULL,
                            post_date = NULL, start_date = NULL, event_type = NULL,
                            market = NULL, end_user_country = NULL,
+                           overall_family = NULL,
                            endpoint = c("inventories", "equipment", "orbats", "news",
                                         "bases", "airports", "countryrisks",
                                         "companies", "events", "equipmentrelationships",
@@ -66,6 +68,8 @@ get_janes_info <- function(x, country = NULL, branch = NULL, type = NULL,
                                 stringr::str_replace_all(operator_force, " ", "%20"),
                                 ")%3cand%3etype(",
                                 type,
+                                ")%3Cand%3Eoverallfamily(",
+                                overall_family,
                                 ")%3Cand%3Eenvironment(",
                                 environment,
                                 ")&num=1000", "&pg=", x),

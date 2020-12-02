@@ -8,7 +8,8 @@ get_janes_equipment(
   country = NULL,
   query = NULL,
   environment = NULL,
-  type = NULL
+  type = NULL,
+  overall_family = NULL
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ get_janes_equipment(
 \item{environment}{Filter for environment of equipment (i.e. "Air")}
 
 \item{type}{Filter for type of equipment (i.e. "Platforms")}
+
+\item{overall_family}{Overall equipment family}
 }
 \value{
 Janes equipment data.
