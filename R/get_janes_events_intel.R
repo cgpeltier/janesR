@@ -62,14 +62,12 @@ get_janes_events_intel <- function(country = NULL, query = NULL, post_date = NUL
           tibble() %>%
           conditional_unnest_wider(".") %>%
           conditional_unnest_wider(".") %>%
-          conditional_unnest_wider("date") %>%
-          conditional_unnest_wider("eventSources") %>%
-          conditional_unnest_wider("eventLocation") %>%
-          conditional_unnest_wider("casualties") %>%
-          conditional_unnest_wider("intelligence") %>%
-          conditional_unnest_wider("place") %>%
-          conditional_unnest_wider("offset") %>%
-          clean_names() %>%
+          unnest_all("event") %>%
+          unnest_all("event") %>%
+          unnest_all("event") %>%
+          unnest_all("event") %>%
+          rename_with(~ str_remove(., "^[^_]+_[^_]+_")) %>%
+          rename_with(~ str_remove(., "(?<=[a-z])_(?=\\d+)")) %>%
           naniar::replace_with_na_all(condition = ~.x == "")
 
 

@@ -14,7 +14,7 @@ conditional_unnest_wider2 <- function(data, variable){
 
     if(variable %in% names(data)){
 
-        return(unnest_wider(data, variable, names_sep = "_"))
+        return(unnest_wider(data, variable, names_sep = "_", names_repair = 'unique'))
 
     } else {
 

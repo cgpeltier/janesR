@@ -10,12 +10,15 @@
 #'
 
 
+
+
 conditional_unnest_wider <- function(data, variable){
-    if(variable %in% names(data)){
-      return(unnest_wider(data, variable, names_repair = ~gsub('...', variable, ., fixed = TRUE)))
-    } else {
-      return(data)
-    }
+      if(variable %in% names(data)){
+        return(unnest_wider(data, variable, names_repair = ~gsub('...', variable, ., fixed = TRUE)))
+      } else {
+        return(data)
+      }
+
 }
 
 

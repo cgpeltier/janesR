@@ -42,36 +42,12 @@ get_janes_airports <- function(country = NULL){
         unnest_wider(".") %>%
         unnest_wider(".") %>%
         unnest_wider(installation) %>%
-        conditional_unnest_wider("location") %>%
-        conditional_unnest_wider("synonyms") %>%
-        conditional_unnest_wider("synonym") %>%
-        conditional_unnest_wider("operators") %>%
-        conditional_unnest_wider2("operator") %>%
-        conditional_unnest_wider("runways") %>%
-        conditional_unnest_wider("runway") %>%
-        conditional_unnest_wider("runwayLengthMetres") %>%
-        conditional_unnest_wider("runwayOrientationOpposing") %>%
-        conditional_unnest_wider("runwayOrientation") %>%
-        conditional_unnest_wider("runwaySurface") %>%
-        conditional_unnest_wider("runwayName") %>%
-        conditional_unnest_wider("runwayDirection1Name") %>%
-        conditional_unnest_wider("runwayDirection2Name") %>%
-        conditional_unnest_wider("runwayStaus") %>%
-        conditional_unnest_wider("runwayLengthFeet") %>%
-        conditional_unnest_wider("runwayWidthMetres") %>%
-        conditional_unnest_wider("runwayWidthFeet") %>%
-        conditional_unnest_wider("runwayCenterline") %>%
-        conditional_unnest_wider("operator_operatorCountryISO") %>%
-        conditional_unnest_wider("operator_operatorId") %>%
-        conditional_unnest_wider("operator_installationId") %>%
-        conditional_unnest_wider("operator_operatorServiceType") %>%
-        conditional_unnest_wider("operator_operatorCountry") %>%
-        conditional_unnest_wider("operator_operatorRegion") %>%
-        conditional_unnest_wider("runwayLightingIntensity") %>%
-        conditional_unnest_wider("runwayPCN") %>%
-        select(-(starts_with("operator_installationId"))) %>%
-        rename_with(.cols = starts_with("operator_"), ~ str_remove(., "operator_")) %>%
-        janitor::clean_names()
+        unnest_all("airport") %>%
+        unnest_all("airport") %>%
+        unnest_all("airport") %>%
+        unnest_all("airport") %>%
+        rename_with(~ str_remove(., "^[^_]+_[^_]+_")) %>%
+        rename_with(~ str_remove(., "(?<=[a-z])_(?=\\d+)"))
 }
 
 

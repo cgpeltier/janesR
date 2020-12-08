@@ -37,42 +37,16 @@ get_janes_bases <- function(country = NULL){
 
     bases_data %>%
         tibble() %>%
-        rename(base = ".") %>%
-        unnest_wider(base) %>%
-        rename(base = ".") %>%
-        unnest_wider(base) %>%
+        conditional_unnest_wider(".") %>%
+        conditional_unnest_wider(".") %>%
         select(-any_of("...1")) %>%
         conditional_unnest_wider("installation") %>%
-        conditional_unnest_wider("operators") %>%
-        conditional_unnest_wider("operator") %>%
-        select(-"installationId") %>%
-        conditional_unnest_wider("operatorCountry") %>%
-        conditional_unnest_wider("runways") %>%
-        conditional_unnest_wider("runway") %>%
-        conditional_unnest_wider("runwayOrientation") %>%
-        conditional_unnest_wider("runwayOreientationOpposed") %>%
-        conditional_unnest_wider("runwaySurface") %>%
-        conditional_unnest_wider("runwayName") %>%
-        conditional_unnest_wider("runwayStatus") %>%
-        conditional_unnest_wider("runwayCenterline") %>%
-        conditional_unnest_wider("synonyms") %>%
-        conditional_unnest_wider("synonym") %>%
-        conditional_unnest_wider("operatorId") %>%
-        conditional_unnest_wider("installationId") %>%
-        conditional_unnest_wider("operatorServiceType") %>%
-        conditional_unnest_wider("operatorRegion") %>%
-        conditional_unnest_wider("operatorCountryISO") %>%
-        conditional_unnest_wider("location") %>%
-        conditional_unnest_wider("runwayLengthMetres") %>%
-        conditional_unnest_wider("runwayLengthFeet") %>%
-        conditional_unnest_wider("runwayOrientationOpposing") %>%
-        conditional_unnest_wider("runwayDirection1Name") %>%
-        conditional_unnest_wider("runwayDirection2Name") %>%
-        conditional_unnest_wider("runwayStaus") %>%
-        conditional_unnest_wider("runwayWidthMetres") %>%
-        conditional_unnest_wider("runwayWidthFeet") %>%
-        conditional_unnest_wider("runwayPCN") %>%
-        janitor::clean_names()
+        unnest_all("base") %>%
+        unnest_all("base") %>%
+        unnest_all("base") %>%
+        unnest_all("base") %>%
+        rename_with(~ str_remove(., "^[^_]+_[^_]+_")) %>%
+        rename_with(~ str_remove(., "(?<=[a-z])_(?=\\d+)"))
 
 
 }
