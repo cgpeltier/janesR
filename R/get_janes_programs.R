@@ -78,11 +78,14 @@ get_janes_programs <- function(operator_country = NULL, histories = FALSE){
 
 
     if(histories == TRUE){
-        program_data2 %>%
-            select(id, revisionHistories) %>%
-            unnest_longer(revisionHistories) %>%
-            mutate(revisionHistories.revisionDate = as.Date(revisionHistories.revisionDate)) %>%
-            janitor::clean_names()
+      programs_data %>%
+          tibble() %>%
+          conditional_unnest_wider(".") %>%
+          conditional_unnest_wider(".") %>%
+          conditional_unnest_wider2("programme") %>%
+          select(programme_id, revisionHistories) %>%
+          unnest_longer(revisionHistories) %>%
+          janitor::clean_names()
 
 
     } else {
