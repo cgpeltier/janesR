@@ -35,7 +35,8 @@ get_janes_info <- function(x, country = NULL, branch = NULL, type = NULL,
                                         "bases", "airports", "countryrisks",
                                         "companies", "events", "equipmentrelationships",
                                         "references", "samsites", "ewsites",
-                                        "satelliteImages", "marketforecasts")){
+                                        "satelliteImages", "marketforecasts",
+                                        "nuclearsites")){
 
 
     if(endpoint %in% c("references", "news")){

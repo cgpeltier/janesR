@@ -34,7 +34,8 @@ get_page_range <- function(country = NULL, branch = NULL, type = NULL,
                                         "bases", "airports", "countryrisks",
                                         "companies", "events", "equipmentrelationships",
                                         "references", "samsites", "ewsites",
-                                        "satelliteImages", "marketforecasts")){
+                                        "satelliteImages", "marketforecasts",
+                                        "nuclearsites")){
 
 
 

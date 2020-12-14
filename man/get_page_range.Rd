@@ -19,7 +19,7 @@ get_page_range(
   overall_family = NULL,
   endpoint = c("inventories", "equipment", "orbats", "news", "bases", "airports",
     "countryrisks", "companies", "events", "equipmentrelationships", "references",
-    "samsites", "ewsites", "satelliteImages", "marketforecasts")
+    "samsites", "ewsites", "satelliteImages", "marketforecasts", "nuclearsites")
 )
 }
 \arguments{
