@@ -59,12 +59,14 @@ get_janes_events_jtic <- function(country = NULL, query = NULL, post_date = NULL
             tibble() %>%
             unnest_wider(".") %>%
             unnest_wider(".") %>%
-            unnest_all("event") %>%
-            unnest_all("event") %>%
-            unnest_all("event") %>%
-            unnest_all("event") %>%
-            rename_with(~ str_remove(., "^[^_]+_[^_]+_")) %>%
-            rename_with(~ str_remove(., "(?<=[a-z])_(?=\\d+)"))
+            unnest_all2() %>%
+            unnest_all2() %>%
+            unnest_all2() %>%
+            unnest_all2()
+        #
+        # %>%
+        #     rename_with(~ str_remove(., "^[^_]+_[^_]+_")) %>%
+        #     rename_with(~ str_remove(., "(?<=[a-z])_(?=\\d+)"))
 
 
 }
