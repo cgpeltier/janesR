@@ -22,5 +22,6 @@ Imports:
     tibble,
     tidyr,
     magick,
-    naniar
+    naniar,
+    furrr
     

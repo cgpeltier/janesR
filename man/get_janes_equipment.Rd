@@ -4,22 +4,16 @@
 \alias{get_janes_equipment}
 \title{get_janes_equipment}
 \usage{
-get_janes_equipment(
-  country = NULL,
-  query = NULL,
-  environment = NULL,
-  type = NULL,
-  overall_family = NULL
-)
+get_janes_equipment(country = NULL)
 }
 \arguments{
 \item{country}{Country filter for equipment}
 
 \item{query}{Query filter for equipment}
 
-\item{environment}{Filter for environment of equipment (i.e. "Air")}
-
 \item{type}{Filter for type of equipment (i.e. "Platforms")}
+
+\item{environment}{Filter for environment of equipment (i.e. "Air")}
 
 \item{overall_family}{Overall equipment family}
 }

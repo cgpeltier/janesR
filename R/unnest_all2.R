@@ -9,6 +9,7 @@
 #' @importFrom dplyr rename_with
 #' @importFrom janitor clean_names
 #' @importFrom stringr str_remove
+#' @importFrom purrr map_dfc
 #'
 
 
@@ -29,10 +30,10 @@ unnest_all2 <- function(data){
               unnest_wider(c(!!.x), names_sep= "_", names_repair = 'unique')) %>%
       bind_cols(data_non_list, .)
 
+
   } else {
 
     data
-
   }
 
 }
