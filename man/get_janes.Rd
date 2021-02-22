@@ -7,9 +7,9 @@
 get_janes(
   country = NULL,
   parallel = FALSE,
-  endpoint = c("inventories", "equipment", "orbats", "news", "bases", "airports",
-    "countryrisks", "companies", "events", "equipmentrelationships", "references",
-    "samsites", "ewsites", "satelliteImages", "marketforecasts", "nuclearsites")
+  endpoint = c("inventories", "equipment", "orbats", "bases", "airports",
+    "countryrisks", "companies", "events", "equipmentrelationships", "samsites",
+    "ewsites", "nuclearsites", "satelliteImages", "marketforecasts", "defenceprogrammes")
 )
 }
 \arguments{

@@ -33,18 +33,28 @@
 #' @export
 
 
+## add:
+# Check on multi-country search support
+# IE vs JTIC events filter
+# News and ref support
+# Support for defence programmes
+# Handle JMF and JDP programme stuff
 
+get_janes <- function(country = NULL, parallel = FALSE,
+                      endpoint = c("inventories", "equipment", "orbats",
+                                   "bases", "airports", "countryrisks",
+                                   "companies", "events", "equipmentrelationships",
+                                   "samsites", "ewsites","nuclearsites",
+                                   "satelliteImages", "marketforecasts",
+                                   "defenceprogrammes")) {
 
-get_janes <- function(country = NULL, parallel = FALSE, endpoint = c("inventories", "equipment", "orbats",
-                                                   "bases", "airports", "countryrisks",
-                                                   "companies", "events", "equipmentrelationships",
-                                                   "samsites", "ewsites","nuclearsites",
-                                                   "satelliteImages", "marketforecasts")) {
+  countries <- paste0(country, collapse = ")%3Cor%3Ecountryiso(")
+
 
   if(parallel == FALSE){
 
       GET(paste0("https://developer.janes.com/api/v1/data/", endpoint,
-                 "?f=countryiso(", country, ")&num=100000"),
+                 "?f=countryiso(", countries, ")&num=100000"),
           add_headers("Authorization" = Sys.getenv("JANES_KEY"))) %>%
         content(as = "text") %>%
         fromJSON() %>%
