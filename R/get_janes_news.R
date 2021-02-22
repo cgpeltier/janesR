@@ -33,4 +33,3 @@ get_janes_news <- function(country = NULL, query = NULL){
              news_text = stringr::str_replace_all(news_text, "\\s{2,}", " "))
 }
 
-#' @export

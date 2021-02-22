@@ -54,4 +54,3 @@ get_janes_companies <- function(country = NULL, query = NULL){
 }
 
 
-#' @export

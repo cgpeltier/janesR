@@ -53,4 +53,3 @@ get_janes_orbats <- function(country = NULL, branch = NULL){
 }
 
 
-#' @export

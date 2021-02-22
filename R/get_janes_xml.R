@@ -47,6 +47,7 @@
 #' @importFrom dplyr filter
 #' @importFrom magick image_read
 #' @importFrom magick image_write
+#' @importFrom purrr map_dfr
 
 
 # uses https://stackoverflow.com/questions/56892518/ignore-error-when-importing-json-files-in-r
@@ -57,15 +58,16 @@ get_janes_xml <- function(country = NULL, branch = NULL, type = NULL,
                           pics = FALSE, sat = FALSE, post_date = NULL){
 
     page_range <- get_page_range(country = country, endpoint = endpoint, branch = branch,
-                                 type = type, operator_force = operator_force, post_date = post_date,
-                                 environment = environment, query = query)
+                                 type = type, operator_force = operator_force,
+                                 post_date = str_replace(post_date, "\\:\\:", "%3A%3A"),
+                                 environment = environment,
+                                 query = str_replace_all(query, " ", "%20"))
 
-    temp <- map(page_range, ~ get_janes_info(x = .x, country = country, branch = branch,
+    temp <- purrr::map_dfr(page_range, ~ get_janes_info(x = .x, country = country, branch = branch,
                                              type = type, operator_force = operator_force,
-                                             post_date = post_date,
+                                             post_date = str_replace(post_date, "\\:\\:", "%3A%3A"),
                                              environment = environment, endpoint = endpoint,
-                                             query = query)) %>%
-        bind_rows()
+                                             query = str_replace_all(query, " ", "%20")))
 
 
     if(jdet_only == TRUE){
@@ -109,11 +111,11 @@ get_janes_xml <- function(country = NULL, branch = NULL, type = NULL,
 
 
     }
+
 }
 
 
 
 
 
-#' @export
 

@@ -52,4 +52,3 @@ get_janes_bases <- function(country = NULL){
 }
 
 
-#' @export

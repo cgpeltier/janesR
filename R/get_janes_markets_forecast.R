@@ -121,4 +121,3 @@ get_janes_markets_forecast <- function(end_user_country = NULL, query = NULL, ma
 }
 
 
-#' @export

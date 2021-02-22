@@ -81,4 +81,3 @@ get_janes_ew <- function(country = NULL){
 }
 
 
-#' @export

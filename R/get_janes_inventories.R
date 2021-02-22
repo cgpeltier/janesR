@@ -38,17 +38,19 @@ get_janes_inventories <- function(country = NULL, operator_force = NULL){
     inventories_data <- map(inventories$url, get_janes_data) %>%
         bind_rows()
 
-    inventories_data %>%
-        tibble() %>%
-        conditional_unnest_wider(".") %>%
-        conditional_unnest_wider(".") %>%
-        conditional_unnest_wider("inventories") %>%
-        unnest_all("inventories") %>%
-        unnest_all("inventories") %>%
-        unnest_all("inventories") %>%
-        unnest_all("inventories") %>%
-        rename_with(~ str_remove(., "^[^_]+_[^_]+_")) %>%
-        rename_with(~ str_remove(., "(?<=[a-z])_(?=\\d+)"))
+    inventories_data
+    #
+    # %>%
+    #     tibble() %>%
+    #     conditional_unnest_wider(".") %>%
+    #     conditional_unnest_wider(".") %>%
+    #     conditional_unnest_wider("inventories") %>%
+    #     unnest_all("inventories") %>%
+    #     unnest_all("inventories") %>%
+    #     unnest_all("inventories") %>%
+    #     unnest_all("inventories") %>%
+    #     rename_with(~ str_remove(., "^[^_]+_[^_]+_")) %>%
+    #     rename_with(~ str_remove(., "(?<=[a-z])_(?=\\d+)"))
 
 }
 
@@ -56,4 +58,3 @@ get_janes_inventories <- function(country = NULL, operator_force = NULL){
 
 
 
-#' @export

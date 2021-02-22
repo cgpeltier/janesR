@@ -80,4 +80,3 @@ get_janes_sat_images <- function(country = NULL, query = NULL, pics = FALSE){
 
 
 
-#' @export

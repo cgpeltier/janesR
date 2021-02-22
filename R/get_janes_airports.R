@@ -51,4 +51,3 @@ get_janes_airports <- function(country = NULL){
 }
 
 
-#' @export

@@ -98,4 +98,3 @@ get_janes_programs <- function(operator_country = NULL, histories = FALSE){
 }
 
 
-#' @export

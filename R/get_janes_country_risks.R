@@ -57,4 +57,3 @@ get_janes_country_risks <- function(country = NULL){
 }
 
 
-#' @export

@@ -73,6 +73,3 @@ get_janes_events_jtic <- function(country = NULL, query = NULL, post_date = NULL
 
 
 
-
-
-#' @export

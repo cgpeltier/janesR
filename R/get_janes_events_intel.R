@@ -77,5 +77,3 @@ get_janes_events_intel <- function(country = NULL, query = NULL, post_date = NUL
 
 
 
-
-#' @export
