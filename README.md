@@ -7,26 +7,27 @@ You can install janesR from github:
 ```{r}
 devtools::install_github("cgpeltier/janesR")
 ```
-## Using janesR 
+## Endpoints
 The package currently supports the following Janes API endpoints:
 
-* Airports: `get_janes_airports`
-* Bases: `get_janes_bases`
-* Companies: `get_janes_companies`
-* Country Risk: `get_janes_country_risks` 
-* Defence Programs: `get_janes_programs`
-* Early Warning Sites: `get_janes_ew`
-* Equipment: `get_janes_equipment`
-* Equipment Relationships: `get_janes_equipment_relationships`
-* Events: `get_janes_events`
-* Intelligence Events: `get_janes_events_intel`
-* Inventories: `get_janes_inventories`
-* Markets Forecast: `get_janes_markets_forecast`
-* News: `get_janes_news`
-* ORBATs: `get_janes_orbats`
-* SAM Sites: `get_janes_sam`
-* Satellite Images: `get_janes_sat_images`
-* Terrorist Events: `get_janes_events_jtic` 
+* Airports: `endpoint = "airports"`
+* Bases: `endpoint = "bases"`
+* Companies: `endpoint = "companies"`
+* Country Risk: `endpoint = "countryrisk"`
+* Defence Programs: `endpoint = "defenceprogrammes"`
+* Early Warning Sites: `endpoint = "ewsites"`
+* Equipment: `endpoint = "equipment"`
+* Equipment Relationships: `endpoint = "equipmentrelationships"`
+* Events: `endpoint = "events"`
+* Inventories: `endpoint = "inventories"`
+* Markets Forecast: `endpoint = "marketforecasts"`
+* News: `endpoint = "news"`
+* Nuclear Sites: `endpoint = "nuclearsites"`
+* ORBATs: `endpoint = "orbats"`
+* SAM Sites: `endpoint = "samsites"`
+* Satellite Images: `endpoint = "satelliteImages"`
+
+## Getting Started
 
 There are also functions available for saving data from the above endpoints into XML and JSON files: `get_janes_json` and `get_janes_xml`. 
 
@@ -35,16 +36,31 @@ To get started, and to use any of the above functions, first use the ` save_jane
 ```{r}
 save_janes_key("JANES_API_KEY_GOES_HERE")
 ```
+## Using janesR
 
-# Examples
+As of 19 February 2021, all API endpoint-specific functions have been replaced with a single function: `get_janes`. Users specify an endpoint and, optionally, a country:
 
 ```{r}
-ru_orbat <- get_janes_orbats(country = "RU")
-ru_sam <- get_janes_sam(country = "RU")
-inventories <- get_janes_inventories(country = c("BE", "CN", "CA"))
+## Pull all Russian ORBATs data
+ru_orbat <- get_janes(country = "RU", endpoint = "orbats")
+
+## Pull all Russian SAM sites data
+ru_sam <- get_janes(country = "RU", endpoint = "samsites")
+
+## Pull all Belgian, Chinese, and Canadian inventories
+inventories <- get_janes(country = c("BE", "CN", "CA"), endpoint = "inventories")
 ```
 
 As in the inventories example above, multiple countries can be queried by passing the country ISO codes in a vector. 
+
+**Parallel processing**
+Users can now use parallel processing to significantly speed up API pulls (by ~75%, depending on users' computers and internet connection speeds) by using the optional argument `parallel = TRUE`.
+
+```{r}
+## Pull all bases data using parallel processing
+all_bases <- get_janes(endpoint = "bases", parallel = TRUE)
+```
+
 
 
 <!-- badges: start -->
