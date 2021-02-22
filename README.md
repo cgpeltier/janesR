@@ -1,7 +1,7 @@
 # janesR
 <img src=images/hex-janesR2.png align="right" alt="" width="120" />
 
-janesR is a wrapper for the Janes API that allows Janes users to easily pull data from the API into tibbles in R. Documentation for the API can be found at the [Janes Developer site](https://developer.janes.com/). 
+janesR is an R wrapper for the Janes API that allows Janes users to easily pull data from the API into tibbles. These tibbles are then ready for data analysis and visualization, export into CSV or XLSX, or integration into users' systems. Documentation for the API can be found at the [Janes Developer site](https://developer.janes.com/). 
 
 You can install janesR from github: 
 ```{r}
@@ -29,8 +29,6 @@ The package currently supports the following Janes API endpoints:
 
 ## Getting Started
 
-There are also functions available for saving data from the above endpoints into XML and JSON files: `get_janes_json` and `get_janes_xml`. 
-
 To get started, and to use any of the above functions, first use the ` save_janes_key` function to save your Janes API key to your R environment:
 
 ```{r}
@@ -53,7 +51,10 @@ inventories <- get_janes(country = c("BE", "CN", "CA"), endpoint = "inventories"
 
 As in the inventories example above, multiple countries can be queried by passing the country ISO codes in a vector. 
 
+There are also functions available for saving data from the above endpoints into XML and JSON files: `get_janes_json` and `get_janes_xml`. 
+
 **Parallel processing**
+
 Users can now use parallel processing to significantly speed up API pulls (by ~75%, depending on users' computers and internet connection speeds) by using the optional argument `parallel = TRUE`.
 
 ```{r}
