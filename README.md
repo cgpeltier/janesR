@@ -59,6 +59,10 @@ Users can now use parallel processing to significantly speed up API pulls (by ~7
 
 ```{r}
 ## Pull all bases data using parallel processing
+
+n_cores <- availableCores() - 1
+plan(multiprocess, workers = n_cores)
+
 all_bases <- get_janes(endpoint = "bases", parallel = TRUE)
 ```
 
