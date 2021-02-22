@@ -6,7 +6,7 @@
 #' @param endpoint What endpoint to pull data from
 
 #'
-#' @return Janes structured data
+#' @return Janes data
 #' @importFrom httr GET
 #' @importFrom httr content
 #' @importFrom jsonlite fromJSON
@@ -14,6 +14,7 @@
 #' @importFrom magrittr "%>%"
 #' @importFrom stringr str_remove
 #' @importFrom purrr map
+#' @importFrom purrr safely
 #' @importFrom jsonlite flatten
 #' @importFrom dplyr bind_rows
 #' @importFrom dplyr rename
@@ -34,11 +35,10 @@
 
 
 ## add:
-# Check on multi-country search support
 # IE vs JTIC events filter
-# News and ref support
-# Support for defence programmes
 # Handle JMF and JDP programme stuff
+# support for queries
+
 
 get_janes <- function(country = NULL, parallel = FALSE,
                       endpoint = c("inventories", "equipment", "orbats",
@@ -46,58 +46,99 @@ get_janes <- function(country = NULL, parallel = FALSE,
                                    "companies", "events", "equipmentrelationships",
                                    "samsites", "ewsites","nuclearsites",
                                    "satelliteImages", "marketforecasts",
-                                   "defenceprogrammes")) {
+                                   "defenceprogrammes", "references", "news")) {
 
   countries <- paste0(country, collapse = ")%3Cor%3Ecountryiso(")
 
+  if(endpoint %in% c("references", "news")) {
+      ## to save all XMLs
 
-  if(parallel == FALSE){
-
-      GET(paste0("https://developer.janes.com/api/v1/data/", endpoint,
-                 "?f=countryiso(", countries, ")&num=100000"),
-          add_headers("Authorization" = Sys.getenv("JANES_KEY"))) %>%
-        content(as = "text") %>%
-        fromJSON() %>%
-        pluck(2) %>%
-        tibble() %>%
-        dplyr::pull(url) %>%
-        map_dfr(~ GET(.x,  add_headers("Authorization" = Sys.getenv("JANES_KEY"))) %>%
-                  content(as = "text") %>%
-                  fromJSON() %>%
-                  tibble()) %>%
-        conditional_unnest_wider(".") %>%
-        conditional_unnest_wider(".") %>%
-        unnest_all2() %>%
-        unnest_all2() %>%
-        unnest_all2() %>%
-        unnest_all2() %>%
-        unnest_all2()
-  }
-
-  else {
-
-    GET(paste0("https://developer.janes.com/api/v1/data/", endpoint,
-               "?f=countryiso(", country, ")&num=100000"),
-        add_headers("Authorization" = Sys.getenv("JANES_KEY"))) %>%
-      content(as = "text") %>%
-      fromJSON() %>%
-      pluck(2) %>%
-      tibble() %>%
-      dplyr::pull(url) %>%
-      future_map_dfr(~ GET(.x,  add_headers("Authorization" = Sys.getenv("JANES_KEY"))) %>%
-                content(as = "text") %>%
-                fromJSON() %>%
-                tibble()) %>%
-      conditional_unnest_wider(".") %>%
-      conditional_unnest_wider(".") %>%
-      unnest_all2() %>%
-      unnest_all2() %>%
-      unnest_all2() %>%
-      unnest_all2() %>%
-      unnest_all2()
+      request_url <- paste0("https://developer.janes.com/api/v1/", endpoint,
+                          "?f=countryiso(", countries, ")&num=100000")
 
 
-  }
+      if(parallel == FALSE){
+
+        GET(request_url, add_headers("Authorization" = Sys.getenv("JANES_KEY"))) %>%
+            content(as = "text") %>%
+            fromJSON() %>%
+            pluck(2) %>%
+            tibble() %>%
+            dplyr::pull(url) %>%
+            purrr::map(~ GET(.x,  add_headers("Authorization" = Sys.getenv("JANES_KEY"))) %>%
+                         content() %>%
+                         xml2::as_xml_document() %>%
+                         xml2::write_xml(., stringr::str_extract(.x, "(?<=\\/)[^\\/]+$"), ".xml"))
+
+        } else {
+
+          GET(request_url, add_headers("Authorization" = Sys.getenv("JANES_KEY"))) %>%
+            content(as = "text") %>%
+            fromJSON() %>%
+            pluck(2) %>%
+            tibble() %>%
+            dplyr::pull(url) %>%
+            furrr::future_map(~ GET(.x,  add_headers("Authorization" = Sys.getenv("JANES_KEY"))) %>%
+                                content() %>%
+                                xml2::as_xml_document() %>%
+                                xml2::write_xml(., stringr::str_extract(.x, "(?<=\\/)[^\\/]+$"), ".xml"))
+
+
+
+      }
+
+
+
+    } else {
+      ## for all JSON data
+
+      request_url <- paste0("https://developer.janes.com/api/v1/data/", endpoint,
+                                "?f=countryiso(", countries, ")&num=100000")
+
+
+      if(parallel == FALSE){
+
+        GET(request_url, add_headers("Authorization" = Sys.getenv("JANES_KEY"))) %>%
+          content(as = "text") %>%
+          fromJSON() %>%
+          pluck(2) %>%
+          tibble() %>%
+          dplyr::pull(url) %>%
+          map_dfr(~ GET(.x,  add_headers("Authorization" = Sys.getenv("JANES_KEY"))) %>%
+                    content(as = "text") %>%
+                    fromJSON() %>%
+                    tibble()) %>%
+          conditional_unnest_wider(".") %>%
+          conditional_unnest_wider(".") %>%
+          unnest_all2() %>%
+          unnest_all2() %>%
+          unnest_all2() %>%
+          unnest_all2() %>%
+          unnest_all2()
+      }
+
+      else {
+
+        GET(request_url, add_headers("Authorization" = Sys.getenv("JANES_KEY"))) %>%
+          content(as = "text") %>%
+          fromJSON() %>%
+          pluck(2) %>%
+          tibble() %>%
+          dplyr::pull(url) %>%
+          future_map_dfr(~ GET(.x,  add_headers("Authorization" = Sys.getenv("JANES_KEY"))) %>%
+                           content(as = "text") %>%
+                           fromJSON() %>%
+                           tibble()) %>%
+          conditional_unnest_wider(".") %>%
+          conditional_unnest_wider(".") %>%
+          unnest_all2() %>%
+          unnest_all2() %>%
+          unnest_all2() %>%
+          unnest_all2() %>%
+          unnest_all2()
+        }
+      }
+
 
 
 }

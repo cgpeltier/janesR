@@ -9,7 +9,8 @@ get_janes(
   parallel = FALSE,
   endpoint = c("inventories", "equipment", "orbats", "bases", "airports",
     "countryrisks", "companies", "events", "equipmentrelationships", "samsites",
-    "ewsites", "nuclearsites", "satelliteImages", "marketforecasts", "defenceprogrammes")
+    "ewsites", "nuclearsites", "satelliteImages", "marketforecasts", "defenceprogrammes",
+    "references", "news")
 )
 }
 \arguments{
@@ -20,7 +21,7 @@ get_janes(
 \item{endpoint}{What endpoint to pull data from}
 }
 \value{
-Janes structured data
+Janes data
 }
 \description{
 General interface to Janes data
