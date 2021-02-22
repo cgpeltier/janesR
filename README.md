@@ -4,6 +4,7 @@
 janesR is an R wrapper for the Janes API that allows Janes users to easily pull data from the API into tibbles. These tibbles are then ready for data analysis and visualization, export into CSV or XLSX, or integration into users' systems. Documentation for the API can be found at the [Janes Developer site](https://developer.janes.com/). 
 
 You can install janesR from github: 
+
 ```{r}
 devtools::install_github("cgpeltier/janesR")
 ```
@@ -24,6 +25,7 @@ The package currently supports the following Janes API endpoints:
 * News: `endpoint = "news"`
 * Nuclear Sites: `endpoint = "nuclearsites"`
 * ORBATs: `endpoint = "orbats"`
+* Reference: `endpoint = "references"`
 * SAM Sites: `endpoint = "samsites"`
 * Satellite Images: `endpoint = "satelliteImages"`
 
@@ -66,7 +68,11 @@ plan(multiprocess, workers = n_cores)
 all_bases <- get_janes(endpoint = "bases", parallel = TRUE)
 ```
 
+**XMLs from the Reference/News endpoints**
 
+All Janes endpoints *except* the Reference and News endpoints natively return JSON data. Reference and News instead return XML versions of Janes online documents. As a result, using the argument `endpoint = "references"` or `endpoint = "news"` instead saves XMLs of the documents that fit your search criteria to your working directory. 
+
+It is still possible to use parallel processing when saving XMLs. 
 
 <!-- badges: start -->
   [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
