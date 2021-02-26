@@ -7,6 +7,9 @@
 get_janes(
   country = NULL,
   parallel = FALSE,
+  post_date = NULL,
+  include_del = FALSE,
+  source_type = NULL,
   endpoint = c("inventories", "equipment", "orbats", "bases", "airports",
     "countryrisks", "companies", "events", "equipmentrelationships", "samsites",
     "ewsites", "nuclearsites", "satelliteImages", "marketforecasts", "defenceprogrammes",
