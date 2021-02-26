@@ -4,6 +4,7 @@
 janesR is an R wrapper for the Janes API that allows Janes users to easily pull data from the API into tibbles. These tibbles are then ready for data analysis and visualization, export into CSV or XLSX, or integration into users' systems. Documentation for the API can be found at the [Janes Developer site](https://developer.janes.com/). 
 
 You can install janesR from github: 
+
 ```{r}
 devtools::install_github("cgpeltier/janesR")
 ```
@@ -24,6 +25,7 @@ The package currently supports the following Janes API endpoints:
 * News: `endpoint = "news"`
 * Nuclear Sites: `endpoint = "nuclearsites"`
 * ORBATs: `endpoint = "orbats"`
+* Reference: `endpoint = "references"`
 * SAM Sites: `endpoint = "samsites"`
 * Satellite Images: `endpoint = "satelliteImages"`
 
@@ -47,6 +49,18 @@ ru_sam <- get_janes(country = "RU", endpoint = "samsites")
 
 ## Pull all Belgian, Chinese, and Canadian inventories
 inventories <- get_janes(country = c("BE", "CN", "CA"), endpoint = "inventories")
+
+inventories %>% head()
+
+# id    recordState title description updatedDate acquiredOrInSer~ yearOfInitialDe~ inService
+#  <chr> <chr>       <chr> <chr>       <chr>       <chr>            <chr>            <chr>    
+#1 Inve~ updated     ZTQ-~ ZTQ-15-Peo~ 2020-11-06~ In Service       2018             28       
+#2 Inve~ updated     ZTL-~ ZTL-11-Peo~ 2020-12-13~ In Service       NA               Unknown  
+#3 Inve~ updated     ZTD-~ ZTD-05-Peo~ 2020-08-18~ In Service       2005             152      
+#4 Inve~ updated     ZSL-~ ZSL-92B-Pe~ 2020-12-13~ In Service       1986             500      
+#5 Inve~ updated     ZSL-~ ZSL-92-Peo~ 2020-11-29~ In Service       1986             900      
+#6 Inve~ updated     ZBL-~ ZBL-09-Peo~ 2020-11-28~ In Service       2013             1970
+#  ... with 42 more variables: 
 ```
 
 As in the inventories example above, multiple countries can be queried by passing the country ISO codes in a vector. 
@@ -65,6 +79,10 @@ plan(multiprocess, workers = n_cores)
 
 all_bases <- get_janes(endpoint = "bases", parallel = TRUE)
 ```
+
+**XMLs from the Reference/News endpoints**
+
+All Janes endpoints *except* the Reference and News endpoints natively return JSON data. Reference and News instead return XML versions of Janes online documents. As a result, using the argument `endpoint = "references"` or `endpoint = "news"` instead saves XMLs to your working directory. It is still possible to use parallel processing when saving XMLs. 
 
 
 
