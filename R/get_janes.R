@@ -99,52 +99,57 @@ get_janes <- function(country = NULL, parallel = FALSE,
 
   } else if(endpoint == "events") {
 
-    request_url <- paste0("https://developer.janes.com/api/v1/data/", endpoint,
-                          "?f=countryiso(", countries, ")%3Cand%3EpostDate(",
-                          post_dates, ")%3Cand%3Esource_type(", sources,
-                          ")&num=100000&includeDeleted=", include_del)
+      request_url <- paste0("https://developer.janes.com/api/v1/data/", endpoint,
+                            "?f=countryiso(", countries, ")%3Cand%3EpostDate(",
+                            post_dates, ")%3Cand%3Esource_type(", sources,
+                            ")&num=100000&includeDeleted=", include_del)
 
-    if(parallel == FALSE){
+      if(parallel == FALSE){
 
-      GET(request_url, add_headers("Authorization" = Sys.getenv("JANES_KEY"))) %>%
-        content(as = "text") %>%
-        fromJSON() %>%
-        pluck(2) %>%
-        tibble() %>%
-        dplyr::pull(url) %>%
-        map(~ GET(.x,  add_headers("Authorization" = Sys.getenv("JANES_KEY"))) %>%
-              content(as = "text") %>%
-              fromJSON() %>%
-              tibble())  %>%
-        tibble() %>%
-        conditional_unnest_wider(".") %>%
-        conditional_unnest_wider(".") %>%
-        unnest_all2() %>%
-        unnest_all2() %>%
-        unnest_all2() %>%
-        unnest_all2() %>%
-        unnest_all2()
-  } else {
+        GET(request_url, add_headers("Authorization" = Sys.getenv("JANES_KEY"))) %>%
+          content(as = "text") %>%
+          fromJSON() %>%
+          pluck(2) %>%
+          tibble() %>%
+          dplyr::pull(url) %>%
+          map(~ GET(.x,  add_headers("Authorization" = Sys.getenv("JANES_KEY"))) %>%
+                content(as = "text") %>%
+                fromJSON() %>%
+                tibble())  %>%
+          tibble() %>%
+          conditional_unnest_wider(".") %>%
+          conditional_unnest_wider(".") %>%
+          unnest_all2() %>%
+          unnest_all2() %>%
+          unnest_all2() %>%
+          unnest_all2() %>%
+          unnest_all2() %>%
+          unnest_all2()
 
-     GET(request_url, add_headers("Authorization" = Sys.getenv("JANES_KEY"))) %>%
-       content(as = "text") %>%
-       fromJSON() %>%
-       pluck(2) %>%
-       tibble() %>%
-       dplyr::pull(url) %>%
-       future_map(~ GET(.x,  add_headers("Authorization" = Sys.getenv("JANES_KEY"))) %>%
-             content(as = "text") %>%
-             fromJSON() %>%
-             tibble())  %>%
-       tibble() %>%
-       conditional_unnest_wider(".") %>%
-       conditional_unnest_wider(".") %>%
-       unnest_all2() %>%
-       unnest_all2() %>%
-       unnest_all2() %>%
-       unnest_all2() %>%
-       unnest_all2()
-   }
+
+    } else {
+
+       GET(request_url, add_headers("Authorization" = Sys.getenv("JANES_KEY"))) %>%
+         content(as = "text") %>%
+         fromJSON() %>%
+         pluck(2) %>%
+         tibble() %>%
+         dplyr::pull(url) %>%
+         future_map(~ GET(.x,  add_headers("Authorization" = Sys.getenv("JANES_KEY"))) %>%
+               content(as = "text") %>%
+               fromJSON() %>%
+               tibble())  %>%
+         tibble() %>%
+         conditional_unnest_wider(".") %>%
+         conditional_unnest_wider(".") %>%
+         unnest_all2() %>%
+         unnest_all2() %>%
+         unnest_all2() %>%
+         unnest_all2() %>%
+         unnest_all2() %>%
+         unnest_all2()
+
+     }
 
 
 
@@ -175,7 +180,9 @@ get_janes <- function(country = NULL, parallel = FALSE,
           unnest_all2() %>%
           unnest_all2() %>%
           unnest_all2() %>%
+          unnest_all2() %>%
           unnest_all2()
+
       }
 
       else {
@@ -196,7 +203,9 @@ get_janes <- function(country = NULL, parallel = FALSE,
           unnest_all2() %>%
           unnest_all2() %>%
           unnest_all2() %>%
+          unnest_all2() %>%
           unnest_all2()
+
         }
       }
 

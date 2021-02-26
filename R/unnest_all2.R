@@ -16,7 +16,9 @@
 
 unnest_all2 <- function(data){
 
-  list_cols <- names(select(data, where(is.list)))
+  list_cols <- data %>%
+    select(where(~ is.list(.) && !is.null(unlist(.)))) %>%
+    names()
 
   data_non_list <- data %>%
     select(!where(is.list))
@@ -33,7 +35,7 @@ unnest_all2 <- function(data){
 
   } else {
 
-    data
+    data %>% janitor::clean_names()
   }
 
 }
