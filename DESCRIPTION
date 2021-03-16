@@ -1,4 +1,4 @@
-Package: janesR
+Package: janes
 Type: Package
 Title: Pull data more easily from the Janes API
 Version: 0.1.0

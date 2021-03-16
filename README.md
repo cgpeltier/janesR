@@ -1,12 +1,12 @@
-# janesR
+# janes
 <img src=images/hex-janesR2.png align="right" alt="" width="120" />
 
-janesR is an R wrapper for the Janes API that allows Janes users to easily pull data from the API into tibbles. These tibbles are then ready for data analysis and visualization, export into CSV or XLSX, or integration into users' systems. Documentation for the API can be found at the [Janes Developer site](https://developer.janes.com/). 
+janes is an R wrapper for the Janes API that allows Janes users to easily pull data from the API into tibbles. These tibbles are then ready for data analysis and visualization, export into CSV or XLSX, or integration into users' systems. Documentation for the API can be found at the [Janes Developer site](https://developer.janes.com/). 
 
-You can install janesR from github: 
+You can install janes from github: 
 
 ```{r}
-devtools::install_github("cgpeltier/janesR")
+devtools::install_github("cgpeltier/janes")
 ```
 ## Endpoints
 The package currently supports the following Janes API endpoints:
@@ -36,7 +36,7 @@ To get started, and to use any of the above functions, first use the ` save_jane
 ```{r}
 save_janes_key("JANES_API_KEY_GOES_HERE")
 ```
-## Using janesR
+## Using janes
 
 As of 19 February 2021, all API endpoint-specific functions have been replaced with a single function: `get_janes`. Users specify an endpoint and, optionally, a country:
 
