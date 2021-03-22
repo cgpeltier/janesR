@@ -1,9 +1,9 @@
 # janes
 <img src=images/janes_hex_name_gray.png align="right" alt="" width="120" />
 
-janes is an R wrapper for the Janes API that allows Janes users to easily pull data from the API into tibbles. These tibbles are then ready for data analysis and visualization, export into CSV or XLSX, or integration into users' systems. Documentation for the API can be found at the [Janes Developer site](https://developer.janes.com/). 
+`janes` is an R wrapper for the Janes API that allows Janes users to easily pull data from the API into tibbles. These tibbles are then ready for data analysis and visualization, export into CSV or XLSX, or integration into users' systems. Documentation for the API can be found at the [Janes Developer site](https://developer.janes.com/). 
 
-You can install janes from github: 
+You can install janes from GitHub: 
 
 ```{r}
 devtools::install_github("cgpeltier/janes")
@@ -15,7 +15,7 @@ The package currently supports the following Janes API endpoints:
 * Bases: `endpoint = "bases"`
 * Companies: `endpoint = "companies"`
 * Country Risk: `endpoint = "countryrisk"`
-* Defence Programs: `endpoint = "defenceprogrammes"`
+* Defence Programs: `endpoint = "defenceprogrammes"` 
 * Early Warning Sites: `endpoint = "ewsites"`
 * Equipment: `endpoint = "equipment"`
 * Equipment Relationships: `endpoint = "equipmentrelationships"`
