@@ -1,4 +1,4 @@
-# janes
+# `janes`
 <img src=images/janes_hex_name_gray2.png align="right" alt="" width="120" />
 
 `janes` is an R wrapper for the Janes API that allows Janes users to easily pull data from the API into tibbles. These tibbles are then ready for data analysis and visualization, export into CSV or XLSX, or integration into users' systems. Documentation for the API can be found at the [Janes Developer site](https://developer.janes.com/). 
@@ -36,7 +36,7 @@ To get started, and to use any of the above functions, first use the ` save_jane
 ```{r}
 save_janes_key("JANES_API_KEY_GOES_HERE")
 ```
-## Using janes
+## Using `janes`
 
 As of 19 February 2021, all API endpoint-specific functions have been replaced with a single function: `get_janes`. Users specify an endpoint and, optionally, a country:
 
