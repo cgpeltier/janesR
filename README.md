@@ -6,7 +6,7 @@
 You can install janes from GitHub: 
 
 ```{r}
-devtools::install_github("janesintelligence/janes")
+devtools::install_github("janesintelligence/janes-R")
 ```
 ## Endpoints
 The package currently supports the following Janes API endpoints:
